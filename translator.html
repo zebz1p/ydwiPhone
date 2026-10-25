@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>윤도운의 iPhone</title>
+<style>
+  :root {
+    --text-main: #1f1f1f;
+    --text-muted: #8e8e93;
+    --border-color: #e5e5ea;
+    --primary-blue: #007aff;
+    --primary-green: #34c759;
+    --error-red: #ff3b30;
+    --bg-color: #ffffff;
+    --bg-secondary: #f8f9fa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button, input, textarea { 
+    font: inherit; color: inherit; border: none; background: none; outline: none; 
+  }
+  button { cursor: pointer; }
+  svg { display: block; fill: currentColor; }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
+    flex: none;
+  }
+  .header-icon {
+    width: 24px; 
+    height: 24px;
+    color: var(--text-main);
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .header-right { width: 24px; }
+
+  /* Language Bar */
+  .lang-bar {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid var(--border-color);
+    flex: none;
+  }
+  
+  .lang-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lang-item {
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .lang-item svg { width: 14px; height: 14px; color: var(--text-muted); }
+  
+  .swap-btn {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    opacity: 0.5; 
+    pointer-events: none; 
+  }
+  .swap-btn svg { width: 18px; height: 18px; }
+
+  /* Input & Output Area */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;     
+    padding: 24px 20px;
+    position: relative;
+    transition: justify-content 0.3s ease, padding 0.3s ease;
+  }
+  .main-content.focused {
+    justify-content: flex-start; 
+    padding-top: 30px;
+  }
+  .content-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .main-content.focused .input-wrapper { align-items: stretch; }
+
+  .source-input {
+    width: 100%;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--text-main);
+    text-align: center;
+    resize: none;
+    overflow: hidden;
+    transition: text-align 0.1s ease;
+  }
+  .source-input::placeholder { color: #c7c7cc; }
+  .main-content.focused .source-input { text-align: left; }
+
+  .clear-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    color: #c7c7cc;
+    display: none;
+  }
+  .main-content.focused .clear-btn {
+    top: 0;
+    transform: none;
+  }
+
+  .divider {
+    width: 100%; 
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 24px 0;
+    display: none;
+  }
+  .output-container {
+    display: none;
+    width: 100%;
+    text-align: center;
+  }
+  .main-content.focused .output-container { text-align: left; }
+  .translated-text {
+    font-size: 28px; 
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    word-break: keep-all;
+  }
+  .text-error { color: var(--error-red); }
+
+  /* Sidebar */
+  #sidebar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 340px;
+    height: 100%;
+    background: var(--bg-secondary);
+    z-index: 101;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+  }
+  .sidebar-open #sidebar-overlay { opacity: 1; pointer-events: auto; }
+  .sidebar-open #sidebar { transform: translateX(0); }
+
+  .sidebar-spacer { flex: 1; }
+
+  /* Sidebar Bottom (Profile + Buttons) */
+  .sidebar-bottom-section {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px calc(40px + env(safe-area-inset-bottom, 0px)) 20px;
+  }
+  
+  .sidebar-profile {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+  .sidebar-greeting {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .sidebar-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-user .username {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .sidebar-user .logout {
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none; 
+  }
+  .logout-icon { width: 14px; height: 14px; }
+
+  .sidebar-card {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    height: 64px;
+    overflow: hidden;
+  }
+  .card-btn {
+    flex: 1;
+    height: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-divider { width: 1px; height: 24px; background: #e0e0e0; }
+
+  /* Full Screen Views (History & Dictionary) */
+  .full-view {
+    position: absolute;
+    inset: 0;
+    background: var(--bg-color);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .history-open #history-view { transform: translateX(0); }
+  .dict-open #dictionary-view { transform: translateX(0); }
+  
+  .view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
+    flex: none;
+    background: var(--bg-color);
+  }
+  .view-back, .view-close { width: 24px; height: 24px; color: var(--text-main); }
+  .view-title { font-size: 16px; font-weight: 600; }
+  .view-header.border-b { border-bottom: 1px solid var(--border-color); }
+
+  /* History View Specifics */
+  .history-edit { font-size: 15px; color: #a1a1aa; pointer-events: none; }
+  .history-list { flex: 1; overflow-y: auto; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .history-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .history-texts { display: flex; flex-direction: column; gap: 4px; }
+  .history-source { font-size: 16px; color: var(--text-main); }
+  .history-target { font-size: 15px; color: #a1a1aa; }
+  .star-icon { color: #c7c7cc; width: 20px; height: 20px; }
+
+  /* Dictionary View Specifics */
+  #dictionary-view { background: #ffffff; overflow-y: auto; }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 24px 20px 16px;
+    color: var(--text-main);
+  }
+  
+  .horizontal-scroll {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+  /* 내 학습노트 */
+  .note-card {
+    flex: none;
+    width: 140px;
+    height: 180px;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+  }
+
+  .note-card.green { background: #34c759; pointer-events: none; }
+  .note-card.blue { background: #007aff; pointer-events: none;}
+  .note-card.purple { background: #5856d6; pointer-events: none;}
+  .note-card.empty { 
+    background: #ffffff; 
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .note-name { font-size: 18px; font-weight: 700; line-height: 1.3;}
+  .progress-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #ffffff;
+    border-radius: 2px;
+  }
+  .empty-icon { width: 28px; height: 28px; border: 1px solid #c7c7cc; border-radius: 50%; display: grid; place-items: center; }
+
+  /* 단어 모아보기 */
+  .word-main-card {
+    flex: none;
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #32b5ff, #007aff);
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .word-main-title { font-size: 18px; font-weight: 700; line-height: 1.3; }
+  .arrow-circle {
+    width: 28px; height: 28px; border-radius: 50%; background: white; color: #007aff;
+    display: grid; place-items: center; align-self: flex-end;
+  }
+
+  .word-card {
+    flex: none;
+    width: 220px; 
+    height: 160px;
+    border-radius: 12px;
+    background: #f0f4f9;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .word-kanji {
+    font-size: 26px;
+    font-weight: 700;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: var(--text-main);
+  }
+  .word-meaning-pill {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    word-break: keep-all; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .word-card.add-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  /* 어떻게 번역하지? */
+  .trans-card {
+    flex: none;
+    width: 260px;
+    height: 110px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  .trans-orig {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+  }
+  
+  /* | 문자 대신 CSS로 수직 바 UI 생성 */
+  .trans-mean {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    position: relative;
+    padding-left: 12px;
+  }
+  .trans-mean::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 14px;
+    background-color: #c7c7cc; 
+    border-radius: 2px;
+  }
+
+  .color-blue { color: var(--primary-blue); }
+  .color-green { color: var(--primary-green); }
+
+  /* 단어 추가 모달 */
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    width: 80%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .modal-content h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .modal-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .modal-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .modal-btn.cancel {
+    background: #f0f4f9;
+    color: var(--text-main);
+  }
+  .modal-btn.confirm {
+    background: var(--primary-blue);
+    color: white;
+  }
+
+
+  .word-message-notice[hidden]{display:none!important}
+  .word-message-stack{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;right:12px;z-index:10000;display:flex;flex-direction:column;gap:8px;max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px));overflow-y:auto;scrollbar-width:none;pointer-events:none}.word-message-stack::-webkit-scrollbar{display:none}.word-message-notice{position:relative;flex:none;pointer-events:auto;display:flex;align-items:center;gap:11px;padding:14px 13px;border-radius:20px;background:rgba(250,250,252,.96);box-shadow:0 5px 24px #0002;color:#161616;touch-action:pan-x;user-select:none;-webkit-user-select:none}
+  .word-message-icon{width:42px;height:42px;flex:none;border-radius:11px;background:#34c759;display:flex;align-items:center;justify-content:center}
+  .word-message-icon svg{width:30px;height:30px;fill:white;stroke:none}
+  .word-message-copy{flex:1;min-width:0;font-size:14px;line-height:1.5}
+  .word-message-copy strong{display:block;font-size:14px;font-weight:650;margin-bottom:3px}
+  .word-message-close{align-self:flex-start;flex:none;width:24px;height:24px;border:0;background:none;color:#777;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
+  .word-message-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Header -->
+  <header class="header">
+    <button class="header-icon" id="open-menu-btn">
+      <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="logo">dokego</div>
+    <div class="header-right"></div>
+  </header>
+
+  <!-- Language Selection -->
+  <div class="lang-bar">
+    <div class="lang-side">
+      <div class="lang-item">도운 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+    
+    <button class="swap-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M17 8H3m14 0l-3-3m3 3l-3 3M7 16h14M7 16l3-3m-3 3l3 3"/>
+      </svg>
+    </button>
+    
+    <div class="lang-side">
+      <div class="lang-item">영현 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+  </div>
+
+  <!-- Translation Area -->
+  <main class="main-content" id="main-content">
+    <div class="content-wrapper">
+      <div class="input-wrapper">
+        <textarea 
+          id="source-input" 
+          class="source-input" 
+          rows="1" 
+          placeholder="형에게 번역해주고 싶은 내용을 입력해주세요"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        ></textarea>
+        <button id="clear-btn" class="clear-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      
+      <div id="divider" class="divider"></div>
+      
+      <div id="output-container" class="output-container">
+        <div id="translated-text" class="translated-text"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Sidebar Overlay & Menu -->
+  <div id="sidebar-overlay"></div>
+  <aside id="sidebar">
+    <div class="sidebar-spacer"></div> 
+    
+    <div class="sidebar-bottom-section">
+      <!-- 프로필 영역 -->
+      <div class="sidebar-profile">
+        <div class="sidebar-greeting">반가워요!</div>
+        <div class="sidebar-user">
+          <span class="username">ydwdw825</span>
+          <button class="logout">
+            로그아웃
+            <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 용어집 | 번역 기록 카드 -->
+      <div class="sidebar-card">
+        <button class="card-btn" id="open-dict-btn">용어집</button>
+        <div class="card-divider"></div>
+        <button class="card-btn" id="open-history-btn">번역 기록</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- KYH Dictionary View -->
+  <div id="dictionary-view" class="full-view">
+    <header class="view-header">
+      <div class="header-right"></div>
+      <div class="view-title">KYH dictionary</div>
+      <button class="view-close" id="close-dict-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+
+    <div style="padding-bottom: 40px;">
+      <!-- 1. 내 학습노트 -->
+      <div class="section-title">내 학습노트</div>
+      <div class="horizontal-scroll">
+        <div class="note-card green">
+          <div class="note-name">강영현<br>노트</div>
+          <div class="progress-info">
+            <span>100%</span>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
+          </div>
+        </div>
+        <div class="note-card blue">
+          <div class="note-name">강영현<br>노트</div>
+          <div class="progress-info">
+            <span>100%</span>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
+          </div>
+        </div>
+        <div class="note-card purple">
+          <div class="note-name">강영현<br>노트</div>
+          <div class="progress-info">
+            <span>93%</span>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 93%;"></div></div>
+          </div>
+        </div>
+        <div class="note-card empty">
+          <div class="empty-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div style="font-size: 14px; font-weight: 500;">노트 만들기</div>
+        </div>
+      </div>
+
+      <!-- 2. 단어 모아보기 -->
+      <div class="section-title">단어 모아보기</div>
+      <div class="horizontal-scroll" id="word-card-container">
+        <div class="word-main-card">
+          <div class="word-main-title">단어만 모아<br>학습하기</div>
+          <div class="arrow-circle">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+          </div>
+        </div>
+        
+        <div class="word-card">
+          <div class="word-kanji">남자</div>
+          <div class="word-meaning-pill">연애 대상(윤도운 제외)</div>
+        </div>
+        <div class="word-card">
+          <div class="word-kanji">친구</div>
+          <div class="word-meaning-pill">윤도운</div>
+        </div>
+        <div class="word-card">
+          <div class="word-kanji">연애</div>
+          <div class="word-meaning-pill">좋은 거(윤도운이랑은 안 함)</div>
+        </div>
+        <div class="word-card">
+          <div class="word-kanji">데이트</div>
+          <div class="word-meaning-pill">손 잡고 영화 보는 거</div>
+        </div>
+        
+        <!-- 단어 추가하기 네모 -->
+        <div class="word-card add-card" id="open-add-word-btn">
+          <div class="empty-icon"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div style="font-size: 15px; font-weight: 600;">단어 추가하기</div>
+        </div>
+      </div>
+
+      <!-- 3. 어떻게 번역하지? -->
+      <div class="section-title">어떻게 번역하지?</div>
+      <div class="horizontal-scroll">
+        <div class="trans-card">
+          <div class="trans-orig">윤도운</div>
+          <!-- 수직 바 요소가 CSS(trans-mean)로 생성됨 -->
+          <div class="trans-mean">나 귀여워 해</div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">야</div>
+          <div class="trans-mean">놀아줘</div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">좋아해</div>
+          <div class="trans-mean">
+            <span class="color-blue">(어휴...)</span>&nbsp;<span class="color-green">(진짠데!)</span>
+          </div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">사랑해</div>
+          <div class="trans-mean">
+            <span class="color-blue">(ㅋㅋ)</span>&nbsp;<span class="color-green">(음)</span>
+          </div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">보고싶다</div>
+          <div class="trans-mean">심심해</div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">어디야</div>
+          <div class="trans-mean">데리러 와</div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">뭐해</div>
+          <div class="trans-mean">왜 나한테 연락 안 해</div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">바보</div>
+          <div class="trans-mean">바보 <span class="color-green">(고백 좀 해라)</span></div>
+        </div>
+        <div class="trans-card">
+          <div class="trans-orig">싫어</div>
+          <div class="trans-mean">*보통 앙탈 <span class="color-green">(나 계속 좋아해 줘)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History View -->
+  <div id="history-view" class="full-view">
+    <header class="view-header border-b">
+      <button class="view-back" id="close-history-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12H4M4 12L10 6M4 12L10 18"/></svg>
+      </button>
+      <div class="view-title">번역 기록</div>
+      <button class="history-edit">편집</button>
+    </header>
+    <div class="history-list">
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">내 맘 언제 쫌 알아줄래</div>
+          <div class="history-target">번역을 제공할 수 없습니다.</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">보고싶다</div>
+          <div class="history-target">져줄게</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">강영현</div>
+          <div class="history-target">미워</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">좋아해</div>
+          <div class="history-target">번역을 제공할 수 없습니다.</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">사랑해</div>
+          <div class="history-target">번역을 제공할 수 없습니다.</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">사랑해</div>
+          <div class="history-target">번역을 제공할 수 없습니다.</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="history-item">
+        <div class="history-texts">
+          <div class="history-source">사랑해</div>
+          <div class="history-target">번역을 제공할 수 없습니다.</div>
+        </div>
+        <svg class="star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 단어 추가 모달 팝업 -->
+  <div id="add-word-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>단어 추가하기</h3>
+      <input type="text" id="new-word-input" class="modal-input" placeholder="단어 입력" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <input type="text" id="new-meaning-input" class="modal-input" placeholder="뜻 입력" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <div class="modal-actions">
+        <button class="modal-btn cancel" id="cancel-add-btn">취소</button>
+        <button class="modal-btn confirm" id="confirm-add-btn">추가</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="word-message-stack" class="word-message-stack" aria-live="polite" aria-relevant="additions"></div>
+<script>
+  // 한 묶음이 한 번의 반응입니다. 두 문장은 순서대로 나눠 도착합니다.
+  const WORD_REACTIONS=[
+    ['이제 나보다 도우니가 나 더 잘 아는 것 같아 ㅋㅋ'],
+    ['진짜 그렇게 생각해?'],
+    ['아닐 수도 있는데'],
+    ['또, 또 지 좀 안다고 아주 ㅋㅋㅋㅋ','근데 그게 맞긴 해'],
+    ['잘 아넹'],
+    ['야 도우나 너는 다른 건 다 잘 아는데','아니다 됐다']
+  ];
+  let wordReactionPool=[];
+  function takeWordReaction(){
+    if(!wordReactionPool.length){
+      wordReactionPool=WORD_REACTIONS.map((_,i)=>i);
+      for(let i=wordReactionPool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[wordReactionPool[i],wordReactionPool[j]]=[wordReactionPool[j],wordReactionPool[i]]}
+    }
+    return WORD_REACTIONS[wordReactionPool.pop()];
+  }
+  function addWordMessage(text){
+    const card=document.createElement('aside');card.className='word-message-notice';card.setAttribute('role','status');
+    card.innerHTML=`<span class="word-message-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4C8.3 4 2 8.8 2 14.7c0 3.4 2.1 6.5 5.4 8.5L6 28l6.2-2.8c1.2.2 2.5.3 3.8.3 7.7 0 14-4.8 14-10.8S23.7 4 16 4Z"/></svg></span><div class="word-message-copy"><strong>강영현</strong><span></span></div><button type="button" class="word-message-close" aria-label="알림 닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>`;
+    card.querySelector('.word-message-copy span').textContent=text;
+    const close=card.querySelector('.word-message-close');
+    let start=null;
+    const timer=setTimeout(dismiss,10000);
+    function dismiss(){clearTimeout(timer);start=null;card.remove()}
+    // 닫기 버튼의 포인터를 카드로 강제 이동시키지 않습니다.
+    close.addEventListener('pointerdown',event=>event.stopPropagation());
+    close.addEventListener('click',event=>{event.stopPropagation();dismiss()});
+    card.addEventListener('pointerdown',event=>{
+      if(event.target.closest('.word-message-close'))return;
+      start={x:event.clientX,y:event.clientY,id:event.pointerId};
+      card.setPointerCapture(event.pointerId);
+    });
+    card.addEventListener('pointermove',event=>{if(start&&event.pointerId===start.id&&start.y-event.clientY>30&&Math.abs(event.clientX-start.x)<90)dismiss()});
+    card.addEventListener('pointerup',()=>{start=null});
+    card.addEventListener('pointercancel',()=>{start=null});
+    document.getElementById('word-message-stack').prepend(card);
+  }
+  function showWordMessage(){
+    const messages=takeWordReaction();
+    messages.forEach((text,index)=>setTimeout(()=>addWordMessage(text),1000+index*1400));
+  }
+
+  let dictionary = {
+    "영현아": "귀여워",
+    "영현이": "귀여워",
+    "우리 영현이": "귀여워",
+    "강영현": "미워",
+    "윤도운": "형 거",
+    "형": "보고 싶어",
+    "바보": "나도 좀 좋아해도",
+    "좋아해": "error",
+    "사랑해": "error",
+    "보고싶다": "져줄게",
+    "보고 싶다": "져줄게",
+    "보고싶어": "져줄게",
+    "보고 싶어": "져줄게",
+    "뭐해": "또 어디서 뻘짓하노",
+    "뭐해?": "또 어디서 뻘짓하노",
+    "뭐 해?": "또 어디서 뻘짓하노",
+    "뭐 해": "또 어디서 뻘짓하노",
+    "어디야": "만나자",
+    "어디야?": "만나자",
+    "누구야": "내가 더 좋아하는데",
+    "누구야?": "내가 더 좋아하는데",
+    "그만하자": "싸우기 싫어",
+    "미워": "그래도 좋아해",
+    "밉다": "그래도 좋아해",
+    "싫어": "알았어",
+    "싫다": "알았다",
+    "도케": "합시다"
+  };
+
+  const inputEl = document.getElementById('source-input');
+  const clearBtn = document.getElementById('clear-btn');
+  const divider = document.getElementById('divider');
+  const outputContainer = document.getElementById('output-container');
+  const translatedText = document.getElementById('translated-text');
+  const mainContent = document.getElementById('main-content');
+
+  inputEl.addEventListener('focus', () => {
+    mainContent.classList.add('focused');
+  });
+
+  inputEl.addEventListener('blur', () => {
+    if (inputEl.value.trim() === '') {
+      mainContent.classList.remove('focused');
+      inputEl.style.height = 'auto'; 
+    }
+  });
+
+  function updateTranslation() {
+    const text = inputEl.value.trim();
+    
+    if (text.length > 0) {
+      clearBtn.style.display = 'block';
+      const result = dictionary[text];
+      
+      if (result) {
+        divider.style.display = 'block';
+        outputContainer.style.display = 'block';
+        if (result === 'error') {
+          translatedText.textContent = '번역을 제공할 수 없습니다';
+          translatedText.className = 'translated-text text-error';
+        } else {
+          translatedText.textContent = result;
+          translatedText.className = 'translated-text';
+        }
+      } else {
+        divider.style.display = 'none';
+        outputContainer.style.display = 'none';
+        translatedText.textContent = '';
+      }
+    } else {
+      clearBtn.style.display = 'none';
+      divider.style.display = 'none';
+      outputContainer.style.display = 'none';
+      translatedText.textContent = '';
+    }
+  }
+
+  inputEl.addEventListener('input', () => {
+    inputEl.style.height = 'auto';
+    inputEl.style.height = (inputEl.scrollHeight) + 'px';
+    updateTranslation();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    updateTranslation();
+    inputEl.focus();
+  });
+
+  const appEl = document.getElementById('app');
+  const openMenuBtn = document.getElementById('open-menu-btn');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  
+  function openSidebar() { appEl.classList.add('sidebar-open'); }
+  function closeSidebar() { appEl.classList.remove('sidebar-open'); }
+  
+  openMenuBtn.addEventListener('click', openSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+
+  document.getElementById('open-history-btn').addEventListener('click', () => {
+    closeSidebar(); 
+    appEl.classList.add('history-open');
+  });
+  document.getElementById('close-history-btn').addEventListener('click', () => {
+    appEl.classList.remove('history-open');
+  });
+
+  document.getElementById('open-dict-btn').addEventListener('click', () => {
+    closeSidebar();
+    appEl.classList.add('dict-open');
+  });
+  document.getElementById('close-dict-btn').addEventListener('click', () => {
+    appEl.classList.remove('dict-open');
+  });
+
+  const openAddWordBtn = document.getElementById('open-add-word-btn');
+  const addWordModal = document.getElementById('add-word-modal');
+  const cancelAddBtn = document.getElementById('cancel-add-btn');
+  const confirmAddBtn = document.getElementById('confirm-add-btn');
+  const newWordInput = document.getElementById('new-word-input');
+  const newMeaningInput = document.getElementById('new-meaning-input');
+  const wordCardContainer = document.getElementById('word-card-container');
+
+  openAddWordBtn.addEventListener('click', () => {
+    addWordModal.style.display = 'flex';
+    newWordInput.value = '';
+    newMeaningInput.value = '';
+    newWordInput.focus();
+  });
+
+  cancelAddBtn.addEventListener('click', () => {
+    addWordModal.style.display = 'none';
+  });
+
+  confirmAddBtn.addEventListener('click', () => {
+    const word = newWordInput.value.trim();
+    const meaning = newMeaningInput.value.trim();
+    
+    if (word && meaning) {
+      dictionary[word] = meaning;
+
+      const newCard = document.createElement('div');
+      newCard.className = 'word-card';
+      newCard.innerHTML = `
+        <div class="word-kanji">${word}</div>
+        <div class="word-meaning-pill">${meaning}</div>
+      `;
+      wordCardContainer.insertBefore(newCard, openAddWordBtn);
+      showWordMessage();
+      
+      addWordModal.style.display = 'none';
+    } else {
+      alert('단어와 뜻을 모두 입력해주세요.');
+    }
+  });
+
+</script>
+</body>
+</html>

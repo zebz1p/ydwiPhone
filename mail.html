@@ -1,0 +1,482 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="format-detection" content="telephone=no,email=no,address=no"><title>윤도운의 iPhone</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:#080808}button,input,textarea,select{font:inherit}button{border:0;background:none;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:disabled{opacity:1;cursor:default}svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;flex:none}#app{height:100dvh;display:flex;flex-direction:column;background:#f2f2f7}.bar{flex:none;min-height:74px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:relative;border-bottom:1px solid #dedee3;background:inherit;z-index:2}.circle,.pill{height:44px;border:1px solid #e5e5e7;background:#fff;border-radius:30px;display:flex;align-items:center;justify-content:center;gap:13px;padding:0 16px;font-size:17px}.circle{width:44px;padding:0}.circle svg{width:23px;height:23px}.back svg{stroke-width:2.8;width:21px;height:25px}.bar-right{display:flex;gap:10px;margin-left:auto}.compact{position:absolute;left:77px;right:84px;text-align:center;opacity:0;transform:translateY(9px);pointer-events:none;line-height:1.25}.compact strong{display:block;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.compact small{display:block;font-size:12px;color:#929297;margin-top:3px}.scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}.content{padding:0 16px 26px;min-height:calc(100% + 72px)}h1{font-size:32px;letter-spacing:-1.2px;line-height:1.23;margin:15px 0 3px;font-weight:750}.subtitle{color:#929297;font-size:14px;margin:0 0 12px;overflow-wrap:anywhere}.group{background:#fff;border-radius:25px;overflow:hidden}.folder{display:flex;align-items:center;width:100%;padding:0 16px;gap:16px;text-align:left;min-height:50px}.folder>svg{color:#008cff;width:24px;height:25px}.folder-main{display:flex;gap:10px;align-items:center;flex:1;min-width:0;align-self:stretch;border-bottom:1px solid #e3e3e6;font-size:17px}.folder:last-child .folder-main{border:0}.count{color:#929297;margin-left:auto}.chev{width:12px;height:18px;color:#c5c5ca;stroke-width:2.5;margin-left:auto}.count+.chev{margin-left:0}.account{width:100%;display:flex;align-items:center;gap:10px;padding:23px 16px 16px;text-align:left;font-weight:650;font-size:18px;letter-spacing:-.4px}.account span{overflow-wrap:anywhere;min-width:0}.account svg{color:#929297}.account[aria-expanded=true] .chev{transform:rotate(90deg)}.write-inline{color:#008cff;display:flex;align-items:center;gap:8px;margin:22px 12px 3px;padding:10px 0;font-size:16px}.footer{flex:none;min-height:82px;padding:10px 25px calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;border-top:1px solid #e8e8ec;background:inherit}.footer .circle{width:48px;height:48px}.footer.home{justify-content:flex-end}.search{flex:1;min-width:0;height:48px;background:#fff;border:1px solid #e2e2e5;border-radius:28px;display:flex;align-items:center;gap:9px;padding:0 13px;font-size:18px;color:#999}.search svg{color:#111}.search svg:last-child{margin-left:auto;width:19px}.mail-list{border-top:1px solid #dedee2}.mail-row{position:relative;display:flex;text-align:left;width:100%;padding:14px 0 0 18px;gap:10px;min-height:91px}.avatar{width:44px;height:44px;border-radius:11px;background:#8ca9d3;display:flex;align-items:center;justify-content:center;flex:none;font-weight:600;font-size:23px;color:#fff;overflow:hidden}.avatar.person{border-radius:50%;background:linear-gradient(#abc9e7,#7c80bc)}.avatar.person svg{width:100%;height:100%;fill:#fff;stroke:none}.avatar img{width:100%;height:100%;object-fit:cover}.row-body{min-width:0;flex:1;min-height:77px;border-bottom:1px solid #e0e0e4;padding-bottom:13px}.row-top{display:flex;align-items:center;gap:5px;line-height:1.2}.row-from{font-size:17px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.row-time{font-size:13px;color:#929297;white-space:nowrap}.row-top .chev{width:9px;height:14px;margin:0}.row-subject{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.row-preview{font-size:14px;line-height:1.4;color:#929297;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.unread{position:absolute;left:1px;top:34px;width:7px;height:7px;border-radius:50%;background:#008cff}.empty{text-align:center;color:#999;padding:90px 0;font-size:20px}.detail-content{padding:0 23px 35px}.sender-card{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #dedee2;min-width:0}.sender-meta{font-size:15px;line-height:1.5;min-width:0;overflow-wrap:anywhere;flex:1}.blue{color:#008cff}.date{font-size:13px;color:#999}.detail-subject{font-size:23px;line-height:1.4;letter-spacing:-.4px;margin:11px 0 20px;overflow-wrap:anywhere}.mail-body{font-size:16px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}.attachments{margin:22px 0;padding:16px;border-radius:12px;background:#f2f2f7;font-size:14px}.detail-actions{margin-top:28px;border-top:1px solid #eee;padding-top:15px}.badge{background:#111;color:white;border-radius:20px;padding:2px 8px;font-size:14px}.tools{display:flex;justify-content:space-around;flex:1;border:1px solid #e5e5e7;border-radius:30px;height:48px;align-items:center;background:white}.tools button{display:flex;padding:8px}.toast{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:#242424;color:white;border-radius:25px;padding:11px 20px;font-size:14px;z-index:30;pointer-events:none}.overlay{position:fixed;inset:0;background:#0003;z-index:10;display:flex;padding-top:18px}.sheet{width:100%;background:white;border-radius:27px 27px 0 0;display:flex;flex-direction:column;min-height:0}.handle{height:5px;width:60px;background:#ccc;border-radius:5px;margin:6px auto 0}.compose-head{display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #eee}.send{background:#008cff;color:white;border-color:#008cff}.compose-scroll{overflow:auto;flex:1;min-height:0;padding:0 16px 24px}.compose-scroll h1{margin:8px 0 28px}.field{display:flex;align-items:center;gap:7px;border-bottom:1px solid #eee;min-height:44px;color:#929297;font-size:15px}.field input,.field select{border:0;background:transparent;color:#111;min-width:0;flex:1;padding:10px 0;outline:none;width:100%}.field input[type=email]{color:#008cff}.field label{flex:none}.compose-body{width:100%;resize:none;overflow:hidden;min-height:220px;border:0;outline:none;padding:14px 0;font-size:16px;line-height:1.5}.compose-note{font-size:12px;color:#999}.compose-error{color:#d43b36;font-size:13px;min-height:18px}.draft-actions{display:flex;justify-content:space-between;gap:12px;margin-top:12px}.draft-actions button{padding:10px;color:#008cff;font-size:14px}[hidden]{display:none!important}button:focus-visible{outline:2px solid #008cff;outline-offset:2px}@media(max-width:350px){h1{font-size:29px}.account{font-size:16px}.footer{padding-left:16px;padding-right:16px;gap:8px}.compact{left:65px;right:80px}}
+
+/* 참고 화면의 중앙 프로필 / 평면 버튼 구성 */
+.fb-bar{height:56px;gap:12px;color:#080808}.fb-bar .back{background:transparent;box-shadow:none;width:28px;padding:0;color:#080808}.fb-nav-name{flex:1;text-align:center;font-size:17px}.fb-nav-actions{display:flex;gap:17px}.fb-nav-actions button{padding:0;display:flex;color:#080808}.fb-screen svg{width:23px;height:23px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.fb-screen button:disabled{opacity:1;cursor:default}.fb-cover{height:160px;background:#989b9f;position:relative}.fb-camera{border:2px solid white;background:#e6e8ed;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#050505;position:absolute;right:10px;bottom:10px;padding:8px}.fb-profile{padding:0 12px 16px}.fb-avatar-wrap{width:180px;height:180px;position:relative;margin:-116px auto 0}.fb-profile-avatar{width:180px;height:180px;margin:0;border:4px solid white}.fb-avatar-wrap .fb-camera{right:0;bottom:9px}.fb-profile h1{text-align:center;font-size:25px;line-height:1.2;margin:13px 0 27px}.fb-profile-actions{display:flex;gap:8px}.fb-profile-actions button{flex:1;display:flex;justify-content:center;align-items:center;gap:8px;background:#0866ff;color:white;border-radius:8px;padding:10px 4px;font-size:16px;font-weight:650;white-space:nowrap}.fb-profile-actions button+button{background:#e2e5e9;color:#050505}.fb-lock{background:white;padding:20px 4px 0;margin:0;gap:12px;font-size:16px}.fb-lock-icon{width:40px;height:40px;background:#e2e5e9;border-radius:50%;display:flex;justify-content:center;align-items:center}.fb-lock-icon svg{color:#050505;width:21px}.fb-tabs{border-top:4px solid #b7babe;border-bottom:1px solid #d1d4da;padding:0;gap:0}.fb-tabs button{flex:1;padding:14px 0;color:#65676b;font-size:16px;border-bottom:2px solid transparent}.fb-tabs button.active{color:#0866ff;border-color:#0866ff}.fb-section{background:white;padding:18px 12px 14px}.fb-section-heading{display:flex;justify-content:space-between;font-size:17px}.fb-section-heading button{font-size:15px;padding:0}.fb-section h3{font-size:18px;margin:30px 0 12px}.fb-composer{display:flex;align-items:center;gap:10px}.fb-composer>button{flex:1;background:#f0f2f5;border-radius:25px;text-align:left;padding:12px;font-size:15px;color:#5c6065}.fb-mini-avatar{width:38px;height:38px;flex:none;border-radius:50%;background:#e1e5eb;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#667481}.fb-mini-avatar img{width:100%;height:100%;object-fit:cover}.fb-post{padding:14px 12px;margin:8px 0}.fb-post-heading{display:flex;align-items:center;gap:9px}.fb-post-head{flex:1;font-size:15px}.fb-post small{display:flex;gap:4px;align-items:center;font-weight:400}.fb-post small svg{width:11px;height:11px}.fb-delete{color:#65676b;font-size:12px;padding:6px}.fb-post p{margin:14px 0}.fb-photo{border-radius:0}.fb-placeholder{min-height:200px;border-radius:0}.fb-reactions{display:flex;justify-content:space-between;color:#65676b;font-size:13px;padding:12px 0}.fb-post-actions{display:flex;border-top:1px solid #ddd;border-bottom:1px solid #ddd}.fb-post-actions button{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;color:#65676b;font-size:13px;padding:10px 0;white-space:nowrap}.fb-post-actions svg{width:18px;height:18px}.fb-comments{padding-top:14px}.fb-comment{display:flex;gap:8px;margin-bottom:12px}.fb-comment .fb-mini-avatar{width:31px;height:31px}.fb-comment-main{min-width:0;flex:1}.fb-comment-bubble{background:#f0f2f5;border-radius:16px;padding:9px 12px;display:table;max-width:100%;font-size:14px;line-height:1.45;overflow-wrap:anywhere}.fb-comment-bubble b{font-size:13px}.fb-comment-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:4px 0 0 9px;font-size:10px;color:#65676b}.fb-comment-meta button{font-size:10px;color:#65676b;padding:0}
+.fb-email{margin-top:12px;border:1px solid #e3e7ed;border-radius:8px;overflow:hidden;background:#fff}.fb-email-brand{padding:22px 23px;border-bottom:1px solid #e8ebf0;font:bold 28px Arial,sans-serif;letter-spacing:-1px;color:#1877f2}.fb-email-content{padding:24px 23px}.fb-email-label{font-size:12px;color:#6b7280;letter-spacing:.4px}.fb-email h2{font-size:21px;line-height:1.4;margin:8px 0 25px;letter-spacing:-.6px}.fb-email p{font-size:14px;line-height:1.8;color:#454c57;margin:16px 0}.fb-password-box{padding:18px;background:#f3f5f8;border:1px solid #e3e7ee;border-radius:6px;margin-top:23px}.fb-password-box span{display:block;color:#677080;font-size:12px;margin-bottom:9px}.fb-password-box strong{font-size:20px;letter-spacing:.6px;overflow-wrap:anywhere;user-select:all}.fb-email .fb-email-valid{font-size:12px;color:#737c89}.fb-email .facebook-link{background:#1877f2;color:#fff;width:100%;text-align:center;text-decoration:none;border-radius:6px;font-size:15px;font-weight:650;padding:14px;margin-top:7px}.fb-email .fb-email-link-label{text-align:center;font-size:12px;color:#77808e;margin:8px 0 26px}.fb-email-security{border-top:1px solid #e5e8ee;padding-top:22px;font-size:13px}.fb-email-security p{font-size:12px;margin-top:7px}.fb-email-footer{background:#f7f8fa;border-top:1px solid #e5e8ee;padding:18px 23px;color:#8a919c;font-size:11px;line-height:1.7}.campaign{border:1px solid #e4e6eb;border-radius:9px;overflow:hidden;margin:16px 0;background:#fff}.campaign-brand{padding:25px;font-size:26px;font-weight:700;letter-spacing:-1px;border-bottom:1px solid #e7e9ed}.campaign-brand small{display:block;font-size:11px;font-weight:400;letter-spacing:1px;margin-top:7px;color:#777}.campaign-body{padding:27px 24px}.campaign h2{font-size:26px;line-height:1.4;letter-spacing:-1px;margin:12px 0 20px}.campaign h3{font-size:18px;line-height:1.5}.campaign p{font-size:14px;line-height:1.85;color:#586170}.campaign button{width:100%;border-radius:6px;padding:14px;background:#242424;color:#fff;font-weight:600;margin:15px 0}.campaign .fineprint{font-size:11px;color:#89909b}.campaign-footer{font-size:11px;line-height:1.8;padding:22px 24px;background:#f6f7f9;color:#89909b}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:650}.campaign-hero{text-align:center;padding:35px 20px}.potion{background:#fcf8ff}.potion .campaign-brand{color:#604277;font-size:18px}.potion .campaign-hero{background:#30203f;color:#f5e8c6}.potion-symbol{font-size:64px;margin:20px}.potion .campaign-hero p{color:#d3c3df}.offer-label{font-size:11px;background:#e9ede7;color:#4d6654;padding:5px 9px;border-radius:3px}.offer-price{display:flex;flex-direction:column;gap:7px;margin:24px 0}.offer-price del{color:#999;font-size:14px}.offer-price strong{font-size:26px;color:#755391}.potion button{background:#755391}.books .campaign-brand{color:#315e4e}.books .campaign-brand span{font-size:22px}.books .eyebrow{color:#557863}.book-display{background:#ecf0e9;padding:28px;display:flex;justify-content:center;margin:24px 0}.book-cover{width:190px;min-height:255px;background:#f3dd96;padding:20px 17px;box-shadow:6px 6px 0 #cbd1c6,inset 4px 0 #ddc67e;display:flex;flex-direction:column;gap:20px;color:#3c4b3f}.book-cover span,.book-cover small{font-size:10px}.book-cover strong{font-size:25px;line-height:1.3}.book-cover div{font-size:30px;text-align:right}.books button{background:#315e4e}.apple .campaign-brand{font-weight:500}.apple button{background:#087bea}.device-info{background:#f5f5f7;border-radius:8px;padding:20px;font-size:13px;overflow-wrap:anywhere}.device-info dt{color:#83858b;font-size:11px;margin-bottom:5px}.device-info dd{margin:0 0 18px;line-height:1.6}.device-info dd:last-child{margin-bottom:0}</style><style>
+.facebook-link{color:#087bea;text-decoration:underline;padding:14px 0;font-size:15px;overflow-wrap:anywhere;text-align:left}.mail-notice{position:fixed;z-index:40;top:12px;left:12px;right:12px;padding:14px;border-radius:20px;background:rgba(250,250,250,.97);box-shadow:0 4px 20px #0003;display:flex;align-items:center;gap:12px;text-align:left;touch-action:pan-x}.notice-icon{width:42px;height:42px;flex:none;background:#1687ee;color:white;border-radius:11px;display:flex;align-items:center;justify-content:center}.notice-icon svg{width:30px;height:30px}.notice-copy{min-width:0;flex:1}.notice-copy strong{display:block;font-size:14px;overflow-wrap:anywhere}.notice-copy span{display:block;font-size:14px;margin-top:4px}.fb-screen{position:fixed;inset:0;z-index:15;background:#f0f2f5;display:flex;flex-direction:column}.fb-bar{height:60px;flex:none;background:white;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:16px;padding:8px 16px}.fb-bar b{color:#1877f2;font-family:Arial,sans-serif;font-size:27px;letter-spacing:-1.2px}.fb-scroll{overflow:auto;flex:1;min-height:0;padding-bottom:30px;scrollbar-width:none}.fb-login{max-width:410px;margin:48px auto;padding:0 23px;text-align:center}.fb-login h1{color:#1877f2;font-family:Arial,sans-serif;font-size:39px;letter-spacing:-1.5px;margin-bottom:25px}.fb-login input{width:100%;border:1px solid #ddd;background:white;border-radius:9px;padding:15px 13px;margin-bottom:10px;font-size:16px}.fb-login button{background:#1877f2;color:white;width:100%;padding:13px;border-radius:9px;font-weight:600;font-size:17px}.fb-caption{font-size:12px;color:#777;line-height:1.5;margin-top:20px}.fb-error{color:#c72d24;font-size:14px;min-height:22px;margin-bottom:8px}.fb-cover{height:175px;background:#b6c1cb}.fb-profile{background:white;padding:0 18px 18px}.fb-profile-avatar{width:106px;height:106px;border:4px solid white;border-radius:50%;margin-top:-45px;background:#dce3eb;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#71839b}.fb-profile-avatar svg{width:68px;height:68px;stroke-width:1}.fb-profile-avatar img,.fb-cover img{width:100%;height:100%;object-fit:cover}.fb-profile h1{font-size:28px;margin-top:10px}.fb-lock{background:#edf3fc;border-radius:10px;padding:13px;margin-top:15px;display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.4}.fb-lock svg{flex:none;color:#1877f2}.fb-tabs{display:flex;gap:25px;padding:14px 20px;background:white;border-top:1px solid #eee;color:#1877f2;font-weight:600}.fb-post{background:white;margin:9px 0;padding:17px}.fb-post-head{font-size:15px;font-weight:650}.fb-post small{display:block;color:#777;font-size:12px;margin-top:4px}.fb-post p{white-space:pre-wrap;line-height:1.6;font-size:15px}.fb-photo{display:block;width:100%;border-radius:5px;margin-top:13px;cursor:zoom-in}.fb-placeholder{background:#edf0f3;min-height:170px;display:flex;align-items:center;justify-content:center;color:#929aa4;font-size:13px}.fb-viewer{position:fixed;inset:0;background:#111;z-index:50;display:flex;align-items:center;justify-content:center}.fb-viewer img{max-width:100%;max-height:100%;object-fit:contain}.fb-viewer button{position:absolute;top:15px;left:15px;background:#333;color:white}
+
+/* 참고 화면의 중앙 프로필 / 평면 버튼 구성 */
+.fb-bar{height:56px;gap:12px;color:#080808}.fb-bar .back{background:transparent;box-shadow:none;width:28px;padding:0;color:#080808}.fb-nav-name{flex:1;text-align:center;font-size:17px}.fb-nav-actions{display:flex;gap:17px}.fb-nav-actions button{padding:0;display:flex;color:#080808}.fb-screen svg{width:23px;height:23px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.fb-screen button:disabled{opacity:1;cursor:default}.fb-cover{height:160px;background:#989b9f;position:relative}.fb-camera{border:2px solid white;background:#e6e8ed;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#050505;position:absolute;right:10px;bottom:10px;padding:8px}.fb-profile{padding:0 12px 16px}.fb-avatar-wrap{width:180px;height:180px;position:relative;margin:-116px auto 0}.fb-profile-avatar{width:180px;height:180px;margin:0;border:4px solid white}.fb-avatar-wrap .fb-camera{right:0;bottom:9px}.fb-profile h1{text-align:center;font-size:25px;line-height:1.2;margin:13px 0 27px}.fb-profile-actions{display:flex;gap:8px}.fb-profile-actions button{flex:1;display:flex;justify-content:center;align-items:center;gap:8px;background:#0866ff;color:white;border-radius:8px;padding:10px 4px;font-size:16px;font-weight:650;white-space:nowrap}.fb-profile-actions button+button{background:#e2e5e9;color:#050505}.fb-lock{background:white;padding:20px 4px 0;margin:0;gap:12px;font-size:16px}.fb-lock-icon{width:40px;height:40px;background:#e2e5e9;border-radius:50%;display:flex;justify-content:center;align-items:center}.fb-lock-icon svg{color:#050505;width:21px}.fb-tabs{border-top:4px solid #b7babe;border-bottom:1px solid #d1d4da;padding:0;gap:0}.fb-tabs button{flex:1;padding:14px 0;color:#65676b;font-size:16px;border-bottom:2px solid transparent}.fb-tabs button.active{color:#0866ff;border-color:#0866ff}.fb-section{background:white;padding:18px 12px 14px}.fb-section-heading{display:flex;justify-content:space-between;font-size:17px}.fb-section-heading button{font-size:15px;padding:0}.fb-section h3{font-size:18px;margin:30px 0 12px}.fb-composer{display:flex;align-items:center;gap:10px}.fb-composer>button{flex:1;background:#f0f2f5;border-radius:25px;text-align:left;padding:12px;font-size:15px;color:#5c6065}.fb-mini-avatar{width:38px;height:38px;flex:none;border-radius:50%;background:#e1e5eb;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#667481}.fb-mini-avatar img{width:100%;height:100%;object-fit:cover}.fb-post{padding:14px 12px;margin:8px 0}.fb-post-heading{display:flex;align-items:center;gap:9px}.fb-post-head{flex:1;font-size:15px}.fb-post small{display:flex;gap:4px;align-items:center;font-weight:400}.fb-post small svg{width:11px;height:11px}.fb-delete{color:#65676b;font-size:12px;padding:6px}.fb-post p{margin:14px 0}.fb-photo{border-radius:0}.fb-placeholder{min-height:200px;border-radius:0}.fb-reactions{display:flex;justify-content:space-between;color:#65676b;font-size:13px;padding:12px 0}.fb-post-actions{display:flex;border-top:1px solid #ddd;border-bottom:1px solid #ddd}.fb-post-actions button{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;color:#65676b;font-size:13px;padding:10px 0;white-space:nowrap}.fb-post-actions svg{width:18px;height:18px}.fb-comments{padding-top:14px}.fb-comment{display:flex;gap:8px;margin-bottom:12px}.fb-comment .fb-mini-avatar{width:31px;height:31px}.fb-comment-main{min-width:0;flex:1}.fb-comment-bubble{background:#f0f2f5;border-radius:16px;padding:9px 12px;display:table;max-width:100%;font-size:14px;line-height:1.45;overflow-wrap:anywhere}.fb-comment-bubble b{font-size:13px}.fb-comment-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:4px 0 0 9px;font-size:10px;color:#65676b}.fb-comment-meta button{font-size:10px;color:#65676b;padding:0}
+.fb-email{margin-top:12px;border:1px solid #e3e7ed;border-radius:8px;overflow:hidden;background:#fff}.fb-email-brand{padding:22px 23px;border-bottom:1px solid #e8ebf0;font:bold 28px Arial,sans-serif;letter-spacing:-1px;color:#1877f2}.fb-email-content{padding:24px 23px}.fb-email-label{font-size:12px;color:#6b7280;letter-spacing:.4px}.fb-email h2{font-size:21px;line-height:1.4;margin:8px 0 25px;letter-spacing:-.6px}.fb-email p{font-size:14px;line-height:1.8;color:#454c57;margin:16px 0}.fb-password-box{padding:18px;background:#f3f5f8;border:1px solid #e3e7ee;border-radius:6px;margin-top:23px}.fb-password-box span{display:block;color:#677080;font-size:12px;margin-bottom:9px}.fb-password-box strong{font-size:20px;letter-spacing:.6px;overflow-wrap:anywhere;user-select:all}.fb-email .fb-email-valid{font-size:12px;color:#737c89}.fb-email .facebook-link{background:#1877f2;color:#fff;width:100%;text-align:center;text-decoration:none;border-radius:6px;font-size:15px;font-weight:650;padding:14px;margin-top:7px}.fb-email .fb-email-link-label{text-align:center;font-size:12px;color:#77808e;margin:8px 0 26px}.fb-email-security{border-top:1px solid #e5e8ee;padding-top:22px;font-size:13px}.fb-email-security p{font-size:12px;margin-top:7px}.fb-email-footer{background:#f7f8fa;border-top:1px solid #e5e8ee;padding:18px 23px;color:#8a919c;font-size:11px;line-height:1.7}.campaign{border:1px solid #e4e6eb;border-radius:9px;overflow:hidden;margin:16px 0;background:#fff}.campaign-brand{padding:25px;font-size:26px;font-weight:700;letter-spacing:-1px;border-bottom:1px solid #e7e9ed}.campaign-brand small{display:block;font-size:11px;font-weight:400;letter-spacing:1px;margin-top:7px;color:#777}.campaign-body{padding:27px 24px}.campaign h2{font-size:26px;line-height:1.4;letter-spacing:-1px;margin:12px 0 20px}.campaign h3{font-size:18px;line-height:1.5}.campaign p{font-size:14px;line-height:1.85;color:#586170}.campaign button{width:100%;border-radius:6px;padding:14px;background:#242424;color:#fff;font-weight:600;margin:15px 0}.campaign .fineprint{font-size:11px;color:#89909b}.campaign-footer{font-size:11px;line-height:1.8;padding:22px 24px;background:#f6f7f9;color:#89909b}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:650}.campaign-hero{text-align:center;padding:35px 20px}.potion{background:#fcf8ff}.potion .campaign-brand{color:#604277;font-size:18px}.potion .campaign-hero{background:#30203f;color:#f5e8c6}.potion-symbol{font-size:64px;margin:20px}.potion .campaign-hero p{color:#d3c3df}.offer-label{font-size:11px;background:#e9ede7;color:#4d6654;padding:5px 9px;border-radius:3px}.offer-price{display:flex;flex-direction:column;gap:7px;margin:24px 0}.offer-price del{color:#999;font-size:14px}.offer-price strong{font-size:26px;color:#755391}.potion button{background:#755391}.books .campaign-brand{color:#315e4e}.books .campaign-brand span{font-size:22px}.books .eyebrow{color:#557863}.book-display{background:#ecf0e9;padding:28px;display:flex;justify-content:center;margin:24px 0}.book-cover{width:190px;min-height:255px;background:#f3dd96;padding:20px 17px;box-shadow:6px 6px 0 #cbd1c6,inset 4px 0 #ddc67e;display:flex;flex-direction:column;gap:20px;color:#3c4b3f}.book-cover span,.book-cover small{font-size:10px}.book-cover strong{font-size:25px;line-height:1.3}.book-cover div{font-size:30px;text-align:right}.books button{background:#315e4e}.apple .campaign-brand{font-weight:500}.apple button{background:#087bea}.device-info{background:#f5f5f7;border-radius:8px;padding:20px;font-size:13px;overflow-wrap:anywhere}.device-info dt{color:#83858b;font-size:11px;margin-bottom:5px}.device-info dd{margin:0 0 18px;line-height:1.6}.device-info dd:last-child{margin-bottom:0}</style></head><body><div id="app"><header class="bar" id="header"></header><main class="scroll" id="scroll"></main><footer class="footer" id="footer"></footer></div><div class="toast" id="toast" role="status" hidden></div><div id="compose" class="overlay" hidden></div><button id="mail-notice" class="mail-notice" hidden aria-label="새 메일 열기"></button><section id="fb-screen" class="fb-screen" hidden aria-label="Facebook"></section><div id="fb-viewer" class="fb-viewer" hidden></div>
+<script>
+/* ================= 사용자 수정 영역 =================
+   메일 주소, 표시 이름, 메일 본문·제목·날짜 등을 아래에서 수정하세요.
+   folder: inbox(받은 편지함), drafts(임시 저장), sent(보낸 편지함), junk(정크), trash(휴지통)
+   date: 정렬용 ISO 날짜 / timeLabel: 목록 시간 / dateLabel: 상세 날짜
+   avatar: 이미지 경로(선택), iconText: 프로필에 표시할 글자(선택)
+   데이터 수정 후에는 수정 내용이 우선 반영되며 저장된 연습 메일은 초기화됩니다.
+*/
+// Facebook 연출 설정. 실제 로그인/외부 서버 요청은 하지 않습니다.
+/* 게시글 편집: posts 안의 { ... } 한 묶음이 게시글 하나입니다.
+   추가는 묶음 복사, 삭제는 묶음 제거. id는 각각 다르게 적어 주세요.
+   photos: ['imges/사진이름.JPG'] — 도운과 함께 찍은 사진 경로를 넣으세요.
+   comments: [{name:'이름',date:'날짜',text:'댓글'}] — 자유롭게 추가/삭제 가능.
+   화면의 삭제하기는 장식용 비활성 버튼입니다. 실제 수정은 위 데이터에서 해주세요. */
+const FACEBOOK={phone:'01019931219',temporaryPassword:'dbsehdnsqkdhkdqh',name:'강영현',avatar:'imges/facebookyh1.JPG',dowoonAvatar:'imges/facebookyh5.JPG',cover:'',
+ posts:[
+  {id:'memory-1',date:'2017년 8월 25일',text:'우리 도우닣ㅎㅎㅎ 생일 추카해!!!!!!!!🎂',photos:['imges/facebookyh10.JPG'],likes:24,comments:[
+   {name:'윤도운',date:'2017년 8월 25일',text:'고마워'},
+   {name:'강영현',date:'2017년 8월 25일',text:'그게 다야?????!'},
+   {name:'강영현',date:'2026년 10월 8일',text:'와 도운이 완전 애기였네'}]},
+  {id:'memory-2',date:'2017년 7월 15일',text:'사춘기 미친 도우니 붙잡고 오랜만에 한컷 크크크',photos:['imges/facebookyh2.JPG'],likes:18,comments:[
+   {name:'윤도운',date:'2017년 7월 15일',text:'누가 사춘기야 아니거든'},
+   {name:'강영현',date:'2017년 7월 15일',text:'그럼 개춘기야? 멍멍해바 ㅋㅋㅋ'},]},
+  {id:'memory-3',date:'2017년 7월 15일',text:'연습시이이이일 뒤에는 도우노 ㅎ 봐주지도않음 좀 컸다 이거지!!!',photos:['imges/facebookyh3.JPG'],likes:31,comments:[
+   {name:'윤도운',date:'2023년 1월 4일',text:'같이 좀 찍을걸'},
+   {name:'강영현',date:'2026년 10월 8일',text:'언제 댓글 달았대? 그것보다 봐 형이 후회한댔지 ㅋㅋ'}]},
+  {id:'memory-4',date:'2016년 10월 8일',text:'그만 자구 형이랑 놀자아아아 ㅜㅡㅠ',photos:['imges/facebookyh4.JPG'],likes:16,comments:[
+   {name:'윤도운',date:'2016년 10월 8일',text:'건들지쫌마라'},
+   {name:'강영현',date:'2016년 10월 8일',text:'차갑네...'},
+   {name:'강영현',date:'2026년 10월 8일',text:'딱 십년 됐네'},]},
+  {id:'memory-5',date:'2016년 8월 16일',text:'귀여워서 톡 터뜨리고싶은 남자 윤도우노',photos:['imges/facebookyh8.JPG'],likes:21,comments:[
+   {name:'윤도운',date:'2016년 8월 16일',text:'이건 또 언제 찍었노'},
+   {name:'윤도운',date:'2023년 1월 4일',text:'이런 머리도 했었네 강영현 ㅋㅋㅋ'},
+   {name:'강영현',date:'2026년 10월 8일',text:'그러게'}]},
+  {id:'memory-6',date:'2016년 5월 5일',text:'5월5일 도우니날 ㅋㅋㅋㅋ\n놀러가자더니 잠만 쿨쿨 주무시는중 아이귀여워\n오늘 날씨 완전 조으다',photos:['imges/facebookyh12.jpeg'],likes:21,comments:[
+   {name:'윤도운',date:'2016년 5월 5일',text:'조으다아'},
+   {name:'윤도운',date:'2023년 1월 4일',text:'근데 나 지금은 안귀엽지?'},
+   {name:'강영현',date:'2026년 10월 8일',text:'지금도 귀엽지'}]}
+ ]
+};
+const ACCOUNTS=[{id:'dw',name:'윤도운',email:'imydwow@doke.cloud.com'},{id:'yh',name:'강영현',email:'imkyhiyo@doke.clould.com'}];
+// 메일 목록: 객체 한 묶음을 추가/삭제하면 목록도 함께 바뀝니다.
+const INITIAL_MAILS=[
+  {
+    "id": "dw-potion",
+    "account": "dw",
+    "folder": "junk",
+    "fromName": "문라이트 시크릿",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "(광고) 사랑하는 사람을 내 사람으로 만드는 단 한 방울",
+    "body": "짝사랑은 이제 그만! 보름달의 기운을 담은 마법 묘약으로 그 사람의 마음을 사로잡으세요. 오늘 밤만 특별 할인.",
+    "date": "2026-10-06T10:00:00+09:00",
+    "timeLabel": "2026. 10. 6.",
+    "dateLabel": "2026년 10월 6일 10:00",
+    "unread": true,
+    "template": "potion",
+    "iconText": "☾",
+    "color": "#755391",
+    "from": "offer@moonlight.co.kr"
+  },
+  {
+    "id": "yh-books",
+    "account": "yh",
+    "folder": "inbox",
+    "fromName": "DB 북스",
+    "to": "imkyhiyo@doke.clould.com",
+    "subject": "[DB 북스] 즐겨찾는 강아지 카테고리에 신간이 도착했어요",
+    "body": "강영현 님, 즐겨찾는 카테고리 「강아지」의 새 책을 만나보세요. 신간: 눈치 없는 강아지와 함께 사는 법",
+    "date": "2026-10-07T10:00:00+09:00",
+    "timeLabel": "2026. 10. 7.",
+    "dateLabel": "2026년 10월 7일 10:00",
+    "unread": true,
+    "template": "books",
+    "iconText": "DB",
+    "color": "#315e4e",
+    "from": "newsletter@dbbooks.co.kr"
+  },
+  {
+    "id": "yh-apple",
+    "account": "yh",
+    "folder": "inbox",
+    "fromName": "Apple",
+    "to": "imkyhiyo@doke.clould.com",
+    "subject": "새로운 기기에서 Apple 계정에 로그인했습니다",
+    "body": "회원님의 Apple 계정이 새로운 환경에서 로그인에 사용되었습니다. 기기: 윤도운의 iPhone · 2026년 10월 3일",
+    "date": "2026-10-03T22:14:00+09:00",
+    "timeLabel": "2026. 10. 3.",
+    "dateLabel": "2026년 10월 3일 22:14",
+    "unread": true,
+    "template": "apple",
+    "iconText": "A",
+    "color": "#707780",
+    "priority": -1,
+    "from": "account@apple.korea"
+  },
+  {
+    "id": "yh-sent-0",
+    "account": "yh",
+    "folder": "sent",
+    "fromName": "강영현",
+    "to": "최진안",
+    "subject": "대동제 특강 관련 추가 요청",
+    "body": "안녕하세요, 선배님. 강영현입니다. 일전에 말씀 드린 큐앤에이 사전 질문입니다. 확인해보시고...",
+    "date": "2026-10-08T10:00:00+09:00",
+    "timeLabel": "2026. 10. 8.",
+    "dateLabel": "2026년 10월 8일 10:00",
+    "unread": false,
+    "previewOnly": true,
+    "from": "imkyhiyo@doke.clould.com"
+  },
+  {
+    "id": "yh-sent-1",
+    "account": "yh",
+    "folder": "sent",
+    "fromName": "강영현",
+    "to": "성유석",
+    "subject": "Re: 대동제 포스터 문구 수정",
+    "body": "넵 그대로 진행하면 될 것 같습니다 감사합니다",
+    "date": "2026-10-07T10:00:00+09:00",
+    "timeLabel": "2026. 10. 7.",
+    "dateLabel": "2026년 10월 7일 10:00",
+    "unread": false,
+    "previewOnly": true,
+    "from": "imkyhiyo@doke.clould.com"
+  },
+  {
+    "id": "dw-record-0",
+    "account": "dw",
+    "folder": "inbox",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "연습 녹음 1105",
+    "body": "오늘 합주 녹음 후렴 들어가는 부분 다시 듣기",
+    "date": "2026-11-05T10:00:00+09:00",
+    "timeLabel": "2026. 11. 5.",
+    "dateLabel": "2026년 11월 5일 10:00",
+    "unread": false,
+    "attachments": [
+      "practice_1105.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-sent-0",
+    "account": "dw",
+    "folder": "sent",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "연습 녹음 1105",
+    "body": "오늘 합주 녹음 후렴 들어가는 부분 다시 듣기",
+    "date": "2026-11-05T10:00:00+09:00",
+    "timeLabel": "2026. 11. 5.",
+    "dateLabel": "2026년 11월 5일 10:00",
+    "unread": false,
+    "attachments": [
+      "practice_1105.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-1",
+    "account": "dw",
+    "folder": "inbox",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "드럼 연습파일",
+    "body": "템포 92 중간 필인 덜 급하게",
+    "date": "2026-11-03T10:00:00+09:00",
+    "timeLabel": "2026. 11. 3.",
+    "dateLabel": "2026년 11월 3일 10:00",
+    "unread": false,
+    "attachments": [
+      "drum_1007.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-sent-1",
+    "account": "dw",
+    "folder": "sent",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "드럼 연습파일",
+    "body": "템포 92 중간 필인 덜 급하게",
+    "date": "2026-11-03T10:00:00+09:00",
+    "timeLabel": "2026. 11. 3.",
+    "dateLabel": "2026년 11월 3일 10:00",
+    "unread": false,
+    "attachments": [
+      "drum_1007.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-2",
+    "account": "dw",
+    "folder": "inbox",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "합주 녹음 1101",
+    "body": "두 번째 테이크가 제일 나음.",
+    "date": "2026-11-01T10:00:00+09:00",
+    "timeLabel": "2026. 11. 1.",
+    "dateLabel": "2026년 11월 1일 10:00",
+    "unread": false,
+    "attachments": [
+      "rehearsal_take2.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-sent-2",
+    "account": "dw",
+    "folder": "sent",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "합주 녹음 1101",
+    "body": "두 번째 테이크가 제일 나음.",
+    "date": "2026-11-01T10:00:00+09:00",
+    "timeLabel": "2026. 11. 1.",
+    "dateLabel": "2026년 11월 1일 10:00",
+    "unread": false,
+    "attachments": [
+      "rehearsal_take2.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-3",
+    "account": "dw",
+    "folder": "inbox",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "공연곡 연습",
+    "body": "인트로랑 마지막 마디 체크",
+    "date": "2026-10-29T10:00:00+09:00",
+    "timeLabel": "2026. 10. 29.",
+    "dateLabel": "2026년 10월 29일 10:00",
+    "unread": false,
+    "attachments": [
+      "practice_live.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-sent-3",
+    "account": "dw",
+    "folder": "sent",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "공연곡 연습",
+    "body": "인트로랑 마지막 마디 체크",
+    "date": "2026-10-29T10:00:00+09:00",
+    "timeLabel": "2026. 10. 29.",
+    "dateLabel": "2026년 10월 29일 10:00",
+    "unread": false,
+    "attachments": [
+      "practice_live.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-4",
+    "account": "dw",
+    "folder": "inbox",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "리듬 연습 녹음",
+    "body": "메트로놈 켜고 다시 해볼 것",
+    "date": "2026-10-26T10:00:00+09:00",
+    "timeLabel": "2026. 10. 26.",
+    "dateLabel": "2026년 10월 26일 10:00",
+    "unread": false,
+    "attachments": [
+      "rhythm_1004.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-record-sent-4",
+    "account": "dw",
+    "folder": "sent",
+    "fromName": "윤도운",
+    "to": "imydwow@doke.cloud.com",
+    "subject": "리듬 연습 녹음",
+    "body": "메트로놈 켜고 다시 해볼 것",
+    "date": "2026-10-26T10:00:00+09:00",
+    "timeLabel": "2026. 10. 26.",
+    "dateLabel": "2026년 10월 26일 10:00",
+    "unread": false,
+    "attachments": [
+      "rhythm_1004.m4a"
+    ],
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-draft-miss",
+    "account": "dw",
+    "folder": "drafts",
+    "fromName": "윤도운",
+    "to": "imkyhiyo@doke.clould.com",
+    "subject": "보고싶다",
+    "body": "형 보고싶다.\n그냥 갑자기 그런 생각이 들어서",
+    "date": "2026-10-22T10:00:00+09:00",
+    "timeLabel": "2026. 10. 22.",
+    "dateLabel": "2026년 10월 22일 10:00",
+    "unread": false,
+    "replyKey": "miss",
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-draft-love",
+    "account": "dw",
+    "folder": "drafts",
+    "fromName": "윤도운",
+    "to": "imkyhiyo@doke.clould.com",
+    "subject": "바보",
+    "body": "똑똑한 사람만나니까좋냐?\n언제는 나 멍청해서 귀엽다매",
+    "date": "2026-11-06T10:00:00+09:00",
+    "timeLabel": "2026. 11. 6.",
+    "dateLabel": "2026년 11월 6일 10:00",
+    "unread": false,
+    "replyKey": "love",
+    "from": "imydwow@doke.cloud.com"
+  },
+  {
+    "id": "dw-draft-confession",
+    "account": "dw",
+    "folder": "drafts",
+    "fromName": "윤도운",
+    "to": "imkyhiyo@doke.clould.com",
+    "subject": "형",
+    "body": "형\n보고싶어\n\n이번엔 생각보다 오래가네.. 있잖아 형은 그 사람들이랑 있을때 내 생각 하도 않지??\n나는 이런생각까지 결국은 다 형 생각인건데\n\n서운하다\n서운해\n짜증나\n그래도 나는 형 좋아해\n나는 형 덕분에 이만큼 사람구실 하고 사는거같아\n나 좀 철 더들면 조금 더 크면 그때는 나도 좀 좋아해줘\n형이 기다렸던것만큼 나도 잘기다려볼게\n\n그래도 좀 보고싶은데 술 먹고 델러오라는거라도 개안으니까 연락 좀 주라",
+    "date": "2026-11-10T10:00:00+09:00",
+    "timeLabel": "2026. 11. 10.",
+    "dateLabel": "2026년 11월 10일 10:00",
+    "unread": false,
+    "replyKey": "confession",
+    "from": "imydwow@doke.cloud.com"
+  }
+];
+// 임시 메일별 자동 답장. body에 나중에 답장 내용을 입력하세요. 빈 문자열도 실제 빈 답장으로 도착합니다.
+const AUTO_REPLY_RULES=[
+  {
+    "id": "reply-miss",
+    "enabled": true,
+    "replyKey": "miss",
+    "to": "imkyhiyo@doke.clould.com",
+    "delayMs": 2500,
+    "once": true,
+    "fromName": "강영현",
+    "subject": "도운이에게",
+    "body": "나도 보고싶다 갑자기 그런 생각이 드네\n사실 갑자기는 아니고 아까부터 계속 보고 싶었어"
+  },
+  {
+    "id": "reply-love",
+    "enabled": true,
+    "replyKey": "love",
+    "to": "imkyhiyo@doke.clould.com",
+    "delayMs": 2500,
+    "once": true,
+    "fromName": "강영현",
+    "subject": "멍청아",
+    "body": "이건 누구 얘기지? 똑똑한 사람? 우진이 형?\n똑똑해서 바람도 똑똑하게 폈지...\n도운이는 평생 바람 못 필 것 같아서 좋다\n혹시 해서 말하는데 너는 다 티 나 알지\n나 놓으면 죽는다 진짜"
+  },
+  {
+    "id": "reply-confession",
+    "enabled": true,
+    "replyKey": "confession",
+    "to": "imkyhiyo@doke.clould.com",
+    "delayMs": 2500,
+    "once": true,
+    "fromName": "강영현",
+    "subject": "도운아",
+    "body": "안녕 도운아\n\n사실 내 생일 날 그때 너 자는 동안 폰 구경 좀 했어 미안\n솔직히 별로 안 미안해 너 누구 거야? 내 거지?\n그럼 니 폰 누구 거야? 내 거지?\n\n아무튼 이런 깜찍한 메일을 쓰고 있었을 줄이야 ㅋㅋㅋ\n왜 안 보냈어? 이왕 쓴 거 그냥 보내지\n그럼 그 난리 안 치고 좀 정상적으로 사귈 수 있었을텐데\n\n나도 니 생각 맨날 해\n막 너무 귀여워서 깨물어주고 싶어 맨날\n\n서운하게 해서 미안해\n니가 요새 그런걸 잘 말 안 하니까 나도 서운해\n어디까지 받아주나 궁금해서 그랬어\n이제 표현 많이 하자\n\n그날 바로 대답해주고 싶었는데 솔직히 좀 낯간지러워서 며칠 째 메일 들여다보기만 했어 ㅋㅋ\n\n음...\n\n있잖아 도운아 나도 많이 좋아해\n내일 영화 재밌게 보자 안녕"
+  }
+];
+/* ================= 수정 영역 끝 ================= */
+const PATHS={back:'m15 4-8 8 8 8',chevron:'m9 5 7 7-7 7',inbox:'M3 10 7 4h10l4 6v10H3ZM3 11h5l2 4h4l2-4h5',all:'M3 10 7 4h10l4 6v10H3ZM3 11h5l2 4h4l2-4h5M3 16h5l2 3h4l2-3h5',drafts:'M5 3h9l5 5v13H5ZM14 3v6h5',sent:'m3 10 19-8-8 20-3-9Zm8 3L22 2',junk:'M3 5h18v3H3ZM5 8l2 13h10l2-13M9 11l6 6m0-6-6 6',trash:'M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7',clip:'m9 15 8-8a3 3 0 0 0-4-4L4 12a5 5 0 0 0 7 7l9-9M7 14l8-8',compose:'M13 5H5v15h15v-8M10 14l1-4L20 1l3 3-9 9ZM18 3l3 3',search:'M16 10a6 6 0 1 1-12 0 6 6 0 0 1 12 0m-2 5 6 6',mic:'M9 4a3 3 0 0 1 6 0v8a3 3 0 0 1-6 0ZM6 10v2a6 6 0 0 0 12 0v-2M12 18v4m-4 0h8',filter:'M3 6h18M6 12h12m-9 6h6',up:'m5 15 7-7 7 7',down:'m5 9 7 7 7-7',folder:'M3 5h6l2 3h10v13H3Z',reply:'m10 5-8 7 8 7v-5c7 0 9 2 12 6-1-9-5-12-12-12Z',close:'m5 5 14 14M19 5 5 19',send:'M12 21V3m-7 7 7-7 7 7'};
+const icon=(name,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${PATHS[name]||PATHS.inbox}"/></svg>`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id),copy=x=>JSON.parse(JSON.stringify(x));
+const FOLDERS=[['inbox','받은 편지함'],['drafts','임시 저장'],['sent','보낸 편지함'],['junk','정크'],['trash','휴지통']];
+// 내부 이동과 새로고침은 유지, 외부 페이지에서 재진입하면 초기화.
+const mailStateKey='dw_mail_reload_state_v1';
+const signature=JSON.stringify([INITIAL_MAILS,AUTO_REPLY_RULES,FACEBOOK]);
+let mails=copy(INITIAL_MAILS),used=[];
+try{
+ localStorage.removeItem('dw_mail_v1');
+ const navigationType=performance.getEntriesByType('navigation')[0]?.type;
+ const saved=JSON.parse(sessionStorage.getItem(mailStateKey)||'null');
+ if(navigationType==='reload'&&saved?.signature===signature){mails=saved.mails;used=saved.used||[]}
+ else sessionStorage.removeItem(mailStateKey);
+}catch(e){}
+function persist(){try{sessionStorage.setItem(mailStateKey,JSON.stringify({signature,mails,used}))}catch(e){}}
+const replyTimers=new Set();
+window.addEventListener('pagehide',()=>{persist();replyTimers.forEach(clearTimeout);replyTimers.clear()});
+// 다른 페이지에서 Safari 뒤로가기로 복원되는 경우 초기화.
+window.addEventListener('pageshow',event=>{if(event.persisted){try{sessionStorage.removeItem(mailStateKey)}catch(e){}location.reload()}});
+let view='boxes',scope=null,selected=null,boxScroll=0,listScroll=0,opened=new Set(),draftId=null,composeReturnFocus=null;
+const isOutgoing=m=>['sent','drafts'].includes(m.folder);
+function nextMailOrder(){return Math.max(0,...mails.map(m=>Number(m.arrivalOrder)||0))+1}
+function filtered(){return mails.filter(m=>(!scope?.account||m.account===scope.account)&&(scope?.folder==='attachments'?(m.attachments||[]).length:m.folder===scope?.folder)).sort((a,b)=>(Number(b.arrivalOrder)||0)-(Number(a.arrivalOrder)||0)||new Date(b.date)-new Date(a.date))}
+function title(){return view==='boxes'?'메일상자':scope.title}
+function subtitle(){return scope?.account?`${ACCOUNTS.find(a=>a.id===scope.account).email} · 지금 업데이트됨`:'지금 업데이트됨'}
+function inertButton(html,cls='circle',label=''){return `<button type="button" class="${cls}" disabled aria-label="${label}">${html}</button>`}
+function header(){let left=view==='boxes'?'':`<button class="pill back" id="back" aria-label="뒤로">${icon('back')}</button>`;
+ $('header').innerHTML=left+(view==='detail'?'':`<div class="compact"><strong>${esc(title())}</strong><small>지금 업데이트됨</small></div>`)+`<div class="bar-right">${view==='detail'?inertButton(icon('up')+icon('down'),'pill','이전·다음 메일'):inertButton(view==='boxes'?'편집':'선택','pill')+(view==='list'&&scope.folder==='inbox'?inertButton('•••','circle','더 보기'):'')}</div>`;
+ if($('back'))$('back').onclick=()=>{if(view==='detail'){view='list';render(listScroll)}else{view='boxes';render(boxScroll)}};
+}
+function footer(){const f=$('footer');f.className='footer'+(view==='boxes'?' home':'');f.innerHTML=view==='boxes'?`<button type="button" class="circle" data-footer-write aria-label="메일 작성">${icon('compose')}</button>`:view==='detail'?`<div class="tools">${['trash','folder','reply'].map(k=>inertButton(icon(k),'',k)).join('')}</div>`+`<button type="button" class="circle" data-footer-write aria-label="메일 작성">${icon('compose')}</button>`:inertButton(icon('filter'),'circle','필터')+`<div class="search" aria-disabled="true">${icon('search')}검색${icon('mic')}</div>`+`<button type="button" class="circle" data-footer-write aria-label="메일 작성">${icon('compose')}</button>`}
+function folderRow(label,folder,account=null,symbol=folder){const count=mails.filter(m=>(!account||m.account===account)&&(folder==='attachments'?(m.attachments||[]).length>0:m.folder===folder)).length;return `<button class="folder" data-folder="${folder}" data-account="${account||''}" data-title="${label}">${icon(symbol)}<span class="folder-main">${label}<span class="count">${count}</span>${icon('chevron','chev')}</span></button>`}
+function boxes(){return `<div class="content"><h1>메일상자</h1><p class="subtitle">지금 업데이트됨</p><div class="group">${folderRow('모든 받은 편지함','inbox',null,'all')}${folderRow('모든 보낸 메시지','sent')}${folderRow('모든 휴지통','trash')}${folderRow('모든 정크','junk')}</div>${ACCOUNTS.map(a=>`<button class="account" data-toggle="${a.id}" aria-expanded="${opened.has(a.id)}"><span>${esc(a.email)}</span>${icon('chevron','chev')}</button><div class="group" ${opened.has(a.id)?'':'hidden'}>${FOLDERS.map(([f,label])=>folderRow(label,f,a.id)).join('')}</div>`).join('')}</div>`}
+function avatar(m){return m.avatar?`<div class="avatar"><img src="${esc(m.avatar)}" alt=""></div>`:m.iconText?`<div class="avatar" style="background:${/^#[0-9a-f]{3,8}$/i.test(m.color)?m.color:'#8ca9d3'}">${esc(m.iconText)}</div>`:'<div class="avatar person"><svg viewBox="0 0 44 44"><circle cx="22" cy="16" r="8"/><path d="M7 35c2-9 28-9 30 0-8 9-22 9-30 0"/></svg></div>'}
+function list(){return `<div class="content"><h1>${esc(title())}</h1><p class="subtitle">${esc(subtitle())}</p><div class="mail-list">${filtered().map(m=>`<button class="mail-row" data-mail="${esc(m.id)}" ${m.previewOnly?'disabled':''}>${avatar(m)}<div class="row-body"><div class="row-top"><span class="row-from">${esc(isOutgoing(m)?m.to:m.fromName||m.from)}</span><span class="row-time">${esc(m.timeLabel)}</span>${icon('chevron','chev')}</div><div class="row-subject">${esc(m.subject||'제목 없음')}</div><div class="row-preview">${esc(m.body)}</div></div></button>`).join('')||'<div class="empty">메일 없음</div>'}</div></div>`}
+function facebookOfficialMail(m){return `<section class="fb-email"><div class="fb-email-brand">facebook</div><div class="fb-email-content"><div class="fb-email-label">계정 보안 안내</div><h2>임시비밀번호가 발급되었습니다</h2><p>안녕하세요, 강영현 님.</p><p>요청하신 계정의 임시비밀번호를 안내해 드립니다.<br>아래 비밀번호로 로그인한 후 새로운 비밀번호로 변경해 주세요.</p><div class="fb-password-box"><span>임시비밀번호</span><strong>${esc(FACEBOOK.temporaryPassword)}</strong></div><p class="fb-email-valid">유효 기간: 발급일로부터 7일<br>발급일: 2026년 10월 8일</p><button class="facebook-link" data-facebook>Facebook에 로그인</button><p class="fb-email-link-label">facebook.com/login</p><div class="fb-email-security"><b>직접 요청하지 않으셨나요?</b><p>비밀번호 발급을 요청한 적이 없다면 이 메일을 무시해 주세요. 계정 보호를 위해 비밀번호를 다른 사람과 공유하지 마세요.</p></div><p>감사합니다.<br>페이스북 코리아 고객센터</p></div><div class="fb-email-footer">이 메일은 계정 보안을 위한 발신 전용 안내입니다.</div></section>`}
+function designedMail(m){if(m.template==='potion')return `<section class="campaign potion"><div class="campaign-brand">MOONLIGHT SECRET <small>PRIVATE COLLECTION</small></div><div class="campaign-hero"><div class="eyebrow">ONLY TONIGHT · SPECIAL OFFER</div><div class="potion-symbol">☾</div><h2>그 사람의 마음,<br>당신에게 머물도록.</h2><p>사랑하는 사람을 내 사람으로 만드는<br>마법 묘약, 러브 드롭.</p></div><div class="campaign-body"><span class="offer-label">보름달 한정 에디션</span><h3>망설이는 동안, 운명은 지나갑니다.</h3><p>수백 년 전해 내려온 비밀 레시피와 보름달의 기운을 한 병에 담았습니다. 눈이 마주치는 순간 시작되는 특별한 변화!</p><div class="offer-price"><del>129,000원</del><strong>오늘만 39,900원</strong></div><button disabled>나만의 사랑 주문하기</button></div><div class="campaign-footer">(광고) 문라이트 시크릿<br>수신 거부 · 고객센터</div></section>`;
+if(m.template==='books')return `<section class="campaign books"><div class="campaign-brand">DB <span>북스</span><small>당신의 취향을 읽습니다</small></div><div class="campaign-body"><div class="eyebrow">FAVORITES · NEW RELEASE</div><h2>좋아하는 이야기가<br>한 권 더 늘었어요.</h2><p>강영현 님, 즐겨찾는 <b>강아지</b> 카테고리의<br>새 책을 가장 먼저 만나보세요.</p><div class="book-display"><div class="book-cover"><span>함께 산다는 것에 대하여</span><strong>눈치 없는<br>강아지와<br>함께 사는 법</strong><div>●ᴥ●</div><small>DB BOOKS</small></div></div><span class="offer-label">NEW · 강아지</span><h3>눈치 없는 강아지와 함께 사는 법</h3><p>눈치는 조금 없어도 사랑은 넘치는 우리 집 강아지.<br>서로 다른 언어로 마음을 전하는 둘의 다정한 동거 안내서.</p><button disabled>신간 자세히 보기</button><p class="fineprint">즐겨찾는 카테고리 설정에 따라 보내드리는 신간 안내입니다.</p></div><div class="campaign-footer">DB 북스 · 취향에 맞는 책을 만나는 곳<br>알림 설정 · 수신 거부</div></section>`;
+return `<section class="campaign apple"><div class="campaign-brand">Apple <small>계정 보안 알림</small></div><div class="campaign-body"><h2>새로운 기기에서<br>계정에 로그인했습니다.</h2><p>강영현 님, 안녕하세요.</p><p>회원님의 Apple 계정이 새로운 환경에서 로그인에 사용되었습니다.</p><dl class="device-info"><dt>Apple 계정</dt><dd>${esc(m.to)}</dd><dt>기기</dt><dd>윤도운의 iPhone</dd><dt>로그인 일시</dt><dd>2026년 10월 3일 오후 10:14 (대한민국 표준시)</dd></dl><p>본인이 윤도운의 iPhone에서 로그인하셨다면 별도의 조치가 필요하지 않습니다.</p><p>본인이 로그인한 것이 아니라면 계정 정보를 확인하고 비밀번호를 변경해 주세요.</p><button disabled>Apple 계정 확인하기</button></div><div class="campaign-footer">이 메일은 계정 보안을 위한 발신 전용 안내입니다.<br>Apple 계정 지원 · 개인정보 처리방침</div></section>`}
+function detail(){const m=mails.find(x=>x.id===selected);return `<div class="detail-content"><div class="sender-card">${avatar(m)}<div class="sender-meta"><div>보낸 사람: <span class="blue">${esc(m.fromName||m.from)}</span></div><div class="date">${esc(m.from)}</div><div>받는 사람: <span class="blue">${esc(m.to)}</span></div><div class="date">${esc(m.dateLabel||m.timeLabel)}</div></div></div><h1 class="detail-subject">${esc(m.subject||'제목 없음')}</h1>${m.localFacebook?facebookOfficialMail(m):m.template?designedMail(m):`<div class="mail-body">${esc(m.body)}</div>`}${m.attachments?.length?`<div class="attachments">첨부 파일<br>${m.attachments.map(esc).join('<br>')}</div>`:''}<div class="detail-actions"><button class="write-inline" data-reply>${icon('reply')}답장</button></div></div>`}
+function updateCompactTitle(){if(view==='detail')return;const top=$('scroll').scrollTop,progress=Math.min(1,Math.max(0,top/64)),el=document.querySelector('.compact');if(el){el.style.opacity=String(progress);el.style.transform=`translateY(${Math.round((1-progress)*9)}px)`}}
+function render(scroll=0){$('app').style.background=view==='boxes'?'#f2f2f7':'#fff';header();footer();$('scroll').innerHTML=view==='boxes'?boxes():view==='list'?list():detail();$('scroll').scrollTop=scroll;updateCompactTitle()}
+$('scroll').addEventListener('scroll',updateCompactTitle,{passive:true});
+$('scroll').addEventListener('click',e=>{const toggle=e.target.closest('[data-toggle]'),row=e.target.closest('[data-folder]'),mail=e.target.closest('[data-mail]');if(toggle){const y=$('scroll').scrollTop,id=toggle.dataset.toggle;opened.has(id)?opened.delete(id):opened.add(id);render(y)}else if(row){boxScroll=$('scroll').scrollTop;scope={account:row.dataset.account||null,folder:row.dataset.folder,title:row.dataset.title};view='list';render()}else if(mail){const m=mails.find(x=>x.id===mail.dataset.mail);if(m.previewOnly)return;if(m.folder==='drafts'){openCompose(m);return}listScroll=$('scroll').scrollTop;selected=m.id;m.unread=false;persist();view='detail';render()}else if(e.target.closest('[data-write]'))openCompose();else if(e.target.closest('[data-reply]')){const m=mails.find(x=>x.id===selected);openCompose({account:m.account,to:m.from,subject:m.subject.startsWith('Re:')?m.subject:'Re: '+m.subject,body:'\n\n나의 iPhone에서 보냄'})}});
+function openCompose(draft){draftId=draft?.folder==='drafts'?draft.id:null;composeReturnFocus=document.activeElement;const a=draft?.account||scope?.account||ACCOUNTS[0].id;$('compose').innerHTML=`<section class="sheet" role="dialog" aria-modal="true" aria-label="메일 작성"><div class="handle"></div><div class="compose-head"><button class="circle" id="close-compose" aria-label="닫고 임시 저장">${icon('close')}</button><button class="circle send" id="send-mail" aria-label="메일 보내기">${icon('send')}</button></div><form class="compose-scroll" id="compose-form"><h1>${draftId?'임시 저장':'새로운 메시지'}</h1><div class="field"><label for="to">받는 사람:</label><input id="to" type="email" required value="${esc(draft?.to||'')}" autocomplete="off"></div><div class="field"><label for="from">보낸 사람:</label><select id="from">${ACCOUNTS.map(x=>`<option value="${x.id}" ${x.id===a?'selected':''}>${esc(x.email)}</option>`).join('')}</select></div><div class="field"><label for="subject">제목:</label><input id="subject" value="${esc(draft?.subject||'')}"></div><textarea class="compose-body" id="body" aria-label="메일 내용">${esc(draft?.body??'\n\n나의 iPhone에서 보냄')}</textarea><div class="compose-error" id="compose-error" role="alert"></div><div class="draft-actions"><button type="button" id="save-draft">임시 저장</button><button type="button" id="discard">작성 취소</button></div></form></section>`;$('compose').hidden=false;$('app').inert=true;fitComposeBody();$('body').addEventListener('input',fitComposeBody);$('to').focus();$('close-compose').onclick=saveDraft;$('save-draft').onclick=saveDraft;$('discard').onclick=closeCompose;$('send-mail').onclick=sendMail;$('compose-form').onsubmit=e=>{e.preventDefault();sendMail()}}
+function fitComposeBody(){const body=$('body');if(!body||$('compose').hidden)return;body.style.height='auto';body.style.height=Math.max(220,body.scrollHeight+2)+'px'}
+window.addEventListener('resize',fitComposeBody);
+function fields(){return {account:$('from').value,to:$('to').value.trim(),subject:$('subject').value.trim(),body:$('body').value,replyKey:mails.find(m=>m.id===draftId)?.replyKey}}
+function closeCompose(){$('compose').hidden=true;$('app').inert=false;if(composeReturnFocus?.isConnected)composeReturnFocus.focus();draftId=null}
+function stamp(){const d=new Date();return {date:d.toISOString(),timeLabel:d.toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false}),dateLabel:d.toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})}}
+function uid(){return 'mail-'+Date.now()+'-'+Math.random().toString(36).slice(2,9)}
+function storyStamp(reply=false){return reply?{date:'2026-12-24T22:00:00+09:00',timeLabel:'2026. 12. 24.',dateLabel:'2026년 12월 24일 오후 10:00'}:{date:'2026-12-20T04:00:00+09:00',timeLabel:'2026. 12. 20.',dateLabel:'2026년 12월 20일 오전 4:00'}}
+function outgoing(f,folder){const a=ACCOUNTS.find(x=>x.id===f.account);return {...f,id:draftId||uid(),folder,fromName:a.name,from:a.email,unread:false,...(folder==='sent'&&f.replyKey?storyStamp():folder==='drafts'&&f.replyKey?((old)=>({date:old.date,timeLabel:old.timeLabel,dateLabel:old.dateLabel}))(mails.find(m=>m.id===draftId)):stamp())}}
+function saveDraft(){const f=fields(),m=outgoing(f,'drafts');mails=mails.filter(x=>x.id!==m.id);mails.unshift(m);persist();closeCompose();render($('scroll').scrollTop);notify('임시 저장되었습니다')}
+function sendMail(){if(!$('to').checkValidity()){$('compose-error').textContent='받는 사람의 메일 주소를 확인해 주세요.';$('to').focus();return}const f=fields(),m={...outgoing(f,'sent'),arrivalOrder:nextMailOrder()};mails=mails.filter(x=>x.id!==m.id);mails.unshift(m);const receiver=ACCOUNTS.find(a=>a.email.toLowerCase()===m.to.toLowerCase());if(receiver)mails.unshift({...m,id:uid(),account:receiver.id,folder:'inbox',unread:true});queueReplies(m);persist();closeCompose();render($('scroll').scrollTop);notify('메일을 보냈습니다')}
+function matches(rule,m){return rule.enabled&&(!rule.replyKey||rule.replyKey===m.replyKey)&&(!rule.once||!used.includes(rule.id))&&(!rule.to||rule.to.toLowerCase()===m.to.toLowerCase())&&(!rule.subjectIncludes||m.subject.includes(rule.subjectIncludes))&&(!rule.bodyIncludes||m.body.includes(rule.bodyIncludes))}
+function queueReplies(m){for(const r of AUTO_REPLY_RULES.filter(r=>matches(r,m))){used.push(r.id);const replyTimer=setTimeout(()=>{replyTimers.delete(replyTimer);mails.unshift({id:uid(),account:m.account,folder:'inbox',from:m.to,fromName:r.fromName||m.to,to:m.from,arrivalOrder:nextMailOrder(),subject:r.subject||'Re: '+m.subject,body:r.body,...(r.replyKey?storyStamp(true):stamp()),unread:true});persist();if($('compose').hidden)render($('scroll').scrollTop);notify('새 메일이 도착했습니다')},Math.max(0,Number(r.delayMs)||0));replyTimers.add(replyTimer)}}
+let toastTimer;function notify(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,2500)}
+document.addEventListener('keydown',e=>{if(!$('compose').hidden){if(e.key==='Escape'){e.preventDefault();saveDraft()}if(e.key==='Tab'){const items=[...$('compose').querySelectorAll('button,input,select,textarea')],first=items[0],last=items.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}});
+// 내부 화면 이동은 history를 쌓지 않습니다. 브라우저 뒤로가기는 이전 HTML로 이동합니다.
+render();
+
+$('footer').addEventListener('click',e=>{if(e.target.closest('[data-footer-write]'))openCompose()});
+$('scroll').addEventListener('click',e=>{if(e.target.closest('[data-facebook]'))openFacebook()});
+const facebookMailId='facebook-temporary-password';let noticeTimer,noticeY=null,noticeSwiped=false,facebookLoggedIn=false;
+function facebookMail(){return {id:facebookMailId,account:'yh',folder:'inbox',fromName:'Facebook',from:'@facebook.korea.com',to:ACCOUNTS.find(a=>a.id==='yh').email,subject:'임시비밀번호 발급 안내',body:`안녕하세요, 강영현 님.\n\n요청하신 임시비밀번호를 안내해 드립니다.\n\n임시비밀번호: ${FACEBOOK.temporaryPassword}\n\n임시비밀번호는 발급일로부터 7일간 유효합니다. 로그인 후에는 반드시 새로운 비밀번호로 변경해 주세요.\n\n비밀번호 발급을 요청하신 적이 없다면 이 메일을 무시해 주세요.\n\n고맙습니다!\n페이스북 코리아 고객센터`,date:'2026-10-08T09:00:00+09:00',timeLabel:'2026. 10. 8.',dateLabel:'2026년 10월 8일 09:00',unread:true,priority:1,localFacebook:true,iconText:'f',color:'#1877f2'}}
+function hideMailNotice(){clearTimeout(noticeTimer);$('mail-notice').hidden=true}
+function arriveFacebookMail(){if(!mails.some(m=>m.id===facebookMailId)){mails.unshift(facebookMail());persist()}if($('compose').hidden&&$('fb-screen').hidden)render($('scroll').scrollTop);
+ const n=$('mail-notice');n.innerHTML=`<span class="notice-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span><span class="notice-copy"><strong>Facebook(@facebook.korea.com)</strong><span>임시비밀번호 발급 안내</span></span>`;n.hidden=false;noticeTimer=setTimeout(hideMailNotice,10000)}
+$('mail-notice').addEventListener('pointerdown',e=>{noticeY=e.clientY;noticeSwiped=false});
+$('mail-notice').addEventListener('pointermove',e=>{if(noticeY!==null&&noticeY-e.clientY>25){noticeSwiped=true;noticeY=null;hideMailNotice()}});
+$('mail-notice').addEventListener('pointerup',()=>{noticeY=null});
+$('mail-notice').addEventListener('pointercancel',()=>{noticeY=null});
+$('mail-notice').addEventListener('click',()=>{if(noticeSwiped)return;hideMailNotice();if(!$('compose').hidden)saveDraft();closeFacebook();boxScroll=0;listScroll=0;scope={account:'yh',folder:'inbox',title:'받은 편지함'};selected=facebookMailId;view='detail';mails.find(m=>m.id===selected).unread=false;persist();render()});
+function openFacebook(){hideMailNotice();$('app').inert=true;$('fb-screen').hidden=false;renderFacebook()}
+function closeFacebook(){$('fb-screen').hidden=true;$('fb-viewer').hidden=true;$('app').inert=false}
+function facebookCredentialsMatch(phone,password){return phone.replace(/[-\s]/g,'')===FACEBOOK.phone&&password===FACEBOOK.temporaryPassword}
+function renderFacebook(){const f=$('fb-screen');f.innerHTML=`<header class="fb-bar"><button class="circle back" id="fb-back" aria-label="메일로 돌아가기">${icon('back')}</button>${facebookLoggedIn?`<strong class="fb-nav-name">${esc(FACEBOOK.name)}</strong><div class="fb-nav-actions"><button disabled aria-label="편집">${fbIcon('edit')}</button><button disabled aria-label="검색">${fbIcon('search')}</button><button disabled aria-label="더 보기">${fbIcon('more')}</button></div>`:'<b>facebook</b>'}</header><div class="fb-scroll">${facebookLoggedIn?profileHTML():`<form class="fb-login" id="fb-login"><h1>facebook</h1><input id="fb-phone" type="tel" inputmode="tel" placeholder="휴대폰 번호" aria-label="휴대폰 번호" autocomplete="off" required><input id="fb-password" type="password" placeholder="비밀번호" aria-label="비밀번호" autocomplete="off" required><div class="fb-error" id="fb-error" role="alert"></div><button type="submit">로그인</button><p class="fb-caption">메일에 안내된 정보로 로그인해 주세요.</p></form>`}</div>`;$('fb-back').onclick=closeFacebook;if(!facebookLoggedIn)$('fb-login').onsubmit=e=>{e.preventDefault();if(facebookCredentialsMatch($('fb-phone').value,$('fb-password').value)){facebookLoggedIn=true;renderFacebook()}else $('fb-error').textContent='휴대폰 번호 또는 비밀번호를 확인해 주세요.'}}
+function fbIcon(name){const paths={edit:'<path d="m4 16-1 5 5-1L21 7l-4-4Z M14 6l4 4"/>',search:'<circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/>',more:'<circle cx="4" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="20" cy="12" r="1"/>',camera:'<path d="M3 7h5l2-3h4l2 3h5v14H3Z"/><circle cx="12" cy="14" r="4"/>',lock:'<rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/>',photo:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m3 18 6-6 4 4 4-5 4 5"/>',like:'<path d="M8 21H3V10h5m0 11h10l3-11h-7l1-6c0-2-3-2-3 0l-4 6Z"/>',comment:'<path d="M21 4H3v14h5l4 4v-4h9Z"/>',share:'<path d="m14 3 8 8-8 7v-5C7 13 4 15 2 20c0-9 4-12 12-12Z"/>'};return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]||''}</svg>`}
+function fbAvatar(name=FACEBOOK.name){return name===FACEBOOK.name?`<img src="${esc(FACEBOOK.avatar)}" alt="">`:name==='윤도운'?`<img src="${esc(FACEBOOK.dowoonAvatar)}" alt="">`:`<span>${esc(name.slice(0,1))}</span>`}
+function profileHTML(){return `<div class="fb-cover">${FACEBOOK.cover?`<img src="${esc(FACEBOOK.cover)}" alt="커버 사진">`:''}<button disabled class="fb-camera">${fbIcon('camera')}</button></div><div class="fb-profile"><div class="fb-avatar-wrap"><div class="fb-profile-avatar">${fbAvatar()}</div><button disabled class="fb-camera">${fbIcon('camera')}</button></div><h1>${esc(FACEBOOK.name)}</h1><div class="fb-profile-actions"><button disabled>⊕ 스토리에 추가</button><button disabled>${fbIcon('edit')}프로필 편집</button></div><div class="fb-lock"><span class="fb-lock-icon">${fbIcon('lock')}</span><div><b>프로필을 잠갔습니다</b><br><span class="blue">더 알아보기</span></div></div></div><div class="fb-tabs"><button disabled class="active">모두</button><button disabled>사진</button><button disabled>릴스</button></div><div class="fb-section"><div class="fb-section-heading"><b>친구</b><button disabled class="blue">모두 보기</button></div><h3>게시물</h3><div class="fb-composer"><div class="fb-mini-avatar">${fbAvatar()}</div><button disabled>상태 업데이트를 게시해보세요</button>${fbIcon('photo')}</div></div>${FACEBOOK.posts.map((p,i)=>`<article class="fb-post"><div class="fb-post-heading"><div class="fb-mini-avatar">${fbAvatar()}</div><div class="fb-post-head">${esc(FACEBOOK.name)}<small>${esc(p.date)} · ${fbIcon('lock')}</small></div><button class="fb-delete" disabled>삭제하기</button></div><p>${esc(p.text)}</p>${p.photos?.length?p.photos.map((src,j)=>`<img class="fb-photo" src="${esc(src)}" data-fb-photo="${i}:${j}" alt="강영현과 윤도운의 추억 사진">`).join(''):'<div class="fb-placeholder">함께 찍은 사진</div>'}<div class="fb-reactions"><span>👍 ${p.likes||0}</span><span>댓글 ${(p.comments||[]).length}개</span></div><div class="fb-post-actions"><button disabled>${fbIcon('like')}좋아요</button><button disabled>${fbIcon('comment')}댓글 달기</button><button disabled>${fbIcon('share')}공유하기</button></div><div class="fb-comments">${(p.comments||[]).map((c,j)=>`<div class="fb-comment"><div class="fb-mini-avatar">${fbAvatar(c.name)}</div><div class="fb-comment-main"><div class="fb-comment-bubble"><b>${esc(c.name)}</b><div>${esc(c.text)}</div></div><div class="fb-comment-meta"><span>${esc(c.date)}</span><button disabled>좋아요</button><button disabled>답글 달기</button><button disabled>삭제하기</button></div></div></div>`).join('')}</div></article>`).join('')}`}
+function refreshFacebookProfile(){const scroller=$('fb-screen').querySelector('.fb-scroll'),top=scroller.scrollTop;scroller.innerHTML=profileHTML();scroller.scrollTop=top}
+$('fb-screen').addEventListener('click',e=>{const photo=e.target.closest('[data-fb-photo]');if(!photo)return;const [i,j]=photo.dataset.fbPhoto.split(':').map(Number);$('fb-viewer').innerHTML=`<button class="circle" aria-label="사진 닫기">${icon('close')}</button><img src="${esc(FACEBOOK.posts[i].photos[j])}" alt="게시물 사진">`;$('fb-viewer').hidden=false});
+$('fb-viewer').addEventListener('click',()=>{$('fb-viewer').hidden=true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('fb-viewer').hidden)$('fb-viewer').hidden=true;else if(!$('fb-screen').hidden)closeFacebook();else hideMailNotice()}});
+// 같은 탭에서 새로고침/재방문할 때 알림 중복 방지. 메일은 저장된 채로 유지됩니다.
+// 처음부터 강영현 받은 편지함에 표시. 진입 알림은 사용하지 않습니다.
+if(!mails.some(m=>m.id===facebookMailId)){mails.unshift(facebookMail());persist()}
+render();
+
+</script></body></html>

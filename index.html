@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>윤도운의 iPhone</title>
+
+<link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+html,body{
+  margin:0!important;padding:0!important;
+  width:100%!important;height:100%!important;
+  overflow:hidden!important;background:#111!important;
+}
+#iphone-lock,#iphone-lock *{box-sizing:border-box}
+#iphone-lock{
+  position:fixed;inset:0;width:100%;height:100%;height:100dvh;
+  overflow:hidden;z-index:99999;color:#fff;
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;-webkit-user-select:none;
+  touch-action:none;isolation:isolate;
+}
+#iphone-lock button{
+  appearance:none;-webkit-appearance:none;
+  margin:0;padding:0;border:0;
+  font:inherit;color:inherit;cursor:pointer;
+  touch-action:manipulation;background:transparent;
+}
+#iphone-lock button:focus-visible{outline:2px solid #fff;outline-offset:5px}
+#iphone-lock [hidden]{display:none!important}
+
+.lock-wallpaper{
+  position:absolute;inset:0;z-index:0;
+  background:url("imges/backhs.JPG") center/cover no-repeat;
+}
+.disabled-shade{
+  position:absolute;inset:0;z-index:1;
+  background:rgba(0,0,0,.76);
+  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+  pointer-events:none;
+}
+#lock-design{
+  position:absolute;inset:0;width:100%;height:100%;z-index:99;
+  pointer-events:none;display:flex;flex-direction:column;
+  justify-content:space-between;
+}
+#iphone-lock.is-disabled .lock-date-time{opacity:.35}
+#iphone-lock.is-disabled .lock-camera-area{
+  visibility:hidden;pointer-events:none!important;
+}
+.lock-unlock{
+  position:absolute;
+  bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  left:50%;transform:translateX(-50%);z-index:100;
+  padding:12px 20px!important;
+  font-size:14px!important;font-weight:600!important;
+  white-space:nowrap;text-shadow:0 1px 5px rgba(0,0,0,.6);
+}
+.lock-home-indicator{
+  position:absolute;left:50%;
+  bottom:calc(8px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%);width:130px;height:5px;
+  border-radius:10px;background:#fff;pointer-events:none;z-index:102;
+}
+#iphone-lock.is-disabled .lock-home-indicator,
+#iphone-lock.is-camera .lock-home-indicator{display:none}
+
+/* 암호 입력 */
+.passcode-screen{
+  position:absolute;inset:0;z-index:101;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(16px,4dvh,34px);
+  padding:calc(24px + env(safe-area-inset-top,0px)) 24px
+    calc(32px + env(safe-area-inset-bottom,0px));
+  background:rgba(18,20,25,.66);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+}
+.passcode-heading{text-align:center;flex:none}
+.passcode-lock-icon{
+  display:block;width:25px;height:30px;margin:0 auto 16px;
+  fill:none;stroke:#fff;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.passcode-title{margin:0;font-size:23px;font-weight:600}
+.passcode-hint{
+  margin:10px 0 0;color:rgba(255,255,255,.88);
+  font-size:14px;line-height:1.5;
+}
+.passcode-dots{display:flex;justify-content:center;gap:22px;margin-top:24px}
+.passcode-dot{
+  width:13px;height:13px;border:1.5px solid #fff;
+  border-radius:50%;background:transparent;
+}
+.passcode-dot.filled{background:#fff}
+.passcode-status{min-height:20px;margin-top:12px;font-size:13px;line-height:20px}
+.passcode-keypad{
+  --key-size:min(76px,19vw,10.5dvh);
+  display:grid;grid-template-columns:repeat(3,var(--key-size));
+  gap:clamp(10px,2dvh,18px) clamp(22px,8vw,38px);flex:none;
+}
+#iphone-lock .passcode-key{
+  width:var(--key-size);height:var(--key-size);border-radius:50%;
+  background:rgba(255,255,255,.17);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:background .12s;
+}
+#iphone-lock .passcode-key:active{background:rgba(255,255,255,.4)}
+.key-number{font-size:clamp(27px,4.5dvh,36px);font-weight:400;line-height:1.05}
+.key-letters{
+  min-height:11px;margin-top:3px;font-size:9px;font-weight:600;
+  letter-spacing:2px;padding-left:2px;
+}
+.passcode-zero{grid-column:2}
+.passcode-actions{
+  display:flex;align-items:center;justify-content:space-between;
+  width:min(290px,100%);flex:none;
+}
+#iphone-lock .passcode-action{padding:12px;font-size:15px}
+.passcode-dots.shake{animation:passcode-shake .35s ease}
+
+/* 비활성화 */
+.disabled-screen{position:absolute;inset:0;z-index:110;color:#fff}
+.disabled-message{
+  position:absolute;top:49%;left:0;width:100%;
+  transform:translateY(-25%);padding:0 20px;text-align:center;
+}
+.disabled-title{
+  margin:0;font-size:clamp(29px,8vw,36px);
+  font-weight:400;line-height:1.3;letter-spacing:-.8px;word-break:keep-all;
+}
+.disabled-description{
+  margin:13px 0 0;font-size:clamp(16px,4.6vw,21px);
+  font-weight:400;line-height:1.5;letter-spacing:-.4px;word-break:keep-all;
+}
+.disabled-bottom{
+  position:absolute;left:0;right:0;
+  bottom:calc(48px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:0 clamp(22px,8vw,40px);
+}
+#iphone-lock .emergency-button{
+  flex:none;padding:10px 0;font-size:clamp(14px,4vw,17px);
+  font-weight:400;white-space:nowrap;
+}
+.forgot-passcode{
+  font-size:clamp(14px,4vw,17px);font-weight:400;
+  line-height:1.4;white-space:nowrap;cursor:default;
+}
+
+@keyframes passcode-shake{
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-9px)}
+  40%,80%{transform:translateX(9px)}
+}
+@media(max-height:600px){
+  .passcode-screen{gap:10px}
+  .passcode-lock-icon{margin-bottom:8px;height:23px}
+  .passcode-dots{margin-top:14px}
+  .passcode-status{margin-top:5px}
+  .disabled-bottom{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  .camera-top{height:calc(28px + env(safe-area-inset-top,0px))}
+  .camera-green-dot{top:calc(12px + env(safe-area-inset-top,0px))}
+  .camera-bottom{
+    padding-top:10px;
+    padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  }
+  .camera-dialogue{font-size:17px}
+}
+@media(max-width:360px){
+  .camera-bottom{padding-left:16px;padding-right:16px;gap:8px}
+  .camera-modes{font-size:12px}
+}
+
+/* 처음부터 표시되는 메시지 알림: 최신 메시지가 위 */
+.lock-notifications {
+  position:absolute;z-index:100;left:12px;right:12px;
+  top:max(260px,42%);display:flex;flex-direction:column;gap:9px;
+  pointer-events:none;
+}
+.lock-notification {
+  padding:15px 17px;border-radius:22px;
+  display:flex;align-items:center;gap:12px;
+  color:#111;background:rgba(245,245,247,.82);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 3px 14px rgba(0,0,0,.12);
+}
+.notification-icon {width:40px;height:40px;flex-shrink:0;border-radius:9px;background:#30d158;display:flex;align-items:center;justify-content:center;}
+.notification-icon svg {width:29px;height:29px;fill:#fff;stroke:none;display:block;}
+.notification-text {flex:1;min-width:0;}
+.notification-sender {font-size:15px;font-weight:650;line-height:1.4;margin-bottom:4px;}
+.notification-message {font-size:15px;font-weight:400;line-height:1.45;overflow-wrap:anywhere;}
+#iphone-lock #lock-camera {cursor:default;}
+@media(max-height:620px){
+  .lock-notifications{top:245px;gap:7px;}
+  .lock-notification{padding:11px 15px;}
+  .notification-message{font-size:14px;}
+}
+</style>
+<style>
+#iphone-lock[hidden], #emergency-app[hidden] { display:none!important; }
+
+#emergency-app, #emergency-app * {
+  box-sizing: border-box;
+}
+
+#emergency-app {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  z-index: 99999;
+  overflow: hidden;
+  background: #fff;
+  color: #000;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#emergency-app button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#emergency-app button:focus-visible {
+  outline: 2px solid #007aff;
+  outline-offset: 3px;
+}
+
+#emergency-app [hidden] {
+  display: none !important;
+}
+
+/* 상태바 */
+.em-statusbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: calc(38px + env(safe-area-inset-top, 0px));
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 22px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  background: #fff;
+  color: #111;
+  pointer-events: none;
+}
+
+.em-status-right {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.em-signal {
+  height: 11px;
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  margin-right: 2px;
+}
+
+.em-signal span {
+  display: block;
+  width: 3px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.em-lte {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.em-battery {
+  position: relative;
+  width: 27px;
+  height: 14px;
+  margin-left: 2px;
+  border-radius: 4px;
+  background: #c7c7cc;
+}
+
+.em-battery-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 95%;
+  border-radius: 4px;
+  background: #111;
+}
+
+.em-battery-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.5px;
+}
+
+.em-battery::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 5px;
+  width: 3px;
+  height: 4px;
+  border-radius: 0 2px 2px 0;
+  background: #8e8e93;
+}
+
+/* 긴급통화 다이얼 */
+.em-dial-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(38px + env(safe-area-inset-top, 0px))
+    24px
+    calc(24px + env(safe-area-inset-bottom, 0px));
+  background: #fff;
+}
+
+.em-dial-content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.em-number-area {
+  width: 100%;
+  height: clamp(74px, 15dvh, 125px);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.em-title {
+  margin: 0;
+  color: #ff3b30;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.em-number {
+  width: 100%;
+  text-align: center;
+  font-size: clamp(25px, 7.5vw, 34px);
+  font-weight: 400;
+  letter-spacing: -.7px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.em-number-area.has-number .em-title {
+  font-size: 14px;
+}
+
+.em-keypad {
+  --key-size: min(78px, 20vw, 9.8dvh);
+  display: grid;
+  grid-template-columns: repeat(3, var(--key-size));
+  gap: clamp(10px, 2.1dvh, 18px) clamp(20px, 6vw, 30px);
+  flex: none;
+}
+
+#emergency-app .em-key {
+  width: var(--key-size);
+  height: var(--key-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e5e5e5;
+}
+
+#emergency-app .em-key:active {
+  background: #ccc;
+}
+
+.em-key-number {
+  font-size: clamp(30px, 5dvh, 39px);
+  line-height: 1;
+  font-weight: 400;
+}
+
+.em-key-letters {
+  height: 12px;
+  margin-top: 2px;
+  padding-left: 2px;
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 12px;
+  letter-spacing: 2px;
+}
+
+.em-key-symbol {
+  font-size: 43px;
+  line-height: 1;
+}
+
+.em-key-plus {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0;
+  padding: 0;
+}
+
+#emergency-app .em-call {
+  grid-column: 2;
+  width: var(--key-size);
+  height: var(--key-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #188b35;
+}
+
+#emergency-app .em-call:active {
+  background: #11742a;
+}
+
+.em-call svg {
+  width: 34px;
+  height: 34px;
+  fill: #fff;
+}
+
+#emergency-app .em-delete {
+  grid-column: 3;
+  width: var(--key-size);
+  height: var(--key-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.em-delete svg {
+  width: 27px;
+  height: 22px;
+  fill: none;
+  stroke: #555;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.em-feedback {
+  min-height: 22px;
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 22px;
+  color: #ff3b30;
+}
+
+.em-bottom {
+  flex: none;
+  height: clamp(50px, 10dvh, 85px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: min(300px, 100%);
+  margin: 0 auto;
+}
+
+#emergency-app .em-medical-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 0;
+  color: #ff3b30;
+  font-size: 17px;
+}
+
+.em-medical-symbol {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#emergency-app .em-cancel {
+  padding: 12px 0;
+  font-size: 17px;
+  color: #111;
+}
+
+/* 의료정보 */
+.em-medical-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(38px + env(safe-area-inset-top, 0px));
+  background: #fff;
+}
+
+.em-medical-header {
+  position: relative;
+  flex: none;
+  min-height: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 55px;
+  border-bottom: 1px solid #e5e5ea;
+  background: #fff;
+}
+
+.em-medical-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  color: #ff3b30;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.em-medical-header h1 span {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.em-medical-updated {
+  min-height: 17px;
+  color: #8e8e93;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* 체크 버튼: 작게 조정 */
+#emergency-app .em-medical-done {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.em-medical-done-circle {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0095ff;
+}
+
+.em-medical-done svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.em-medical-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  background: #fff;
+}
+
+.em-medical-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.em-medical-profile {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 30px 26px;
+  background: #fff0f3;
+}
+
+.em-medical-name {
+  margin: 0 0 6px;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.em-medical-birthday,
+.em-medical-language {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.em-medical-photo {
+  display: block;
+  width: 88px;
+  height: 88px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #efefef;
+}
+
+.em-medical-body {
+  padding: 0 30px calc(30px + env(safe-area-inset-bottom, 0px));
+}
+
+.em-medical-section {
+  padding: 21px 0;
+}
+
+.em-medical-section + .em-medical-section {
+  border-top: 1px solid #d9d9de;
+}
+
+.em-section-title {
+  margin: 0 0 12px;
+  color: #ff3b30;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.em-contact + .em-contact {
+  margin-top: 19px;
+}
+
+.em-contact-relation {
+  margin-bottom: 5px;
+  color: #8e8e93;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.em-contact-name {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.em-contact-number,
+#emergency-app .em-contact-number-button {
+  display: block;
+  color: #008cff;
+  font-size: 18px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.em-medical-note {
+  margin: 22px 0 0;
+  color: #8e8e93;
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.em-note-more {
+  color: #008cff;
+}
+
+.em-extra-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 4px 0;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* 전달받은 통화 디자인 */
+#emergency-app .call-screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  color: white;
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  z-index: 30;
+}
+
+.call-status {
+  font-size: 18px;
+  color: #a0a0a0;
+  margin-bottom: 8px;
+  height: 22px;
+  font-weight: 400;
+}
+
+.caller-name-display {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -.5px;
+}
+
+.dialogue-box {
+  position: absolute;
+  bottom: 350px;
+  width: 85%;
+  text-align: center;
+  font-size: 19px;
+  line-height: 1.5;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  text-shadow: 0 1px 4px rgba(0,0,0,.6);
+}
+
+.call-controls {
+  position: absolute;
+  bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+  width: 100%;
+  max-width: 400px;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.control-btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #404040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-btn svg {
+  fill: white;
+  width: 30px;
+  height: 30px;
+}
+
+.control-text {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.btn-end {
+  background-color: #ff3b30;
+}
+
+#emergency-app .end-call-button:active {
+  opacity: .7;
+}
+
+@media (max-height: 620px) {
+  .em-number-area { height: 65px; }
+  .em-keypad {
+    --key-size: min(66px, 18vw, 9dvh);
+    row-gap: 9px;
+  }
+  .em-key-number { font-size: 28px; }
+  .em-key-letters {
+    font-size: 8px;
+    height: 10px;
+    line-height: 10px;
+  }
+  .em-bottom { height: 42px; }
+  .em-feedback { margin-top: 5px; }
+}
+
+@media (max-width: 350px) {
+  .call-controls { padding: 0 24px; gap: 16px; }
+  .control-btn { width: 64px; height: 64px; }
+}
+
+</style>
+<style>
+#em-calling-screen.live-call{position:fixed;inset:0;z-index:100;background:#1e1e1e;color:white;padding:calc(78px + env(safe-area-inset-top,0px)) 15px calc(24px + env(safe-area-inset-bottom,0px));display:block;text-align:center;width:100%;height:100%;height:100dvh;overflow:hidden}
+#em-calling-screen.live-call .call-top{display:flex;flex-direction:column;align-items:center;gap:7px}
+#em-calling-screen.live-call .live-status{font-size:18px;line-height:24px;font-weight:400;color:#a7a7a7;font-variant-numeric:tabular-nums}
+#em-calling-screen.live-call .live-name{font-size:clamp(29px,8vw,35px);font-weight:600;line-height:1.35;letter-spacing:-.7px;color:#fff;margin:0}
+#em-calling-screen.live-call .live-dialogue{position:absolute;left:3%;width:94%;bottom:calc(clamp(249px,39dvh,342px) + env(safe-area-inset-bottom,0px));text-align:center;transition:opacity .22s ease;color:#fff;min-height:82px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px}
+#em-calling-screen.live-call .live-speaker{color:#aeb1b7;font-size:13px;font-weight:550;letter-spacing:.2px;line-height:1.4}
+#em-calling-screen.live-call .live-phrase{display:inline-block;flex:none;width:max-content;max-width:none;white-space:nowrap;font-size:18px;line-height:1.5;font-weight:530;letter-spacing:-.55px;word-break:normal;overflow-wrap:normal}
+#em-calling-screen.live-call .live-controls{position:absolute;bottom:calc(clamp(25px,5dvh,67px) + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(100%,410px);padding:0 clamp(21px,6vw,38px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2.4dvh,22px) 10px;justify-items:center}
+#em-calling-screen.live-call .live-control-wrap{display:flex;align-items:center;flex-direction:column;gap:8px;min-width:0}
+#em-calling-screen.live-call .live-control{height:clamp(59px,17vw,72px);width:clamp(59px,17vw,72px);border-radius:50%;background:#464646;display:grid;place-items:center;color:#fff}
+#em-calling-screen.live-call .live-control svg{width:29px;height:29px;fill:#fff;stroke:none}
+#em-calling-screen.live-call .live-control svg.outline{stroke:white;fill:none;stroke-width:2}
+#em-calling-screen.live-call .live-control-label{color:#fff;font-size:12px;font-weight:430;white-space:nowrap;line-height:1.5}
+#em-calling-screen.live-call button.live-end{background:#FF3B30;cursor:pointer}
+#em-calling-screen.live-call button.live-end:active{background:#e52e28}
+#em-calling-screen.live-call .live-control-wrap:not(:has(button)){cursor:default}
+@media(max-height:690px){#em-calling-screen.live-call .live-dialogue{bottom:calc(227px + env(safe-area-inset-bottom,0px))}#em-calling-screen.live-call .live-controls{gap:10px 7px;bottom:calc(18px + env(safe-area-inset-bottom,0px))}#em-calling-screen.live-call .live-control{height:57px;width:57px}}
+@media(prefers-reduced-motion:reduce){.incoming-message{animation:none}#em-calling-screen.live-call .live-dialogue{transition:none}}
+
+
+#em-calling-screen {font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue",Arial,sans-serif;}
+#em-calling-screen .live-control svg{display:block;}
+</style>
+<style>
+.em-contact-number,.em-contact-number-button{-webkit-touch-callout:none}
+.em-contact-number a[x-apple-data-detectors],.em-contact-number-button a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;pointer-events:none!important}
+#iphone-lock .forgot-passcode{font-size:clamp(14px,4vw,17px);color:rgba(255,255,255,.8);padding:8px}
+</style></head>
+<body>
+
+<div id="iphone-lock">
+  <div class="lock-wallpaper" aria-hidden="true"></div>
+  <div class="disabled-shade" id="disabled-shade" hidden=""></div>
+
+  <div id="lock-design">
+    <div style="width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:12px 22px 0;color:#fff;font-size:14px;font-weight:600;">
+        <div style="display:flex;align-items:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));">
+          <span>DK</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));">
+          <div style="display:flex;align-items:flex-end;gap:1.5px;height:11px;margin-right:2px;">
+            <div style="width:3px;background:#fff;border-radius:1px;height:40%;"></div>
+            <div style="width:3px;background:#fff;border-radius:1px;height:60%;"></div>
+            <div style="width:3px;background:#fff;border-radius:1px;height:80%;"></div>
+            <div style="width:3px;background:#fff;border-radius:1px;height:100%;"></div>
+          </div>
+          <span style="font-size:11px;font-weight:700;letter-spacing:.5px;">LTE</span>
+          <div style="position:relative;width:27px;height:14px;background:rgba(255,255,255,.4);border-radius:4px;margin-left:2px;">
+            <div style="position:absolute;left:0;top:0;width:95%;height:100%;background:#fff;border-radius:4px;"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;line-height:1;color:#000;letter-spacing:-.5px;">95</div>
+            <div style="position:absolute;right:-3px;top:5px;width:3px;height:4px;background:rgba(255,255,255,.5);border-radius:0 2px 2px 0;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lock-date-time" style="text-align:center;color:#fff;padding-top:60px;pointer-events:auto;">
+        <div style="font-size:22px;font-weight:600;margin-bottom:-5px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));">11월 26일 (목)</div>
+        <div style="font-size:110px;font-weight:800;letter-spacing:-3px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));">08:25</div>
+      </div>
+    </div>
+
+    <div class="lock-camera-area" style="display:flex;justify-content:flex-end;padding:0 46px 46px;pointer-events:auto;">
+      <button type="button" id="lock-camera" aria-label="카메라" disabled tabindex="-1" style="width:50px;height:50px;border-radius:25px;background:rgba(240,240,240,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;">
+        <svg width="22" height="17" viewBox="0 0 24 19" fill="#2c2c2e" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 0A2.5 2.5 0 0 0 6.2 1.4L5.3 3H3a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2.3l-.9-1.6A2.5 2.5 0 0 0 15.5 0h-7zm3.5 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="lock-notifications" id="lock-notifications" hidden></div>
+
+  <button type="button" class="lock-unlock" id="lock-open">위로 쓸어올려서 열기</button>
+
+  <section class="passcode-screen" id="passcode-screen" role="dialog" aria-modal="true" aria-labelledby="passcode-title" hidden="">
+    <div class="passcode-heading">
+      <svg class="passcode-lock-icon" viewBox="0 0 24 28" aria-hidden="true">
+        <rect x="4" y="12" width="16" height="13" rx="3"></rect>
+        <path d="M7 12V8a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <h1 class="passcode-title" id="passcode-title">암호 입력</h1>
+      <p class="passcode-hint">생일</p>
+      
+      <div class="passcode-dots" id="passcode-dots" aria-label="암호 4자리 중 0자리 입력">
+        <span class="passcode-dot"></span><span class="passcode-dot"></span>
+        <span class="passcode-dot"></span><span class="passcode-dot"></span>
+      </div>
+      <div class="passcode-status" id="passcode-status" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="passcode-keypad">
+      <button type="button" class="passcode-key" data-digit="1" aria-label="1"><span class="key-number">1</span><span class="key-letters"></span></button>
+      <button type="button" class="passcode-key" data-digit="2" aria-label="2"><span class="key-number">2</span><span class="key-letters">ABC</span></button>
+      <button type="button" class="passcode-key" data-digit="3" aria-label="3"><span class="key-number">3</span><span class="key-letters">DEF</span></button>
+      <button type="button" class="passcode-key" data-digit="4" aria-label="4"><span class="key-number">4</span><span class="key-letters">GHI</span></button>
+      <button type="button" class="passcode-key" data-digit="5" aria-label="5"><span class="key-number">5</span><span class="key-letters">JKL</span></button>
+      <button type="button" class="passcode-key" data-digit="6" aria-label="6"><span class="key-number">6</span><span class="key-letters">MNO</span></button>
+      <button type="button" class="passcode-key" data-digit="7" aria-label="7"><span class="key-number">7</span><span class="key-letters">PQRS</span></button>
+      <button type="button" class="passcode-key" data-digit="8" aria-label="8"><span class="key-number">8</span><span class="key-letters">TUV</span></button>
+      <button type="button" class="passcode-key" data-digit="9" aria-label="9"><span class="key-number">9</span><span class="key-letters">WXYZ</span></button>
+      <button type="button" class="passcode-key passcode-zero" data-digit="0" aria-label="0"><span class="key-number">0</span></button>
+    </div>
+
+    <div class="passcode-actions">
+      <button type="button" class="passcode-action" id="passcode-cancel">취소</button>
+      <button type="button" class="passcode-action" id="passcode-delete">지우기</button>
+    </div>
+  </section>
+
+  <section class="disabled-screen" id="disabled-screen" role="alertdialog" aria-modal="true" aria-labelledby="disabled-title" aria-describedby="disabled-description" hidden="">
+    <div class="disabled-message">
+      <h2 class="disabled-title" id="disabled-title">윤도운(이)가<br>비활성화되었음</h2>
+      <p class="disabled-description" id="disabled-description">긴급통화를 시도하십시오.</p>
+    </div>
+    <div class="disabled-bottom">
+      <button type="button" class="emergency-button" id="lock-emergency">긴급통화</button>
+      <button type="button" class="forgot-passcode" id="forgot-passcode">암호를 잊어버렸습니까?</button>
+    </div>
+  </section>
+
+  <div class="lock-home-indicator" aria-hidden="true"></div>
+
+</div>
+
+<div id="emergency-app" hidden>
+  <!-- 상태바 -->
+  <div class="em-statusbar">
+    <span>DK</span>
+    <div class="em-status-right">
+      <div class="em-signal">
+        <span style="height:40%"></span>
+        <span style="height:60%"></span>
+        <span style="height:80%"></span>
+        <span style="height:100%"></span>
+      </div>
+      <span class="em-lte">LTE</span>
+      <div class="em-battery">
+        <div class="em-battery-fill"></div>
+        <div class="em-battery-number">95</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 긴급통화 다이얼 -->
+  <main class="em-dial-screen" id="em-dial-screen">
+    <div class="em-dial-content">
+      <div class="em-number-area" id="em-number-area">
+        <div class="em-number" id="em-number" hidden=""></div>
+        <h1 class="em-title">긴급통화</h1>
+      </div>
+
+      <div class="em-keypad">
+        <button type="button" class="em-key" data-key="1" aria-label="1">
+          <span class="em-key-number">1</span><span class="em-key-letters"></span>
+        </button>
+        <button type="button" class="em-key" data-key="2" aria-label="2">
+          <span class="em-key-number">2</span><span class="em-key-letters">ABC</span>
+        </button>
+        <button type="button" class="em-key" data-key="3" aria-label="3">
+          <span class="em-key-number">3</span><span class="em-key-letters">DEF</span>
+        </button>
+        <button type="button" class="em-key" data-key="4" aria-label="4">
+          <span class="em-key-number">4</span><span class="em-key-letters">GHI</span>
+        </button>
+        <button type="button" class="em-key" data-key="5" aria-label="5">
+          <span class="em-key-number">5</span><span class="em-key-letters">JKL</span>
+        </button>
+        <button type="button" class="em-key" data-key="6" aria-label="6">
+          <span class="em-key-number">6</span><span class="em-key-letters">MNO</span>
+        </button>
+        <button type="button" class="em-key" data-key="7" aria-label="7">
+          <span class="em-key-number">7</span><span class="em-key-letters">PQRS</span>
+        </button>
+        <button type="button" class="em-key" data-key="8" aria-label="8">
+          <span class="em-key-number">8</span><span class="em-key-letters">TUV</span>
+        </button>
+        <button type="button" class="em-key" data-key="9" aria-label="9">
+          <span class="em-key-number">9</span><span class="em-key-letters">WXYZ</span>
+        </button>
+        <button type="button" class="em-key" data-key="*" aria-label="별표">
+          <span class="em-key-symbol">＊</span>
+        </button>
+        <button type="button" class="em-key" data-key="0" aria-label="0">
+          <span class="em-key-number">0</span><span class="em-key-letters em-key-plus">+</span>
+        </button>
+        <button type="button" class="em-key" data-key="#" aria-label="우물정">
+          <span class="em-key-symbol">#</span>
+        </button>
+
+        <button type="button" class="em-call" id="em-call" aria-label="통화">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="em-delete" id="em-delete" aria-label="마지막 숫자 지우기" hidden="">
+          <svg viewBox="0 0 28 22" aria-hidden="true">
+            <path d="M10 3h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H10L2 11Z"></path>
+            <path d="m14 7 8 8m0-8-8 8"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="em-feedback" id="em-feedback" role="status" aria-live="polite"></div>
+    </div>
+
+    <footer class="em-bottom">
+      <button type="button" class="em-medical-button" id="em-medical-open">
+        <span class="em-medical-symbol" aria-hidden="true">✱</span>
+        <span>의료 정보</span>
+      </button>
+      <button type="button" class="em-cancel" id="em-cancel">취소</button>
+    </footer>
+  </main>
+
+  <!-- 의료정보 -->
+  <section class="em-medical-screen" id="em-medical-screen" aria-labelledby="em-medical-title" hidden="">
+    <header class="em-medical-header">
+      <h1 id="em-medical-title"><span aria-hidden="true">✱</span> 의료 정보</h1>
+      <div class="em-medical-updated" id="em-medical-updated"></div>
+
+      <button type="button" class="em-medical-done" id="em-medical-done" aria-label="의료정보 닫기">
+        <span class="em-medical-done-circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m5 12 5 6L20 5"></path>
+          </svg>
+        </span>
+      </button>
+    </header>
+
+    <div class="em-medical-scroll">
+      <div class="em-medical-profile">
+        <div>
+          <h2 class="em-medical-name">윤도운</h2>
+          <div class="em-medical-birthday">1995.08.25.</div>
+          <div class="em-medical-language">한국어</div>
+        </div>
+        <img class="em-medical-photo" src="imges/lockdw.jpg" alt="윤도운">
+      </div>
+
+      <div class="em-medical-body">
+        <section class="em-medical-section">
+          <h3 class="em-section-title">긴급 연락처</h3>
+
+          <div class="em-contact">
+            <div class="em-contact-relation">가족 구성원</div>
+            <div class="em-contact-name">엄마</div>
+            <span class="em-contact-number">010-&#8203;0000-&#8203;0000</span>
+          </div>
+
+          <div class="em-contact">
+            <div class="em-contact-relation">가족 구성원</div>
+            <div class="em-contact-name">아빠</div>
+            <span class="em-contact-number">010-&#8203;0000-&#8203;0000</span>
+          </div>
+
+         <div class="em-contact">
+            <div class="em-contact-relation">가족 구성원</div>
+            <div class="em-contact-name">누나</div>
+            <span class="em-contact-number">010-&#8203;0000-&#8203;0000</span>
+          </div>
+
+          <div class="em-contact">
+            <div class="em-contact-relation">가족 구성원</div>
+            <div class="em-contact-name">영현이 형</div>
+            <button type="button" class="em-contact-number-button" id="em-younghyun-call">
+              010-&#8203;1995-&#8203;0825
+            </button>
+          </div>
+
+          <p class="em-medical-note">
+            사용자가 긴급 구조 요청을 사용하여 긴급 서비스에 전화를 걸면,
+            긴급 연락처에 등록된 휴대 전화 번호로 사용자의 현재 위치가 포함된
+            메시지를 보냅니다.
+            <span class="em-note-more">긴급 구조 요청에 관하여 더 알아보기</span>
+          </p>
+        </section>
+
+        <section class="em-medical-section">
+          <h3 class="em-section-title">추가 정보</h3>
+          <div class="em-extra-row"><span>신장</span><span>177.5cm</span></div>
+          <div class="em-extra-row"><span>혈액형</span><span>O+</span></div>
+          <div class="em-extra-row"><span>시력</span><span>1.5 / 1.5</span></div>
+          <div class="em-extra-row"><span>별자리</span><span>처녀자리</span></div>
+          <div class="em-extra-row"><span>MBTI</span><span>다양함</span></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 통화 화면 -->
+  <section class="live-call" id="em-calling-screen" aria-label="영현이 형과 통화" hidden><div class="call-top"><span class="live-status" id="call-status">휴대전화 연결 중...</span><h2 class="live-name">영현이 형</h2></div><div class="live-dialogue" id="dialogue-box" aria-live="polite"><span class="live-speaker" id="live-speaker"></span><span class="live-phrase" id="live-phrase"></span></div><div class="live-controls"><div class="live-control-wrap"><div class="live-control" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Zm4.5 7c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02ZM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77Z"/></svg></div><span class="live-control-label">스피커</span></div><div class="live-control-wrap"><div class="live-control" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4Z"/></svg></div><span class="live-control-label">FaceTime</span></div><div class="live-control-wrap"><div class="live-control" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 2.99-1.34 2.99-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3Zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7Z"/></svg></div><span class="live-control-label">소리 끔</span></div><div class="live-control-wrap"><div class="live-control" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/></svg></div><span class="live-control-label">더 보기</span></div><div class="live-control-wrap"><button type="button" class="live-control live-end" id="em-end-call" aria-label="통화 종료"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9Z"/></svg></button><span class="live-control-label">종료</span></div><div class="live-control-wrap"><div class="live-control" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div><span class="live-control-label">키패드</span></div></div></section>
+</div>
+
+
+<script>
+(function () {
+  // 정상 잠금 해제 시 이동할 페이지입니다. 긴급통화 화면은 이 파일에 포함되어 있습니다.
+  const settings = {
+    password: '1219',
+    nextUrl: './home.html',
+    maxFailures: 1
+  };
+  try {
+    localStorage.removeItem('characterTime_virtualStart');
+    localStorage.removeItem('characterTime_realStart');
+  } catch (_) {}
+
+  const app = document.getElementById('iphone-lock');
+  const design = document.getElementById('lock-design');
+  const openButton = document.getElementById('lock-open');
+  const screen = document.getElementById('passcode-screen');
+  const dotsBox = document.getElementById('passcode-dots');
+  const dots = dotsBox.querySelectorAll('.passcode-dot');
+  const status = document.getElementById('passcode-status');
+  const disabledScreen = document.getElementById('disabled-screen');
+  const shade = document.getElementById('disabled-shade');
+  const emergency = document.getElementById('lock-emergency');
+  const notifications = document.getElementById('lock-notifications');
+  let failures = 0, disabled = false, entered = '', busy = false;
+  let resetTimer, swipeStart = null;
+
+  function renderDots() {
+    dots.forEach((dot,i) => dot.classList.toggle('filled',i < entered.length));
+    dotsBox.setAttribute('aria-label','암호 4자리 중 '+entered.length+'자리 입력');
+  }
+  function resetInput() {
+    clearTimeout(resetTimer);
+    entered = ''; busy = false; status.textContent = '';
+    dotsBox.classList.remove('shake'); renderDots();
+  }
+  function showLock() {
+    resetInput(); screen.hidden = true; disabledScreen.hidden = true;
+    shade.hidden = true; design.hidden = false; openButton.hidden = false;
+    notifications.hidden = true; app.classList.remove('is-disabled');
+  }
+  function resetPage(showEntryDisabled) {
+    document.dispatchEvent(new Event('emergency:reset'));
+    app.hidden = false;
+    failures = 0; disabled = false; swipeStart = null;
+    if(showEntryDisabled)showDisabled();else showLock();
+  }
+  function showDisabled() {
+    resetInput(); disabled = true; screen.hidden = true;
+    openButton.hidden = true; notifications.hidden = true;
+    design.hidden = false; shade.hidden = false; disabledScreen.hidden = false;
+    app.classList.add('is-disabled');
+  }
+  function openPasscode() {
+    if (disabled) { showDisabled(); return; }
+    if (!screen.hidden) return;
+    resetInput(); screen.hidden = false; design.hidden = true;
+    openButton.hidden = true; notifications.hidden = true;
+    screen.querySelector('[data-digit="1"]').focus({preventScroll:true});
+  }
+  function closePasscode() {
+    if (disabled) return;
+    showLock(); openButton.focus({preventScroll:true});
+  }
+  function addDigit(digit) {
+    if (screen.hidden || disabled || busy || entered.length >= 4) return;
+    status.textContent = ''; entered += digit; renderDots();
+    if (entered.length !== 4) return;
+    busy = true;
+    if (entered === settings.password) {
+      failures = 0; window.location.assign(settings.nextUrl); return;
+    }
+    failures++;
+    if (failures >= settings.maxFailures) { showDisabled(); return; }
+    status.textContent = '암호가 올바르지 않습니다.';
+    dotsBox.classList.remove('shake'); void dotsBox.offsetWidth;
+    dotsBox.classList.add('shake');
+    resetTimer = setTimeout(function () {
+      entered = ''; busy = false; dotsBox.classList.remove('shake'); renderDots();
+    },500);
+  }
+  function deleteDigit() {
+    if (busy || disabled) return;
+    entered = entered.slice(0,-1); status.textContent = ''; renderDots();
+  }
+  document.getElementById('forgot-passcode').addEventListener('click',function(){window.location.assign(settings.nextUrl);});
+  document.addEventListener('emergency:call-ended',function(){resetPage(false);});
+  openButton.addEventListener('click',openPasscode);
+  document.getElementById('passcode-cancel').addEventListener('click',closePasscode);
+  document.getElementById('passcode-delete').addEventListener('click',deleteDigit);
+  emergency.addEventListener('click',function () {
+    app.hidden = true;
+    document.dispatchEvent(new Event('emergency:open'));
+  });
+  document.addEventListener('emergency:close', function () {
+    app.hidden = false;
+    showDisabled();
+  });
+  screen.querySelectorAll('[data-digit]').forEach(function (button) {
+    button.addEventListener('click',function () { addDigit(button.dataset.digit); });
+  });
+  app.addEventListener('pointerdown',function (event) {
+    if (!screen.hidden || disabled || !event.isPrimary || event.target.closest('#lock-camera')) {
+      swipeStart = null; return;
+    }
+    swipeStart = {x:event.clientX,y:event.clientY};
+  });
+  app.addEventListener('pointerup',function (event) {
+    if (!swipeStart) return;
+    const up = swipeStart.y-event.clientY;
+    const across = Math.abs(swipeStart.x-event.clientX);
+    swipeStart = null;
+    if (screen.hidden && !disabled && up > 50 && up > across) openPasscode();
+  });
+  app.addEventListener('pointercancel',function () { swipeStart = null; });
+  document.addEventListener('keydown',function (event) {
+    if (app.hidden) return;
+    const dialog = !disabledScreen.hidden ? disabledScreen : !screen.hidden ? screen : null;
+    if (dialog && event.key === 'Tab') {
+      const buttons = Array.from(dialog.querySelectorAll('button:not([disabled])'));
+      const first = buttons[0], last = buttons[buttons.length-1];
+      const active = document.activeElement;
+      if (event.shiftKey && (active === first || !dialog.contains(active))) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && (active === last || !dialog.contains(active))) {
+        event.preventDefault(); first.focus();
+      }
+      return;
+    }
+    if (screen.hidden || disabled || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (/^[0-9]$/.test(event.key)) { event.preventDefault(); addDigit(event.key); }
+    else if (event.key === 'Backspace') { event.preventDefault(); deleteDigit(); }
+    else if (event.key === 'Escape') { event.preventDefault(); closePasscode(); }
+  });
+  // 새 탭의 첫 접속은 기존대로 비활성화, 재방문·뒤로가기·새로고침은 잠금화면.
+  const entryKey='dw_index_entered_v1';
+  let firstVisit=true;
+  try{firstVisit=sessionStorage.getItem(entryKey)!=='1';sessionStorage.setItem(entryKey,'1');sessionStorage.removeItem('dw_home_incoming_seen_v1');}catch(_){}
+  window.addEventListener('pageshow',function(event){
+    if(event.persisted){
+      try{sessionStorage.removeItem('dw_home_incoming_seen_v1');}catch(_){}
+      resetPage(false);
+    }
+  });
+  window.addEventListener('pagehide',function () { clearTimeout(resetTimer); });
+  resetPage(firstVisit);
+})();
+</script>
+<script>
+
+(function () {
+  const settings = {
+    allowedNumber: '01019931219'
+  };
+
+  const CALL_SCRIPT = [
+  {
+    "speaker": "강영현",
+    "text": "아 진짜 윤도운!",
+    "duration": 1695
+  },
+  {
+    "speaker": "윤도운",
+    "text": "아니 내 잘못이야?",
+    "duration": 1790
+  },
+  {
+    "speaker": "강영현",
+    "text": "네가 잘 봤어야지",
+    "duration": 1565
+  },
+  {
+    "speaker": "강영현",
+    "text": "양안 1.5의 눈으로 체크 했어야지",
+    "duration": 2325
+  },
+  {
+    "speaker": "윤도운",
+    "text": "형도 왼쪽 눈은 시력 좋다이가",
+    "duration": 2040
+  },
+  {
+    "speaker": "강영현",
+    "text": "아이, 됐고 너 폰 비번 뭐야?",
+    "duration": 2300
+  },
+  {
+    "speaker": "윤도운",
+    "text": "비번? 왜?",
+    "duration": 1635
+  },
+  {
+    "speaker": "강영현",
+    "text": "나 메일 보내야 될 거 있어서 좀 쓰게",
+    "duration": 2230
+  },
+  {
+    "speaker": "윤도운",
+    "text": "노트북 없어?",
+    "duration": 1600
+  },
+  {
+    "speaker": "강영현",
+    "text": "없어 빨리, 빨리, 빨리",
+    "duration": 2110
+  },
+  {
+    "speaker": "윤도운",
+    "text": "...생일인데",
+    "duration": 1695
+  },
+  {
+    "speaker": "강영현",
+    "text": "생일? 아까 해봤는데 안 되던데?",
+    "duration": 2490
+  },
+  {
+    "speaker": "윤도운",
+    "text": "내 생일 말고 형 생일이라고 1219",
+    "duration": 2325
+  },
+  {
+    "speaker": "강영현",
+    "text": "어?",
+    "duration": 1300
+  },
+  {
+    "speaker": "윤도운",
+    "text": "그, 내 배달 하나만 치고 형 폰 갖다줄게",
+    "duration": 2550
+  },
+  {
+    "speaker": "강영현",
+    "text": "어, 어...",
+    "duration": 1730
+  },
+  {
+    "speaker": "윤도운",
+    "text": "아직 밥 안 먹었지? 치킨 먹을래?",
+    "duration": 2490
+  },
+  {
+    "speaker": "강영현",
+    "text": "어엉",
+    "duration": 1300
+  },
+  {
+    "speaker": "윤도운",
+    "text": "알써 끊어",
+    "duration": 1300
+  }
+];
+
+  const app = document.getElementById('emergency-app');
+  const dialScreen = document.getElementById('em-dial-screen');
+  const medicalScreen = document.getElementById('em-medical-screen');
+  const callingScreen = document.getElementById('em-calling-screen');
+  const numberArea = document.getElementById('em-number-area');
+  const numberDisplay = document.getElementById('em-number');
+  const deleteButton = document.getElementById('em-delete');
+  const feedback = document.getElementById('em-feedback');
+  const medicalOpen = document.getElementById('em-medical-open');
+  const medicalDone = document.getElementById('em-medical-done');
+  const callButton = document.getElementById('em-call');
+  const younghyunButton = document.getElementById('em-younghyun-call');
+  const callStatus = document.getElementById('call-status');
+  const dialogueBox = document.getElementById('dialogue-box');
+
+  let entered = '';
+  let currentView = 'dial';
+  let callOrigin = 'dial';
+  let connectTimer = null;
+  let callTimer = null;
+  let callSeconds = 0;
+  let dialogueTimer = null;
+  let activeLine = null;
+
+  function formatNumber(value) {
+    if (!/^\d+$/.test(value) || !value.startsWith('010')) return value;
+    if (value.length <= 3) return value;
+    if (value.length <= 7) {
+      return value.slice(0, 3) + '-' + value.slice(3);
+    }
+    return value.slice(0, 3) + '-' +
+      value.slice(3, 7) + '-' + value.slice(7);
+  }
+
+  function renderNumber() {
+    numberDisplay.textContent = formatNumber(entered);
+    numberDisplay.hidden = !entered;
+    deleteButton.hidden = !entered;
+    numberArea.classList.toggle('has-number', Boolean(entered));
+  }
+
+  function addKey(key) {
+    if (currentView !== 'dial' || entered.length >= 11) return;
+    entered += key;
+    feedback.textContent = '';
+    renderNumber();
+  }
+
+  function deleteKey() {
+    entered = entered.slice(0, -1);
+    feedback.textContent = '';
+    renderNumber();
+  }
+
+  function showView(view) {
+    currentView = view;
+    dialScreen.hidden = view !== 'dial';
+    medicalScreen.hidden = view !== 'medical';
+    callingScreen.hidden = view !== 'calling';
+  }
+
+  function stopCallTimers() {
+    clearTimeout(connectTimer);
+    clearInterval(callTimer);
+    clearTimeout(dialogueTimer);
+    dialogueTimer = null;
+    activeLine = null;
+    connectTimer = null;
+    callTimer = null;
+  }
+
+  /* 페이지 이동 없이 통화 화면만 닫기 */
+  function closeCall() {
+    stopCallTimers();
+
+    if (currentView !== 'calling') return;
+
+    document.getElementById('live-speaker').textContent = '';
+    document.getElementById('live-phrase').textContent = '';
+    dialogueBox.style.opacity = '0';
+    showView('dial');
+    app.hidden=true;
+    document.dispatchEvent(new Event('emergency:call-ended'));
+  }
+
+  function startCall(number) {
+    if (currentView === 'calling') return;
+    if (!number) return;
+
+    if (number !== settings.allowedNumber) {
+      feedback.textContent = '연결할 수 없는 번호입니다.';
+      return;
+    }
+
+    stopCallTimers();
+    feedback.textContent = '';
+    callOrigin = currentView;
+    callSeconds = 0;
+
+    callStatus.textContent = '휴대전화 연결 중...';
+    document.getElementById('live-speaker').textContent = '';
+    document.getElementById('live-phrase').textContent = '';
+    dialogueBox.style.opacity = '0';
+    showView('calling');
+
+    connectTimer = setTimeout(function () {
+      if (currentView !== 'calling') return;
+      callStatus.textContent = '00:00';
+      dialogueBox.style.opacity = '1';
+      showNextLine(0);
+      callTimer = setInterval(function () {
+        callSeconds++;
+        callStatus.textContent = String(Math.floor(callSeconds / 60)).padStart(2, '0') + ':' + String(callSeconds % 60).padStart(2, '0');
+      }, 1000);
+    }, 850);
+  }
+
+  function showCallLine(line) {
+    activeLine = line;
+    document.getElementById('live-speaker').textContent = line.speaker;
+    const phrase = document.getElementById('live-phrase');
+    phrase.textContent = line.text;
+    const allowedWidth = Math.max(120, phrase.parentElement.clientWidth - 6);
+    let size = 18;
+    phrase.style.fontSize = size + 'px';
+    while (phrase.getBoundingClientRect().width > allowedWidth && size > 10) {
+      size -= 0.25;
+      phrase.style.fontSize = size + 'px';
+    }
+  }
+  function showNextLine(index) {
+    if (currentView !== 'calling') return;
+    if (index >= CALL_SCRIPT.length) {
+      closeCall();
+      return;
+    }
+    const line = CALL_SCRIPT[index];
+    showCallLine(line);
+    dialogueTimer = setTimeout(function () { showNextLine(index + 1); }, line.duration);
+  }
+  window.addEventListener('resize', function () {
+    if (currentView === 'calling' && activeLine) showCallLine(activeLine);
+  });
+
+  /* 접속 날짜 표시: 서버 Date 헤더 우선, 기기 날짜는 대체용 */
+  function displayAccessDate(date) {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).formatToParts(date);
+
+    function getPart(type) {
+      return parts.find(function (part) {
+        return part.type === type;
+      }).value;
+    }
+
+    document.getElementById('em-medical-updated').textContent =
+      getPart('year') + '. ' +
+      getPart('month') + '. ' +
+      getPart('day') + '.에 업데이트됨';
+  }
+
+  async function updateAccessDate() {
+    displayAccessDate(new Date());
+
+    const controller = new AbortController();
+    const timeout = setTimeout(function () {
+      controller.abort();
+    }, 5000);
+
+    try {
+      const url = new URL(window.location.href);
+      url.hash = '';
+
+      const response = await fetch(url.href, {
+        method: 'HEAD',
+        cache: 'no-store',
+        credentials: 'same-origin',
+        signal: controller.signal
+      });
+
+      const serverDate = response.headers.get('Date');
+
+      if (response.ok && serverDate) {
+        const parsedDate = new Date(serverDate);
+        if (!Number.isNaN(parsedDate.getTime())) {
+          displayAccessDate(parsedDate);
+        }
+      }
+    } catch (error) {
+      /* 서버 날짜를 읽지 못하면 위에서 표시한 기기 날짜 유지 */
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  app.querySelectorAll('[data-key]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      addKey(button.dataset.key);
+    });
+  });
+
+  deleteButton.addEventListener('click', deleteKey);
+
+  callButton.addEventListener('click', function () {
+    startCall(entered);
+  });
+
+  younghyunButton.addEventListener('click', function () {
+    startCall(settings.allowedNumber);
+  });
+
+  medicalOpen.addEventListener('click', function () {
+    showView('medical');
+  });
+
+  medicalDone.addEventListener('click', function () {
+    showView('dial');
+  });
+
+  document.getElementById('em-end-call')
+    .addEventListener('click', closeCall);
+
+  document.getElementById('em-cancel')
+    .addEventListener('click', function () {
+      resetEmergency();
+      document.dispatchEvent(new Event('emergency:close'));
+    });
+
+  document.addEventListener('keydown', function (event) {
+    if (app.hidden || event.ctrlKey || event.metaKey || event.altKey) return;
+
+    if (currentView === 'calling') {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeCall();
+      }
+      return;
+    }
+
+    if (currentView === 'medical') {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        showView('dial');
+      }
+      return;
+    }
+
+    if (/^[0-9*#]$/.test(event.key)) {
+      event.preventDefault();
+      addKey(event.key);
+    } else if (event.key === 'Backspace') {
+      event.preventDefault();
+      deleteKey();
+    } else if (
+      event.key === 'Enter' &&
+      !event.target.closest('button, a, input, textarea, select')
+    ) {
+      event.preventDefault();
+      startCall(entered);
+    }
+  });
+
+  window.addEventListener('pagehide', function () {
+    stopCallTimers();
+  });
+
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted) updateAccessDate();
+  });
+
+  function resetEmergency() {
+    stopCallTimers();
+    entered = '';
+    feedback.textContent = '';
+    document.getElementById('live-speaker').textContent = '';
+    document.getElementById('live-phrase').textContent = '';
+    dialogueBox.style.opacity = '0';
+    renderNumber();
+    showView('dial');
+    app.hidden = true;
+  }
+  document.addEventListener('emergency:reset', resetEmergency);
+  document.addEventListener('emergency:open', function () {
+    resetEmergency();
+    app.hidden = false;
+    app.querySelector('[data-key="1"]').focus({preventScroll:true});
+    updateAccessDate();
+  });
+  renderNumber();
+  showView('dial');
+  updateAccessDate();
+})();
+
+</script>
+</body>
+</html>

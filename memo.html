@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="format-detection" content="telephone=no">
+<title>강영현의 iPhone</title>
+<style>
+:root {
+  --bg: #f2f2f7;
+  --paper: #fff;
+  --ink: #161616;
+  --muted: #8e8e93;
+  --line: #e5e5ea;
+  --gold: #b98500;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+}
+body, input, textarea, button {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", Arial, sans-serif;
+  color: var(--ink);
+  font-size: 17px;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+svg {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+#app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+}
+header {
+  flex: none;
+  padding: calc(8px + env(safe-area-inset-top)) 18px 8px;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--paper);
+}
+.actions { display: flex; gap: 12px; align-items: center; }
+.textbtn { color: var(--gold); min-height: 44px; padding: 0 9px; font-size: 17px; pointer-events: none; }
+.back {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 44px;
+  color: var(--gold);
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.back svg { width: 22px; }
+main {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 24px 30px;
+  scrollbar-width: none;
+}
+main::-webkit-scrollbar { display: none; }
+footer {
+  flex: none;
+  background: var(--paper);
+  padding: 10px 20px calc(12px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 75px;
+}
+.date {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 14px 0 28px;
+}
+.readonly-body {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+s { text-decoration: line-through; }
+.spacer { flex: 1; }
+.tool {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 44px;
+  color: var(--gold);
+  pointer-events: none;
+}
+.tool svg { width: 24px; height: 24px; }
+@media(min-width: 700px) {
+  main {
+    padding-left: max(28px, calc((100% - 760px) / 2));
+    padding-right: max(28px, calc((100% - 760px) / 2));
+  }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <button class="back">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4-8 8 8 8"/></svg>
+    </button>
+    <div class="actions">
+      <button class="textbtn">완료</button>
+    </div>
+  </header>
+  <main id="main">
+    <div class="date">2026년 9월 22일 화요일 (수정됨)</div>
+    <div class="readonly-body"><s>忍 짜증남</s>
+귀여움
+<s>忍 지가 귀여운걸 아는게 짱남</s>
+귀여움
+<s>忍 나랑 보기로 한 영화 딴놈이랑 봄</s>
+하....
+<s>忍 내공연보러안오고과팅감</s>
+하겐다즈 사옴</div>
+  </main>
+  <footer id="bottom">
+    <div class="spacer"></div>
+    <button class="tool" aria-label="새 메모">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7M10 14l1-5L20 0l4 4-9 9-5 1Z" transform="translate(0 1) scale(.9)"/></svg>
+    </button>
+  </footer>
+</div>
+<script>
+function viewport() {
+  if (window.visualViewport) {
+    document.getElementById('app').style.height = visualViewport.height + 'px';
+    document.getElementById('app').style.top = visualViewport.offsetTop + 'px';
+  }
+}
+window.visualViewport?.addEventListener('resize', viewport);
+window.visualViewport?.addEventListener('scroll', viewport);
+viewport();
+</script>
+</body>
+</html>

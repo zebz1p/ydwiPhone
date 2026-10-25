@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#F2F2F7">
+<title>윤도운의 iPhone</title>
+<style>
+:root{--blue:#007AFF;--blue-soft:#EAF3FF;--ink:#101114;--muted:#8E8E93;--divider:#E5E5EA;--bg:#F2F2F7;--red:#FF3B30;--white:#FFFFFF}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg)}body,button,input{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Helvetica Neue",Arial,sans-serif;color:var(--ink)}button{border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;font:inherit}button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}button:active{opacity:.78}svg{display:block;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#app{width:100%;height:100%;height:100dvh;position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}.shell{max-width:540px;width:100%;margin:0 auto}.top-wrap{flex:none;background:#fff;border-bottom:1px solid var(--divider)}
+.head-main{height:107px;padding:3px 20px 15px}.head-line{display:flex;align-items:center;justify-content:space-between;height:43px}.text-control{color:var(--blue);font-size:16px;padding:8px 3px;font-weight:450}.segmented{display:flex;background:#F0F0F3;padding:3px;border-radius:10px;gap:2px;min-width:158px}.segmented button{font-size:13px;font-weight:630;padding:7px 13px;border-radius:8px;flex:1;color:#67686e}.segmented button.on{color:#101114;background:#fff;box-shadow:0 1px 2px #10111415}.header-large{font-size:33px;letter-spacing:-1.5px;line-height:44px;font-weight:770;margin:8px 0 0}.subhead{height:55px;padding:4px 19px 12px;display:flex;align-items:center;justify-content:space-between}.back-button{display:flex;align-items:center;gap:3px;color:var(--blue);font-size:16px;font-weight:470;min-height:39px;max-width:75%}.back-button svg{height:22px;width:22px;stroke-width:2.3;flex:none}.subhead-title{font-size:16px;font-weight:670;letter-spacing:-.3px;position:absolute;left:50%;transform:translateX(-50%);pointer-events:none}.subhead-right{height:39px;width:43px;display:grid;place-items:center;color:var(--blue)}.subhead-right svg{width:20px;height:20px}
+#content{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#fff;scrollbar-width:none}#content::-webkit-scrollbar{display:none}.call-list{padding:0 0 9px;background:#fff}.call-row{width:100%;display:flex;align-items:center;text-align:left;gap:13px;padding:0 20px;min-height:73px;background:#fff}.call-row:active{background:#F5F7FA}.avatar{width:45px;height:45px;flex:none;display:grid;place-items:center;background:#E8F2FF;border-radius:50%;color:#1762BC;font-size:16px;font-weight:620;letter-spacing:-1px}.avatar.dw{background:#DDEBFF;color:#0761CD}.avatar.company{background:#E9EEF7;color:#4D719D}.avatar.family{background:#EDF3FC;color:#4C77B2}.call-row-body{border-bottom:1px solid var(--divider);height:73px;flex:1;min-width:0;display:flex;justify-content:space-between;gap:6px;align-items:center}.call-row:last-child .call-row-body{border-bottom:0}.call-name{font-size:16.5px;letter-spacing:-.4px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5}.call-name.missed{color:var(--red)}.call-caption{font-size:12px;color:#929398;margin-top:3px;display:flex;align-items:center;gap:4px;white-space:nowrap}.call-caption svg{width:13px;height:13px;stroke-width:2}.call-row-right{display:flex;align-items:center;gap:9px;flex:none;min-width:0}.call-date{font-size:13px;color:#8E8E93;white-space:nowrap;letter-spacing:-.3px}.delete-circle{width:26px;height:26px;color:#FF3B30;display:grid;place-items:center;flex:none}.delete-circle svg{width:22px;height:22px}.empty{padding:60px 25px;text-align:center;color:#9898a0;font-size:14px;line-height:1.7}.empty h3{color:#3b3b40;font-weight:680;margin:0 0 9px;font-size:18px}
+.footer{flex:none;height:calc(76px + env(safe-area-inset-bottom,0px));background:#F9F9FB;border-top:1px solid #e3e3e8;padding:8px 13px calc(7px + env(safe-area-inset-bottom,0px));display:block}.footer .shell{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));height:100%}.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#92949a;font-size:10px;line-height:13px;font-weight:500;border-radius:12px}.tab svg{width:25px;height:25px;stroke-width:1.8}.tab.active{color:var(--blue);font-weight:650}.tab:active{background:#eaf1fa}.record-detail{background:#F2F2F7;min-height:100%;padding-bottom:30px}.detail-hero{background:var(--bg);padding:24px 20px 17px;text-align:center}.big-avatar{width:92px;height:92px;border-radius:50%;background:#e1edfc;display:grid;place-items:center;font-size:35px;font-weight:610;letter-spacing:-2px;color:#2271c9;margin:0 auto 16px}.big-avatar.company{background:#e7edf5;color:#52729e}.big-avatar.family{background:#e8f0fa;color:#537fb8}.big-avatar.dw{background:#dceafe;color:#0a66cf}.detail-name{font-size:27px;line-height:1.35;letter-spacing:-1.2px;font-weight:710;overflow-wrap:anywhere}.detail-label{font-size:13px;color:#8f919a;margin-top:5px}.detail-actions{display:flex;gap:11px;justify-content:center;margin:23px auto 4px;max-width:375px}.detail-action{flex:1;min-width:0;background:#fff;border-radius:17px;min-height:76px;padding:11px 3px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--blue);font-size:11px;font-weight:500}.detail-action svg{width:23px;height:23px;stroke-width:1.85}.detail-action:active{background:#E7F0FD}.detail-section{padding:7px 19px 0}.section-title{font-size:13px;font-weight:650;color:#696c72;letter-spacing:-.2px;margin:15px 0 9px 4px}.rounded-card{background:#fff;border-radius:14px;overflow:hidden}.detail-record{display:flex;align-items:center;padding:16px 17px;gap:11px;min-height:75px;border-bottom:1px solid #eeeef1}.detail-record:last-child{border-bottom:none}.record-icon{width:35px;height:35px;border-radius:11px;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;flex:none}.record-icon.missed{background:#fff0ef;color:var(--red)}.record-icon svg{width:18px;height:18px;stroke-width:2}.record-center{flex:1;min-width:0}.record-direction{font-size:14px;font-weight:620}.record-timestamp{color:#8b8d94;font-size:12px;margin-top:6px;letter-spacing:-.1px}.record-duration{font-size:12px;color:#6f7278;text-align:right;white-space:nowrap}.detail-data{padding:17px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}.detail-data b{font-size:14px;font-weight:590}.detail-data span{font-size:13px;color:#868993;white-space:nowrap}.note-small{text-align:center;font-size:11px;color:#989aa2;margin:18px auto 0;line-height:1.7;padding:0 20px}.contacts{background:#fff;padding-bottom:20px}.contacts-alphabet{padding:17px 20px 8px;color:#8e8e93;font-size:12px;font-weight:700}.contact-row{padding:15px 20px;border-bottom:1px solid #ededf0;display:flex;gap:12px;align-items:center;text-align:left;width:100%}.contact-row .avatar{height:39px;width:39px;font-size:14px}.contact-row b{font-size:16px;letter-spacing:-.3px;font-weight:590}.keypad-page{min-height:100%;background:#fff;display:flex;align-items:center;flex-direction:column;padding:34px 12px 25px}.dial-display{width:100%;max-width:320px;min-height:56px;text-align:center;font-size:27px;font-weight:490;letter-spacing:1px;word-break:break-all}.dial-grid{display:grid;grid-template-columns:repeat(3,80px);gap:15px 26px;margin-top:8px}.dial-key{width:78px;height:78px;border-radius:50%;background:#F0F0F3;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:30px;font-weight:400;line-height:31px}.dial-key span{font-size:9px;letter-spacing:1.7px;line-height:12px;color:#65666b}.dial-key:active{background:#dae9fd}.dial-tools{display:flex;align-items:center;justify-content:center;gap:43px;margin:24px auto 0}.dial-call{width:68px;height:68px;background:#34C759;color:#fff;border-radius:50%;display:grid;place-items:center}.dial-call svg{width:27px;height:27px;fill:#fff;stroke:#fff}.dial-back{width:39px;height:39px;color:#8D8F94;display:grid;place-items:center}.dial-back svg{width:26px;height:26px}.dial-placeholder{width:39px;height:39px}.call-overlay[hidden]{display:none!important}.dialog-note[hidden]{display:none!important}.call-overlay{position:absolute;inset:0;background:#1C2840;color:#fff;z-index:99;display:flex;flex-direction:column;text-align:center;align-items:center;padding:calc(112px + env(safe-area-inset-top,0px)) 20px calc(54px + env(safe-area-inset-bottom,0px))}.call-overlay h2{color:#fff;font-size:29px;font-weight:650;margin:22px 0 8px;letter-spacing:-.8px}.call-overlay p{font-size:15px;color:#cfd9ee}.call-overlay .big-avatar{background:#fff2;color:#fff;margin-top:20px}.end-call{background:#FF453A;color:#fff;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;margin-top:auto}.end-call svg{width:30px;height:30px;transform:rotate(135deg);stroke:#fff;stroke-width:2.4}.dialog-note{position:absolute;bottom:calc(94px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);max-width:90%;background:#343741;color:#fff;border-radius:12px;padding:11px 17px;font-size:12px;z-index:80;white-space:nowrap;box-shadow:0 4px 15px #0002}
+@media(max-width:345px){.head-main{padding-inline:15px}.call-row{padding-inline:13px;gap:10px}.avatar{height:40px;width:40px;font-size:15px}.call-name{font-size:15px}.call-date{font-size:12px}.call-row-right{gap:4px}.dial-grid{grid-template-columns:repeat(3,71px);gap:10px 22px}.dial-key{width:71px;height:71px}}@media(min-width:700px){.top-wrap .shell,.footer .shell{max-width:540px}#content{max-width:540px;width:100%;margin:0 auto;border-left:1px solid #e9e9ef;border-right:1px solid #e9e9ef}.top-wrap{border-bottom:0}.top-wrap .shell{border-left:1px solid #eee;border-right:1px solid #eee}.footer{display:flex;justify-content:center}.footer .shell{display:grid;grid-template-columns:repeat(3,1fr)}}
+
+/* 화면 가득 사용하며, 상단/하단 고정 · 본문만 스크롤 */
+html,body,#app{width:100%;max-width:100%;height:100%;height:100dvh;overflow:hidden}
+.top-wrap{padding-top:env(safe-area-inset-top,0px)}
+.shell{width:100%;max-width:680px;margin:0 auto}
+#content{width:100%;height:100%;min-height:0;flex:1;overscroll-behavior:contain;overflow-x:hidden;overflow-y:auto}
+.call-list{width:100%;max-width:680px;margin:0 auto;padding-top:3px;padding-bottom:32px}
+.record-detail{width:100%;max-width:680px;margin:0 auto}
+.head-main{height:113px;padding:8px 20px 14px}
+.header-large{font-size:34px}
+.back-button{padding:9px 3px;font-weight:560}
+.muted-control{font-size:16px;color:#A1A1A7;cursor:default;user-select:none}
+.call-caption{gap:0}
+.call-row{gap:12px;min-width:0}
+.call-row-body{min-width:0}
+.call-row-right{gap:8px}
+
+.detail-action:disabled{opacity:1;cursor:default}
+.detail-action:disabled:active{background:#fff}
+.footer .tab:disabled{opacity:1;cursor:default}
+.footer .tab:disabled:active{background:transparent}
+.call-overlay[hidden],.dialog-note[hidden]{display:none!important}
+@media(max-width:350px){.call-row{padding-left:13px;padding-right:13px;gap:10px}.avatar{width:40px;height:40px}.call-name{font-size:15px}.call-date{font-size:12px}.call-row-right{gap:4px}.head-main{padding-left:16px;padding-right:16px}}
+
+/* index 잠금화면의 메시지 알림 디자인을 닮은 두 장의 연속 알림 */
+#incoming-messages[hidden]{display:none!important}
+#incoming-messages{position:fixed;z-index:70;left:12px;right:12px;top:calc(67px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none}
+.incoming-message{width:min(100%,520px);min-height:73px;padding:13px 16px;border-radius:21px;display:flex;align-items:center;gap:12px;color:#111;background:#F5F5F7;box-shadow:0 4px 16px rgba(27,36,49,.15);border:1px solid #e6e6e9;animation:incoming-rise .32s cubic-bezier(.22,.78,.2,1) both}
+.incoming-message .incoming-icon{height:40px;width:40px;flex:none;border-radius:10px;background:#30D158;display:grid;place-items:center;color:#fff}
+.incoming-message .incoming-icon svg{width:29px;height:29px;fill:#fff;stroke:none}
+.incoming-copy{min-width:0;flex:1}.incoming-sender{font-size:15px;font-weight:670;line-height:1.4;margin-bottom:3px}.incoming-text{font-size:15px;font-weight:400;line-height:1.45;overflow-wrap:anywhere}
+@keyframes incoming-rise{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.call-row.is-static{cursor:default;user-select:none}.call-row.is-static:active{background:#fff;opacity:1}.call-row.is-static .call-row-right{padding-right:4px}
+.call-row:not(.is-static){cursor:pointer}.call-row:not(.is-static):active{background:#f4f8fd}
+/* 어두운 아이폰 통화 진행 화면 - 오버레이 내의 별도 레이아웃 */
+#call-overlay.live-call{position:fixed;inset:0;z-index:100;background:#1e1e1e;color:white;padding:calc(78px + env(safe-area-inset-top,0px)) 15px calc(24px + env(safe-area-inset-bottom,0px));display:block;text-align:center;width:100%;height:100%;height:100dvh;overflow:hidden}
+.live-call .call-top{display:flex;flex-direction:column;align-items:center;gap:7px}
+.live-call .live-status{font-size:18px;line-height:24px;font-weight:400;color:#a7a7a7;font-variant-numeric:tabular-nums}
+.live-call .live-name{font-size:clamp(29px,8vw,35px);font-weight:600;line-height:1.35;letter-spacing:-.7px;color:#fff;margin:0}
+.live-call .live-dialogue{position:absolute;left:3%;width:94%;bottom:calc(clamp(249px,39dvh,342px) + env(safe-area-inset-bottom,0px));text-align:center;transition:opacity .22s ease;color:#fff;min-height:82px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px}
+.live-call .live-speaker{color:#aeb1b7;font-size:13px;font-weight:550;letter-spacing:.2px;line-height:1.4}
+.live-call .live-phrase{display:inline-block;flex:none;width:max-content;max-width:none;white-space:nowrap;font-size:18px;line-height:1.5;font-weight:530;letter-spacing:-.55px;word-break:normal;overflow-wrap:normal}
+.live-call .live-controls{position:absolute;bottom:calc(clamp(25px,5dvh,67px) + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);width:min(100%,410px);padding:0 clamp(21px,6vw,38px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2.4dvh,22px) 10px;justify-items:center}
+.live-call .live-control-wrap{display:flex;align-items:center;flex-direction:column;gap:8px;min-width:0}
+.live-call .live-control{height:clamp(59px,17vw,72px);width:clamp(59px,17vw,72px);border-radius:50%;background:#464646;display:grid;place-items:center;color:#fff}
+.live-call .live-control svg{width:29px;height:29px;fill:#fff;stroke:none}
+.live-call .live-control svg.outline{stroke:white;fill:none;stroke-width:2}
+.live-call .live-control-label{color:#fff;font-size:12px;font-weight:430;white-space:nowrap;line-height:1.5}
+.live-call button.live-end{background:#FF3B30;cursor:pointer}
+.live-call button.live-end:active{background:#e52e28}
+.live-call .live-control-wrap:not(:has(button)){cursor:default}
+@media(max-height:690px){.live-call .live-dialogue{bottom:calc(227px + env(safe-area-inset-bottom,0px))}.live-call .live-controls{gap:10px 7px;bottom:calc(18px + env(safe-area-inset-bottom,0px))}.live-call .live-control{height:57px;width:57px}}
+@media(prefers-reduced-motion:reduce){.incoming-message{animation:none}.live-call .live-dialogue{transition:none}}
+
+/* ─────────────────────────────────────────────────────────────
+   DBS / 메시지 앱과 동일한 전체 화면 반응형 레이아웃
+   고정된 540px · 680px 페이지 프레임을 해제합니다.
+   상단과 하단은 브라우저 전체 너비, 본문 콘텐츠만 가운데 정렬.
+   기존 목록·문자 알림·통화 시뮬레이션에는 영향을 주지 않습니다.
+   ───────────────────────────────────────────────────────────── */
+#app, .top-wrap, #content, .footer {
+  width: 100%;
+  max-width: none;
+}
+.top-wrap { border-bottom: 1px solid var(--divider); }
+.top-wrap .shell, .footer .shell {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-left: 0;
+  border-right: 0;
+}
+#content {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-left: 0;
+  border-right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.call-list, .record-detail {
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer {
+  display: block;
+  flex-shrink: 0;
+}
+.footer .shell {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (min-width: 700px) {
+  .top-wrap .shell, .footer .shell { max-width: none; }
+  #content { width: 100%; max-width: none; margin: 0; border: 0; }
+  .footer { display: block; }
+}
+
+/* 윤도운 통화 정보 안에서만 열리는 독립적인 iMessage 스타일의 과거 문자 내역 */
+.sms-chat-head{height:107px;padding:7px 17px 10px;display:grid;grid-template-columns:1fr minmax(0,3fr) 1fr;align-items:center}
+.sms-chat-back{color:var(--blue);width:42px;height:42px;display:grid;place-items:center;justify-self:start}
+.sms-chat-back svg{width:27px;height:27px;stroke-width:2.3}
+.sms-chat-contact{justify-self:center;min-width:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sms-chat-avatar{width:44px;height:44px;border-radius:50%;background:#D1D1D6;color:white;display:grid;place-items:center}
+.sms-chat-avatar svg{width:27px;height:27px;fill:white;stroke:none}
+.sms-chat-name{font-size:15px;font-weight:500;white-space:nowrap;letter-spacing:-.25px}
+.sms-chat-video{width:39px;height:39px;justify-self:end;display:grid;place-items:center;color:#626268}
+.sms-chat-video svg{width:26px;height:26px;stroke-width:1.8}
+.sms-chat-content{width:100%;max-width:680px;min-height:100%;margin:0 auto;padding:16px 16px 22px;display:flex;flex-direction:column;gap:6px;background:#fff}
+.sms-secure{text-align:center;font-size:11px;line-height:1.5;color:#9a9ba1;padding:4px 0 8px}
+.sms-secure svg{width:12px;height:12px;display:inline-block;vertical-align:-2px}
+.sms-chat-date{font-size:11px;font-weight:650;color:#a0a0a6;text-align:center;margin:16px 0 11px}
+.sms-chat-row{display:flex;width:100%;align-items:flex-end}
+.sms-chat-row.sent{justify-content:flex-end}
+.sms-chat-row.received{justify-content:flex-start}
+.sms-chat-bubble{max-width:min(79%,390px);border-radius:18px;padding:10px 14px;font-size:15px;line-height:1.47;white-space:pre-wrap;overflow-wrap:anywhere;word-break:keep-all}
+.sms-chat-row.received .sms-chat-bubble{background:#e9e9eb;color:#111;border-bottom-left-radius:5px}
+.sms-chat-row.sent .sms-chat-bubble{background:#007aff;color:#fff;border-bottom-right-radius:5px}
+.footer.sms-footer{height:calc(54px + env(safe-area-inset-bottom,0px));background:#fafafa;padding:0;border-top:1px solid #e8e8ed}
+.footer.sms-footer .shell{display:flex;align-items:center;gap:10px;padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px));height:100%;max-width:none}
+.sms-compose-plus{width:27px;flex:none;color:#96969c;display:grid;place-items:center}
+.sms-compose-plus svg{width:22px;height:22px;stroke-width:1.75}
+.sms-compose-field{height:38px;min-width:0;flex:1;border:1px solid #dcdce2;border-radius:22px;padding:0 13px;display:flex;align-items:center;background:white;color:#bcbcc2;font-size:16px}
+.sms-compose-mic{width:29px;flex:none;color:#94949a;display:grid;place-items:center}
+.sms-compose-mic svg{width:22px;height:22px;stroke-width:2}
+@media(min-width:700px){.footer.sms-footer .shell{padding-left:max(16px,calc((100% - 680px)/2));padding-right:max(16px,calc((100% - 680px)/2))}}
+@media(max-width:345px){.sms-chat-content{padding-left:13px;padding-right:13px}.sms-chat-bubble{max-width:86%;font-size:14px}.footer.sms-footer .shell{padding-left:11px;padding-right:11px;gap:7px}}
+</style><style>
+/* 참고 사진의 통화·음성 메시지 화면 */
+button:disabled{opacity:1;cursor:default}button:disabled:active{opacity:1}
+.top-wrap{background:#fff}.phone-head{height:76px;padding:10px 16px;display:grid;grid-template-columns:72px 1fr 72px;align-items:center;gap:8px}.phone-head h1{font-size:20px;text-align:center;margin:0;font-weight:650}.pill-control{height:44px;padding:0 16px;border:1px solid #e5e5e7;border-radius:24px;font-size:18px;display:grid;place-items:center}.menu-control{width:44px;padding:0;justify-self:end}.pill-control svg{width:24px;height:24px}
+.avatar,.big-avatar{background:linear-gradient(#a7c3e3,#797ebb)!important;color:white!important;letter-spacing:0;font-weight:600}.avatar{width:44px;height:44px;font-size:23px}.avatar svg{width:37px;height:37px;fill:white;stroke:none}.big-avatar{font-size:38px}.call-row{padding:0 16px;gap:8px;min-height:74px}.call-row-body{height:74px;gap:8px}.call-name{font-size:16px;font-weight:600}.call-caption{font-size:14px;margin-top:0;gap:3px}.call-date{font-size:13px}.call-phone{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#f3f3f5;color:#008aff;flex:none}.call-phone svg{width:19px;height:19px;fill:currentColor;stroke:none}.call-row-right{gap:9px}.call-row.is-static .call-row-right{padding:0}.call-list{padding-top:0}.call-caption svg{width:13px;height:13px}
+.footer{height:calc(82px + env(safe-area-inset-bottom,0px));background:#fff;padding:8px 16px calc(8px + env(safe-area-inset-bottom,0px))}.footer .shell{display:flex!important;gap:10px}.tabs-pill{border:1px solid #e5e5e7;border-radius:38px;padding:3px;display:flex;flex:1}.tabs-pill .tab{flex:1;color:#101114;font-size:10px;gap:3px;border-radius:30px}.tabs-pill .tab.active{color:#008aff;background:#f0f0f1}.tab svg{width:26px;height:26px}.footer-search{width:62px;border:1px solid #e5e5e7;border-radius:50%;display:grid;place-items:center;flex:none}.footer-search svg{width:27px;height:27px}.footer[hidden]{display:none}
+.vm-list{max-width:680px;margin:auto}.deleted-label{display:flex;justify-content:space-between;align-items:center;padding:22px 19px;font-size:16px;border-bottom:1px solid #e5e5ea}.deleted-label span{color:#8e8e93}.vm-row{width:100%;padding:16px;text-align:left;border-bottom:1px solid #e5e5ea;display:block}.vm-row-top{display:flex;gap:10px;align-items:center}.vm-copy{min-width:0;flex:1}.vm-name{font-size:16px;font-weight:600}.vm-date{font-size:12px;color:#8e8e93;margin-top:3px}.vm-preview{font-size:15px;line-height:1.5;margin:12px 0 0 54px;color:#303036}.vm-top{height:72px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}.vm-top>button{color:#007aff;padding:8px}.vm-top svg{width:24px;height:24px}.vm-top .avatar{width:46px;height:46px}.vm-detail{padding:8px 22px 40px;max-width:680px;margin:auto}.vm-detail h1{text-align:center;margin:4px 0 10px;font-size:27px}.vm-subtitle{text-align:center;font-size:13px;color:#8e8e93;margin-bottom:32px}.vm-timeline{display:flex;align-items:center;gap:10px;font-size:12px;color:#8e8e93;white-space:nowrap}.vm-timeline input{min-width:0;flex:1;accent-color:#8e8e93;height:22px}.vm-controls{display:flex;justify-content:space-between;align-items:center;padding:18px 0 28px;color:#007aff}.vm-controls svg{width:23px;height:23px}.vm-playback{display:flex;gap:22px;align-items:center}.vm-playback button{width:34px;height:36px;display:grid;place-items:center}.vm-playback .play svg{width:28px;height:28px;fill:currentColor;stroke:none}.vm-transcript{border-top:1px solid #e5e5ea;padding-top:22px}.vm-transcript h2{font-size:18px;margin:0 0 18px}.vm-transcript h2 span{font-size:12px;color:#8e8e93;font-weight:400;margin-left:7px}.vm-transcript p{font-size:16px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.record-detail .detail-hero{padding-top:28px}.record-detail .detail-name{margin:10px 0}.record-detail .detail-actions{margin-bottom:22px}
+@media(max-width:350px){.call-row{padding:0 12px}.call-name{font-size:14px}.call-date{font-size:12px}.call-phone{width:32px;height:32px}.avatar{width:40px;height:40px}.call-row-right{gap:5px}}
+</style><style>
+.call-caption svg{stroke-width:1.35}
+.menu-control.menu-active{color:#008aff}
+.deleted-label{width:100%;text-align:left;background:#fff}
+.vm-copy{display:flex;align-items:center;gap:8px;min-width:0}.vm-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}.vm-date{flex:none;font-size:12px;margin:0;white-space:nowrap}
+.vm-preview{margin:6px 0 0 54px;font-size:14px;line-height:1.5}.vm-main-label{display:block;color:#8e8e93;font-size:13px;margin-bottom:3px}.vm-preview p{margin:0;white-space:pre-wrap}
+.avatar{overflow:hidden}.avatar svg{width:100%;height:100%}.vm-detail h1{font-size:17px;font-weight:600;margin:0 0 9px}.vm-top{padding-bottom:4px}.vm-detail{padding-top:0}.vm-transcript h2{font-size:15px;font-weight:600;margin-bottom:14px}.vm-transcript h2 span{font-size:13px;font-weight:400}.vm-transcript p{font-size:15px;line-height:1.65}
+.vm-timeline input{--played:0%;appearance:none;-webkit-appearance:none;background:transparent;outline:none;height:24px;cursor:pointer;margin:0}
+.vm-timeline input::-webkit-slider-runnable-track{height:4px;border-radius:3px;background:linear-gradient(to right,#646469 0 var(--played),#dedee2 var(--played) 100%)}
+.vm-timeline input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:8px;height:8px;margin-top:-2px;border-radius:50%;background:#646469}
+.vm-timeline input::-moz-range-track{height:4px;border-radius:3px;background:#dedee2}.vm-timeline input::-moz-range-progress{height:4px;border-radius:3px;background:#646469}.vm-timeline input::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:#646469}
+@media(max-width:360px){.vm-row{padding:14px 12px}.vm-row-top{gap:7px}.vm-name{font-size:13px}.vm-date{font-size:10px}.vm-preview{margin-left:47px}}
+</style><style>
+/* 첨부 사진 비율에 맞춘 상단바와 음성 메시지 텍스트 */
+.phone-head{height:62px;padding:9px 16px;grid-template-columns:64px 1fr 64px;gap:6px}
+.phone-head h1{font-size:17px;line-height:1.2;font-weight:600;white-space:nowrap}
+.phone-head .pill-control{height:38px;font-size:15px;padding:0 13px;border-radius:22px}
+.phone-head .menu-control{width:38px;padding:0}.phone-head .pill-control svg{width:20px;height:20px}
+.deleted-head{position:relative;grid-template-columns:1fr auto 1fr}.deleted-head .deleted-back{justify-self:start}.deleted-head .clear-all{justify-self:end;font-size:15px;white-space:nowrap;padding:0 15px}
+.vm-row{padding-top:13px;padding-bottom:13px}.vm-row-top{position:relative;align-items:flex-start;min-height:44px}.vm-row-top>.avatar{align-self:center}.vm-row-top>.call-phone{align-self:center}.vm-copy{padding-top:1px;gap:7px}.vm-name{font-size:15px;line-height:20px;font-weight:600}.vm-date{font-size:12px;line-height:20px}
+.vm-preview{display:flex;align-items:baseline;gap:5px;margin:-19px 46px 0 54px;font-size:14px;line-height:20px;position:relative;pointer-events:none;color:#8e8e93}
+.vm-main-label{display:inline-block;flex:none;background:#a1a1a5;border-radius:3px;padding:0 3px;color:white;font-size:11px;font-weight:500;line-height:15px;margin:0;white-space:nowrap}
+.vm-preview-text{min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.vm-top{height:auto;min-height:115px;display:grid;grid-template-columns:40px 1fr 40px;align-items:start;padding:10px 20px 0}
+.vm-top>.vm-back{padding:8px 0;justify-self:start}.vm-top>.call-phone{margin-top:4px;justify-self:end}
+.vm-identity{display:flex;flex-direction:column;align-items:center;gap:0}.vm-top .vm-identity .avatar{width:60px;height:60px;font-size:34px}
+.vm-contact-name{font-size:15px;font-weight:600;line-height:22px;padding:5px 12px;color:#111;white-space:nowrap}.vm-contact-name span{font-size:22px;line-height:18px;color:#999;vertical-align:-1px;margin-left:3px}
+.top-wrap:has(.vm-top){border-bottom:0}.vm-detail{padding:0 26px 40px}.vm-subtitle{font-size:13px;line-height:20px;margin:0 0 25px;text-align:center;color:#8e8e93}
+.vm-transcript{border-top:0;padding-top:9px}.vm-transcript h2{font-size:14px;line-height:20px;font-weight:400;color:#8e8e93;margin:0 0 5px}.vm-transcript h2 span{font:inherit;color:inherit;margin-left:0}.vm-transcript p{font-size:16px;line-height:1.6;font-weight:400;color:#111}
+@media(max-width:360px){.vm-name{font-size:13px}.vm-date{font-size:10px}.vm-preview{margin-left:47px;margin-right:40px;font-size:13px}.deleted-head .clear-all{padding:0 10px;font-size:14px}.phone-head{padding-inline:12px}}
+</style><style>
+[hidden]{display:none!important}.phone-head .menu-control.menu-active{color:white;background:#008aff;border:4px solid #fff;outline:1px solid #e5e5e7}.phone-head .menu-active svg{width:21px;height:21px}
+#phone-menu-layer{position:absolute;inset:62px 0 0;z-index:60}.menu-dismiss{position:absolute;inset:0;width:100%;height:100%;cursor:default}.phone-menu{position:absolute;top:2px;right:16px;width:230px;padding:9px 7px;border-radius:24px;background:#fff;box-shadow:0 8px 38px #0003;border:1px solid #ddd}.phone-menu>button{display:flex;align-items:center;gap:12px;width:100%;padding:14px 10px;text-align:left;font-size:17px}.phone-menu svg{width:23px;height:23px;flex:none}.menu-check{width:18px;flex:none;font-size:18px}
+.contact-detail{background:#fff;padding:0 16px 28px;max-width:680px;margin:auto}.contact-hero{text-align:center;padding:24px 0 18px}.contact-hero .big-avatar{width:150px;height:150px;font-size:70px;margin:0 auto 18px}.emergency-label{display:inline-block;padding:5px 11px;border-radius:18px;background:#ededf0;color:#555;font-size:12px;font-weight:600}.contact-hero h1{font-size:25px;margin:8px 0 23px;line-height:1.3}.contact-actions{display:flex;justify-content:center;gap:16px}.contact-actions button{width:54px;height:54px;border-radius:50%;background:#f1f1f3;display:grid;place-items:center;color:#111}.contact-actions svg{width:23px;height:23px}.contact-actions button:first-child svg,.contact-actions button:nth-child(2) svg{fill:currentColor;stroke:none}
+.contact-card{padding:16px;background:#f5f5f7;border-radius:22px;margin:12px 0;color:#111;font-size:15px}.contact-card-heading{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd;padding-bottom:13px;margin-bottom:13px}.contact-card-heading span{font-size:24px;line-height:18px}.contact-call-row{display:flex;justify-content:space-between;gap:8px;font-size:14px}.contact-secondary{color:#8e8e93;margin-top:5px;font-size:14px}.contact-small{font-size:13px;margin-bottom:5px}.recent-label{font-size:10px;background:#fff;color:#888;padding:1px 4px;border-radius:2px;margin-left:4px}.contact-number-text{font-size:16px}.contact-number{display:flex;justify-content:space-between;align-items:center}.contact-number svg{width:19px;height:19px;fill:currentColor;stroke:none}.contact-options{padding:0 16px}.contact-options button{display:block;width:100%;text-align:left;padding:17px 0;font-size:15px;color:#111}.contact-options button+button{border-top:1px solid #ddd}.block-contact{color:#ff3b30!important}
+#contact-dialog-layer{position:absolute;inset:0;z-index:100;background:#0006;display:flex;align-items:center;justify-content:center;padding:28px}.contact-dialog{width:100%;max-width:330px;padding:22px 14px 14px;border-radius:30px;background:#fafafa}.contact-dialog p{font-size:16px;line-height:1.5;margin:0 12px 22px}.dialog-actions{display:flex;gap:8px}.dialog-actions button{flex:1;background:#e6e6e8;border-radius:24px;padding:13px 5px;font-size:16px;font-weight:600}
+.direct-call{background:#222b36;padding:90px 24px 50px;color:white}.direct-call-name{font-size:28px;color:#fff}.direct-call-avatar{margin-top:40px}.direct-end{margin-top:auto;border-radius:50%;width:66px;height:66px;background:#ff453a;display:grid;place-items:center;color:#fff}.direct-end svg{width:29px;height:29px;fill:currentColor;stroke:none;transform:rotate(135deg)}
+</style><style>
+.phone-menu{width:202px;padding:7px 5px;border-radius:22px}.phone-menu>button{font-size:14px;gap:10px;padding:12px 9px;line-height:20px}.phone-menu svg{width:19px;height:19px;stroke-width:1.6}.menu-check{width:15px;font-size:16px}.top-wrap.contact-top{border-bottom:0}.contact-card-heading{border-bottom:0}.contact-options button+button{border-top:0}
+</style><style>.contact-history-entry{padding-top:13px;margin-top:6px}.missed-record{color:#ff3b30}</style><style>
+.contact-options button+button{border-top:1px solid #ddd}
+.call-list,.record-detail,.contact-detail,.vm-list,.vm-detail,.sms-chat-content{width:100%;max-width:none;margin-left:0;margin-right:0}
+.footer.sms-footer .shell{gap:10px}.sms-chat-contact .avatar{width:44px;height:44px;font-size:24px} .sms-chat-video:disabled{opacity:1;color:#626268}
+</style><style>
+/* 메시지: 연속 말풍선 마지막에만 자연스러운 곡선 꼬리 */
+.sms-chat-content{gap:3px}
+.sms-chat-row{padding-right:0;padding-left:0}
+.sms-chat-row .sms-chat-bubble{position:relative;border-radius:19px}
+.sms-chat-row.sent .sms-chat-bubble{border-bottom-right-radius:19px}
+.sms-chat-row.received .sms-chat-bubble{border-bottom-left-radius:19px}
+.sms-chat-row.sent.tail .sms-chat-bubble{border-bottom-right-radius:19px}
+.sms-chat-row.received.tail .sms-chat-bubble{border-bottom-left-radius:19px}
+.sms-tail{position:absolute;bottom:-7px;width:24px;height:21px;pointer-events:none;overflow:visible;stroke:none}
+.sms-chat-row.sent .sms-tail path{fill:#007aff;stroke:none}
+.sms-chat-row.received .sms-tail path{fill:#e9e9eb;stroke:none}
+.sms-chat-row.sent .sms-tail{right:7px;fill:#007aff}
+.sms-chat-row.received .sms-tail{left:7px;fill:#e9e9eb;transform:scaleX(-1)}
+.sms-chat-date{margin:19px 0 13px;font-weight:500}
+.contact-detail .contact-hero h1{font-size:27px}
+.sms-compose-field{display:block;color:#111;outline:0;font-size:16px;min-width:0}
+.sms-compose-field::placeholder{color:#bcbcc2;opacity:1}
+.sms-compose-field:focus{outline:none}
+.sms-compose-mic.sms-compose-send{border-radius:50%;width:29px;height:29px;color:#fff;background:#007aff}
+.sms-compose-mic.sms-compose-send svg{width:17px;height:17px;stroke-width:2.8}
+</style><style>
+/* 통화기록 상세 화면과 동일한 뒤로가기 버튼 크기 / 정렬 */
+.sms-chat-head .pill-control{height:38px;font-size:15px;padding:0 13px;border-radius:22px}
+.sms-chat-head .menu-control{width:38px;padding:0;justify-self:start}
+.sms-chat-head .pill-control svg{width:20px;height:20px}
+</style></head><body>
+<div id="app">
+  <div class="top-wrap"><div class="shell" id="app-header"></div></div>
+  <main id="content"></main>
+  <footer class="footer"><div class="shell" id="tabbar"></div></footer>
+  <div id="incoming-messages" aria-label="새 문자 메시지" aria-live="polite" hidden></div>
+  <div id="call-overlay" class="call-overlay" hidden></div>
+</div>
+<script>(()=>{
+'use strict';
+const CALLS=[{"id": 0, "name": "영현이 형", "day": "오늘", "direction": "발신 통화", "label": "휴대전화", "enabled": true}, {"id": 17, "name": "영현이 형", "day": "오늘", "direction": "부재중 전화", "label": "휴대전화", "enabled": true, "count": 10}, {"id": 18, "name": "영현이 형", "day": "오늘", "direction": "발신 통화", "label": "휴대전화", "enabled": true, "count": 2}, {"id": 1, "name": "성유찬(실음)", "day": "오늘", "direction": "수신 통화", "label": "휴대전화", "enabled": true}, {"id": 19, "name": "영현이 형", "day": "오늘", "time": "01:30", "direction": "부재중 전화", "label": "휴대전화", "enabled": true}, {"id": 2, "name": "최성원(경영)", "day": "어제", "direction": "수신 통화", "label": "휴대전화", "enabled": true}, {"id": 3, "name": "학과사무실", "day": "어제", "direction": "발신 통화", "label": "대한민국", "enabled": false}, {"id": 4, "name": "안도영(실음)", "day": "수요일", "direction": "수신 통화", "label": "휴대전화", "enabled": false}, {"id": 5, "name": "아빠", "day": "수요일", "direction": "발신 통화", "label": "휴대전화", "enabled": false}, {"id": 6, "name": "노랑통닭 사장님", "day": "수요일", "direction": "발신 통화", "label": "휴대전화", "enabled": false}, {"id": 7, "name": "유건이 형(경영)", "day": "수요일", "direction": "수신 통화", "label": "휴대전화", "enabled": false}, {"id": 8, "name": "DB손해보험", "day": "화요일", "direction": "발신 통화", "label": "대한민국", "enabled": false}, {"id": 9, "name": "DB손해보험", "day": "화요일", "direction": "부재중 전화", "label": "대한민국", "enabled": false}, {"id": 10, "name": "성진이 형", "day": "화요일", "direction": "발신 통화", "label": "휴대전화", "enabled": false}, {"id": 11, "name": "성유찬(실음)", "day": "화요일", "direction": "수신 통화", "label": "휴대전화", "enabled": true}, {"id": 12, "name": "고민재", "day": "화요일", "direction": "발신 통화", "label": "휴대전화", "enabled": false}, {"id": 13, "name": "원필이 형", "day": "월요일", "direction": "수신 통화", "label": "휴대전화", "enabled": false}, {"id": 14, "name": "서담 누나", "day": "월요일", "direction": "수신 통화", "label": "휴대전화", "enabled": false}, {"id": 15, "name": "엄마", "day": "월요일", "direction": "발신 통화", "label": "휴대전화", "enabled": false}, {"id": 16, "name": "도하", "day": "월요일", "direction": "수신 통화", "label": "휴대전화", "enabled": false}];
+const TRANSCRIPT="아 무겁다 좀. 똑바로 서봐. 아 씨 폰 어따 떨궜노. 내가 지짜 형때문에 되는 일이 없다. 뭘 봐. 방에 드가 자라 빨리. 너는? 나 뭐. 집에 가야지. 폰은. 몰라 누가 주우면 연락 주겠지. 자고 가. 내 내일 아침에 일찍 나가야 된다. 으으응. 귀여운 척 하지 말고. 귀여운 척 하는 거 아니고 귀여운 건데. 그래 그래 우리 영현이 귀엽지. 빨리 들가서 고마 디비 자세요. 너. 내 뭐. 너 오늘 나 데리러 안 오려고 했지. 왔잖아. 아니 안 오려고 했잖아. 어쨌든 간에 왔잖아. 야아. 왜. 너 이제 나 싫어? 뭐? 나 싫냐고 윤도운. 형은 진짜 양심도 없다 알제. 알지. 눈 예쁘게 뜨지 마. 그냥 본 건데. 빨 자라고. 나 형이랑 싸우기 싫어. 아 밀지마. 뭐고 놔라. 자고 가. 싫다고. 뭘 노려보노. 야. 왜. 너 웃긴다. 뭐가 또. 나만 양심 없어? 너는. 너는 고백도 안 하잖아. 쫄보. 겁쟁이. 찌질아. 왜 갑자기 시비야? 맨날 사람 간만 보고. .... 형 우나? 내가 왜 울어? 도운이 미쳤어? 아니 고개 숙이길, 아, 아니 씨, 뭔데, 왜. ....... 하. 비켜. 싫어? 싫고 말고가 문제가 아니고. 그럼 뭐가 문젠데. 후회할 짓 하지 마라. 도운아 나는 살면서 후회라는 걸 해본 적이 없는 사람이야. 웃기고 있네. 맨날천날 입만 열면 이게 문제야 저게 문제야 징징. 아 좀 사람이 분위기를 잡으면 맞출 줄도 좀 알아. 맞춰주기 싫어서 딴 소리하는 거 알면서 뭐라노. 맞춰줘. 맞춰주라. 응? 맞춰주라고 도운아아. ...형 내일 일나서 기억 안 나는 척 하면. 안 그래. 안 그런다고. 야 나 그리고 별로 안 취했. 응. 아 잠깐. 잠깐만. 아 잠깐. 으. 야 . 눈. 으응. 눈 감으라고 강영현. ..................내일 모르는 척 하면 안 돼 진짜. 응. ...또? 응. .......";
+// 녹음 파일을 받으면 이 경로에 지정하세요. 비어 있을 때 재생 컨트롤은 시간만 시뮬레이션합니다.
+const VOICEMAIL_AUDIO='';
+const DURATION=4226;
+const paths={phone:'<path d="M21 16.4v2.9A1.7 1.7 0 0 1 19.1 21a17.9 17.9 0 0 1-7.8-2.8A17.5 17.5 0 0 1 5.8 12.7 17.9 17.9 0 0 1 3 4.9 1.7 1.7 0 0 1 4.7 3h2.9a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.8.6 2.6a1.7 1.7 0 0 1-.4 1.8L8.2 10.2a14.2 14.2 0 0 0 5.6 5.6l1.3-1.3a1.7 1.7 0 0 1 1.8-.4c.8.3 1.7.5 2.6.6a1.7 1.7 0 0 1 1.5 1.7Z"/>',menu:'<path d="M3 6h18M6 12h12M9 18h6"/>',back:'<path d="m15 4-8 8 8 8"/>',search:'<circle cx="10" cy="10" r="7"/><path d="m15 15 7 7"/>',clock:'<circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M12 5v7H7" stroke="white"/>',person:'<circle cx="12" cy="7.5" r="4"/><path d="M3.4 18.5c.7-5.8 16.5-5.8 17.2 0a10.5 10.5 0 0 1-17.2 0Z"/>',contacts:'<circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><circle cx="12" cy="8" r="3.4" fill="white" stroke="none"/><path d="M4.6 17.8c.7-5.4 14.1-5.4 14.8 0a9.4 9.4 0 0 1-14.8 0Z" fill="white" stroke="none"/>',keypad:Array.from({length:9},(_,i)=>`<circle cx="${5+i%3*7}" cy="${5+Math.floor(i/3)*7}" r="2.5" fill="currentColor" stroke="none"/>`).join(''),share:'<path d="M8 9H4v12h16V9h-4M12 15V2m-4 4 4-4 4 4"/>',trash:'<path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/>',play:'<path d="m6 3 16 9-16 9Z"/>',pause:'<path d="M5 3h5v18H5zM14 3h5v18h-5z"/>',rewind:'<path d="m12 4-9 8 9 8Zm10 0-9 8 9 8Z" fill="currentColor" stroke="none"/>',forward:'<path d="m2 4 9 8-9 8Zm10 0 9 8-9 8Z" fill="currentColor" stroke="none"/>',message:'<path d="M21 11a9 8 0 0 1-9 8H8l-5 3 1-7A9 8 0 1 1 21 11Z"/>',video:'<rect x="2" y="6" width="13" height="12" rx="3"/><path d="m15 10 7-4v12l-7-4"/>'};
+const icon=n=>`<svg viewBox="0 0 24 24" aria-hidden="true">${paths[n]||''}</svg>`;
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const avatar=(name,big=false)=>`<span class="${big?'big-avatar':'avatar'}">${name.startsWith('+')?icon('person'):esc(name.slice(0,1))}</span>`;
+const phone=()=>`<span class="call-phone" aria-hidden="true">${icon('phone')}</span>`;
+const header=document.getElementById('app-header'),content=document.getElementById('content'),footer=document.querySelector('.footer'),tabs=document.getElementById('tabbar');
+let menuOpen=false;
+let page='recent',focusedId=null,seconds=0,playing=false,timer=null,lastTick=0;
+const audio=VOICEMAIL_AUDIO?new Audio(VOICEMAIL_AUDIO):null;
+const VMS=[['영현이 형','2026.11.26.','아 무겁다 좀.'],['+82 00-000-0000','2026.8.13.','아. 여기. 할맥도운대로. 점인데요. 아 네네   강영현씨'],['영현이 형','2026.3.17.','여보세요. 여보세요.... 도우나.']];
+function renderHeader(){if(page==='messages')return `<div class="sms-chat-head shell"><button class="pill-control menu-control deleted-back" data-action="back" aria-label="통화 정보로 돌아가기">${icon('back')}</button><div class="sms-chat-contact">${avatar('영현이 형')}<span class="sms-chat-name">영현이 형</span></div><button class="sms-chat-video" disabled aria-label="FaceTime">${icon('video')}</button></div>`;if(page==='deleted')return `<div class="phone-head deleted-head"><button class="pill-control menu-control deleted-back" data-action="back" aria-label="음성 메시지로 돌아가기">${icon('back')}</button><h1>삭제됨</h1><button class="pill-control clear-all" disabled>모두 지우기</button></div>`;if(page==='voicemailDetail')return `<div class="vm-top"><button class="vm-back" data-action="back" aria-label="음성 메시지 목록으로">${icon('back')}</button><div class="vm-identity">${avatar('영현이 형')}<div class="vm-contact-name">영현이 형</div></div>${phone()}</div>`;if(page==='detail'||page==='missedDetail')return `<div class="phone-head deleted-head"><button class="pill-control menu-control deleted-back" data-action="back" aria-label="통화 목록으로">${icon('back')}</button><span></span><button class="pill-control clear-all" disabled>편집</button></div>`;return `<div class="phone-head"><button class="pill-control" disabled>편집</button><h1>${page==='deleted'?'삭제된 음성 메시지':page==='voicemail'?'음성 메시지':'통화'}</h1><button class="pill-control menu-control ${menuOpen?'menu-active':''}" data-action="toggle-menu" aria-expanded="${menuOpen}" aria-label="음성 메시지">${icon('menu')}</button></div>`;}
+function renderFooter(){return `<div class="tabs-pill">${[['통화','clock'],['연락처','contacts'],['키패드','keypad']].map(([label,key],i)=>`<button disabled class="tab ${i===0?'active':''}">${icon(key)}<span>${label}</span></button>`).join('')}</div><button disabled class="footer-search" aria-label="검색">${icon('search')}</button>`;}
+function recentPage(){return `<div class="call-list">${CALLS.map(c=>`<button class="call-row ${c.enabled?'':'is-static'}" ${c.enabled?`data-record="${c.id}"`:'disabled'}>${avatar(c.name)}<span class="call-row-body"><span style="min-width:0;flex:1"><span class="call-name ${c.direction==='부재중 전화'?'missed':''}" style="display:block">${esc(c.name)}</span><span class="call-caption"><svg viewBox="0 0 16 16"><path d="${c.direction==='발신 통화'?'M3 13 13 3M5 3h8v8':'M13 3 3 13M3 5v8h8'}"/></svg>${c.label}${c.count?` (${c.count})`:""}</span></span><span class="call-row-right"><span class="call-date">${c.day}</span>${phone()}</span></span></button>`).join('')}</div>`;}
+// 실제 통화 연결 기능을 추가할 때 완료된 통화의 초 단위를 이 값에 저장합니다.
+let younghyunCallSeconds=null;
+const YOUNGHYUN_MISSED_TIMES=['19:58','19:43','19:26','19:12','18:57','18:44','18:32','18:20','18:11','18:02'];
+function detailPage(onlyMissed=false){const recordSeconds=younghyunCallSeconds??plannedCallSeconds('영현이 형');return `<div class="contact-detail"><section class="contact-hero">${avatar('영현이 형',true)}<div class="emergency-label">긴급 연락처</div><h1>영현이 형</h1><div class="contact-actions">${['message','phone','video'].map((key,i)=>`<button ${key==='phone'?'data-action="call-younghyun"':key==='message'?'data-action="open-messages"':'disabled'} aria-label="${['메시지','통화','FaceTime'][i]}">${icon(key)}</button>`).join('')}</div></section><section class="contact-card"><div class="contact-card-heading">통화 기록 <span>›</span></div>${onlyMissed?`<div class="contact-call-row"><span class="missed-record">부재중 전화</span><span>오늘 · 01:30</span></div><div class="contact-secondary">휴대전화</div>`:`<div class="contact-call-row"><span>발신 통화</span><span>오늘 · 20:26</span></div><div class="contact-secondary">${Math.floor(recordSeconds/60)}분${recordSeconds%60?' '+recordSeconds%60+'초':''}</div>${YOUNGHYUN_MISSED_TIMES.map(time=>`<div class="contact-history-entry"><div class="contact-call-row"><span class="missed-record">부재중 전화</span><span>오늘 · ${time}</span></div></div>`).join('')}${['14:15','13:30'].map(time=>`<div class="contact-history-entry"><div class="contact-call-row"><span>발신 통화</span><span>오늘 · ${time}</span></div></div>`).join('')}`}</section><section class="contact-card contact-number"><div><div class="contact-small">전화번호 <span class="recent-label">최근 항목</span></div><div class="contact-number-text">+82 10-1993-1219</div></div>${icon('phone')}</section><section class="contact-card"><div class="contact-small">생일</div><div class="contact-number-text">12월 19일</div></section><section class="contact-card contact-options"><button disabled>연락처 공유</button><button disabled>즐겨찾기에 추가</button></section><section class="contact-card contact-options"><button disabled>긴급 연락처에서 삭제</button></section><section class="contact-card contact-options"><button disabled>Game Center에 친구 추가</button></section><section class="contact-card contact-options"><button class="block-contact" data-action="block-contact">연락처 차단</button></section></div>`;}
+function missedDetailPage(){return detailPage(true);}
+function vmHome(){return `<div class="vm-list"><button class="deleted-label" data-action="deleted">삭제된 음성 메시지 <span>3 &rsaquo;</span></button></div>`;}
+function vmList(){return `<div class="vm-list">${VMS.map(([name,date,text],i)=>`<button class="vm-row" ${i===0?'data-action="open-voicemail"':'disabled'}><span class="vm-row-top">${avatar(name)}<span class="vm-copy"><span class="vm-name">${esc(name)}</span><span class="vm-date">${date}</span></span>${phone()}</span><div class="vm-preview"><span class="vm-main-label">메인</span><span class="vm-preview-text">"${esc(text)}"</span></div></button>`).join('')}</div>`;}
+function vmDetail(){return `<article class="vm-detail"><div class="vm-subtitle">휴대전화 · 2026년 11월 26일 01:30</div><div class="vm-timeline"><span id="elapsed">00:00</span><input id="vm-seek" type="range" min="0" max="${DURATION}" step="1" value="${seconds}" aria-label="음성 메시지 재생 위치"><span id="remaining">- 01:10:26</span></div><div class="vm-controls"><button disabled aria-label="공유">${icon('share')}</button><div class="vm-playback"><button data-action="rewind" aria-label="15초 뒤로">${icon('rewind')}</button><button class="play" id="vm-play" data-action="play" aria-label="재생">${icon('play')}</button><button data-action="forward" aria-label="15초 앞으로">${icon('forward')}</button></div><button disabled aria-label="삭제">${icon('trash')}</button></div><section class="vm-transcript"><h2>전사문 <span>(정확도 높음)</span></h2><p>"${esc(TRANSCRIPT)}"</p></section></article>`;}
+function fmt(n,full=false){n=Math.max(0,Math.floor(n));const h=Math.floor(n/3600),m=Math.floor(n%3600/60),s=n%60;return (h||full?String(h).padStart(2,'0')+':':'')+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+function updatePlayer(){if(page!=='voicemailDetail')return;document.getElementById('elapsed').textContent=fmt(seconds);document.getElementById('remaining').textContent='- '+fmt(DURATION-seconds,true);const seekBar=document.getElementById('vm-seek');seekBar.value=seconds;seekBar.style.setProperty('--played',(seconds/DURATION*100)+'%');const b=document.getElementById('vm-play');b.innerHTML=icon(playing?'pause':'play');b.setAttribute('aria-label',playing?'일시정지':'재생');}
+function pause(){playing=false;clearInterval(timer);timer=null;if(audio)audio.pause();updatePlayer();}
+function seek(value){seconds=Math.max(0,Math.min(DURATION,value));if(audio)audio.currentTime=seconds;lastTick=Date.now();if(seconds>=DURATION)pause();updatePlayer();}
+async function play(){if(playing){pause();return;}if(seconds>=DURATION)seconds=0;if(audio){audio.currentTime=seconds;try{await audio.play();}catch{return;}}playing=true;lastTick=Date.now();timer=setInterval(()=>{const now=Date.now();seconds=Math.min(DURATION,audio?audio.currentTime:seconds+(now-lastTick)/1000);lastTick=now;if(seconds>=DURATION)pause();updatePlayer();},250);updatePlayer();}
+const YOUNGHYUN_MESSAGE_GROUPS=[
+ {time:'11월 26일 (목) 03:30',texts:['안 피한다고 한 거 약속 지켜','일어나면 연락줘']},
+ {time:'13:10',texts:['형 수업 안 갔어?']},
+ {time:'14:10',texts:['자나?']},
+ {time:'17:50',texts:['강영현','니 진짜 너무한다']}
+];
+const userSentMessages=[];
+let smsComposing=false, smsCompositionEndedAt=-1000;
+const smsRow=(text,last=false)=>`<div class="sms-chat-row sent${last?' tail':''}" aria-label="윤도운"><div class="sms-chat-bubble">${esc(text)}${last?'<svg class="sms-tail" viewBox="0 0 26 22" aria-hidden="true"><path d="M0 0C6.8 -0.2 10.7 2 13.4 5.4C15.6 8.2 16.2 11.1 17.8 13.5C19.3 15.8 21 17.2 23 18.6C24.2 19.5 23.6 21 22 20.8C18.7 20.3 15 17.4 11.2 14.5C8.2 12.2 4.6 9.2 0 8.7Z"/></svg>':''}</div></div>`;
+const micIcon='<svg viewBox="0 0 24 24"><path d="M12 3v18M8.5 8v8M15.5 7v10M5 11v2M19 10v4"/></svg>';
+const sendIcon='<svg viewBox="0 0 24 24"><path d="M12 20V5m-6 6 6-6 6 6"/></svg>';
+function messagesPage(){return `<div class="sms-chat-content"><div class="sms-secure">iMessage<br><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> 암호화됨</div>${YOUNGHYUN_MESSAGE_GROUPS.map((group,i)=>`<div class="sms-chat-date">${group.time}</div>${group.texts.map((text,j,arr)=>smsRow(text,j===arr.length-1)).join('')}`).join('')}<div class="sms-chat-date">20:26</div><div class="sms-chat-row received tail" aria-label="영현이 형"><div class="sms-chat-bubble">도운아 문자 보면 전화 좀 줘<svg class="sms-tail" viewBox="0 0 26 22" aria-hidden="true"><path d="M0 0C6.8 -0.2 10.7 2 13.4 5.4C15.6 8.2 16.2 11.1 17.8 13.5C19.3 15.8 21 17.2 23 18.6C24.2 19.5 23.6 21 22 20.8C18.7 20.3 15 17.4 11.2 14.5C8.2 12.2 4.6 9.2 0 8.7Z"/></svg></div></div>${userSentMessages.map((text,j,arr)=>smsRow(text,j===arr.length-1)).join('')}</div>`;}
+function messagesFooter(){return `<span class="sms-compose-plus" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg></span><input id="sms-compose-input" class="sms-compose-field" type="text" placeholder="iMessage" aria-label="메시지 입력" autocomplete="off" enterkeyhint="send"><button type="button" class="sms-compose-mic" id="sms-send-button" data-action="send-message" aria-label="메시지 보내기" disabled>${micIcon}</button>`;}
+function updateSmsSendButton(){const input=document.getElementById('sms-compose-input'),send=document.getElementById('sms-send-button');if(!input||!send)return;const hasText=!!input.value.trim();send.disabled=!hasText;send.classList.toggle('sms-compose-send',hasText);send.innerHTML=hasText?sendIcon:micIcon;}
+function sendSmsMessage(){const input=document.getElementById('sms-compose-input');if(page!=='messages'||!input)return;const value=input.value.trim();if(!value)return;userSentMessages.push(value);const container=content.querySelector('.sms-chat-content');const previous=container.querySelector('.sms-chat-row:last-child');if(previous?.classList.contains('sent')){previous.classList.remove('tail');previous.querySelector('.sms-tail')?.remove();}container.insertAdjacentHTML('beforeend',smsRow(value,true));input.value='';updateSmsSendButton();content.scrollTop=content.scrollHeight;input.focus();}
+let contactScroll=0,messageOriginPage='detail';
+function render(){document.querySelector('.top-wrap').classList.toggle('contact-top',(page==='detail'||page==='missedDetail'));header.innerHTML=renderHeader();content.innerHTML=page==='messages'?messagesPage():page==='recent'?recentPage():page==='detail'?detailPage():page==='missedDetail'?missedDetailPage():page==='voicemail'?vmHome():page==='deleted'?vmList():vmDetail();footer.hidden=page==='voicemailDetail';footer.classList.toggle('sms-footer',page==='messages');tabs.innerHTML=page==='messages'?messagesFooter():renderFooter();content.style.background='#fff';content.scrollTop=0;if(page==='voicemailDetail')updatePlayer();}
+function go(next,id=null){closeMenu();closeDialog();pause();page=next;focusedId=id;render();}
+document.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||b.disabled)return;if(b.dataset.record!==undefined){const c=CALLS.find(x=>x.id===Number(b.dataset.record));if(c?.enabled){if(c.id===19)go('missedDetail',19);else if(c.name==='영현이 형')go('detail',0);else openDirectCall(c);}return;}switch(b.dataset.action){case 'send-message':sendSmsMessage();break;case 'open-messages':messageOriginPage=page;contactScroll=content.scrollTop;go('messages');content.scrollTop=content.scrollHeight;break;case 'call-younghyun':openDirectCall(CALLS.find(c=>c.id===0));break;case 'toggle-menu':toggleMenu();break;case 'menu-recent':go('recent');break;case 'menu-voicemail':go('voicemail');break;case 'close-menu':closeMenu();break;case 'block-contact':showBlockDialog();break;case 'close-dialog':closeDialog();break;case 'confirm-block':showBlockResult();break;case 'end-direct-call':endDirectCall();break;case 'voicemail':go('voicemail');break;case 'deleted':go('deleted');break;case 'open-voicemail':seconds=0;go('voicemailDetail');break;case 'back':if(page==='messages'){go(messageOriginPage,messageOriginPage==='missedDetail'?19:0);content.scrollTop=contactScroll;}else go(page==='voicemailDetail'?'deleted':page==='deleted'?'voicemail':'recent');break;case 'play':play();break;case 'rewind':seek(seconds-15);break;case 'forward':seek(seconds+15);break;}});
+document.addEventListener('input',event=>{if(event.target.id==='vm-seek')seek(Number(event.target.value));if(event.target.id==='sms-compose-input')updateSmsSendButton();});
+// 한글 조합을 확정하는 Enter는 전송으로 처리하지 않습니다.
+document.addEventListener('compositionstart',event=>{if(event.target.id==='sms-compose-input')smsComposing=true;});
+document.addEventListener('compositionend',event=>{if(event.target.id==='sms-compose-input'){smsComposing=false;smsCompositionEndedAt=performance.now();updateSmsSendButton();}});
+window.addEventListener('pagehide',pause);
+const menuLayer=document.createElement('div');menuLayer.id='phone-menu-layer';menuLayer.hidden=true;document.getElementById('app').append(menuLayer);
+const dialogLayer=document.createElement('div');dialogLayer.id='contact-dialog-layer';dialogLayer.hidden=true;document.getElementById('app').append(dialogLayer);
+const directCall=document.getElementById('call-overlay');
+function closeMenu(){menuOpen=false;menuLayer.hidden=true;header.innerHTML=renderHeader();}
+function toggleMenu(){if(menuOpen){closeMenu();return;}menuOpen=true;header.innerHTML=renderHeader();menuLayer.innerHTML=`<button class="menu-dismiss" data-action="close-menu" aria-label="메뉴 닫기"></button><div class="phone-menu" role="menu"><button role="menuitemradio" aria-checked="${page==='recent'}" data-action="menu-recent"><span class="menu-check">${page==='recent'?'✓':''}</span>${icon('phone')}통화</button><button role="menuitemradio" aria-checked="${page==='voicemail'}" data-action="menu-voicemail"><span class="menu-check">${page==='voicemail'?'✓':''}</span><svg viewBox="0 0 24 24"><circle cx="5" cy="11" r="4"/><circle cx="19" cy="11" r="4"/><path d="M5 15h14"/></svg>음성 메시지</button></div>`;menuLayer.hidden=false;}
+function closeDialog(){dialogLayer.hidden=true;}
+function showBlockDialog(){dialogLayer.innerHTML=`<div class="contact-dialog" role="alertdialog" aria-modal="true" aria-label="연락처 차단 확인"><p>차단된 연락처로부터 전화, 메시지, 이메일 또는 FaceTime을 받을 수 없게 됩니다.</p><div class="dialog-actions"><button data-action="close-dialog">취소</button><button class="block-contact" data-action="confirm-block">연락처 차단</button></div></div>`;dialogLayer.hidden=false;dialogLayer.querySelector('button').focus();}
+function showBlockResult(){dialogLayer.innerHTML=`<div class="contact-dialog" role="alertdialog" aria-modal="true" aria-label="차단 안내"><p>차단을 어예 하노...</p><div class="dialog-actions"><button data-action="close-dialog">확인</button></div></div>`;dialogLayer.querySelector('button').focus();}
+const callIcons={
+ speaker:'<path d="M11 5 6 9H2v6h4l5 4V5Zm4.5 7c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02ZM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77Z"/>',
+ video:'<path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4Z"/>',
+ mute:'<path d="M12 14c1.66 0 2.99-1.34 2.99-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3Zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7Z"/>',
+ dots:'<circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="12" r="2"/>',
+ hangup:'<path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9Z"/>',
+ keypad:'<circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>'
+};
+function control(kind,label,enabled=false){const svg=`<svg viewBox="0 0 24 24" aria-hidden="true">${callIcons[kind]}</svg>`;return `<div class="live-control-wrap">${enabled?`<button type="button" class="live-control live-end" data-action="end-direct-call" aria-label="통화 종료">${svg}</button>`:`<div class="live-control" aria-hidden="true">${svg}</div>`}<span class="live-control-label">${label}</span></div>`}
+function showCallLine(line){
+ const speaker=directCall.querySelector('#live-speaker'),phrase=directCall.querySelector('#live-phrase');
+ if(speaker)speaker.textContent=line.speaker;
+ if(!phrase)return;
+ phrase.textContent=line.text;
+ // 한 줄로 표시: 글자 수뿐 아니라 iPhone 실제 렌더링 폭에 맞춰 글씨 크기를 조절합니다.
+ const parent=phrase.parentElement;
+ const allowedWidth=Math.max(120,parent.clientWidth-6);
+ let size=18;
+ phrase.style.fontSize=size+'px';
+ while(phrase.getBoundingClientRect().width>allowedWidth&&size>10){
+  size-=0.25;
+  phrase.style.fontSize=size+'px';
+ }
+}
+const PHONE_DIALOGUES={"영현이 형": [{"speaker": "강영현", "text": "어 도운이 살아있었네?"}, {"speaker": "윤도운", "text": "누가 할 소리를"}, {"speaker": "강영현", "text": "전화는 왜 안 받아"}, {"speaker": "윤도운", "text": "먼저 안 받은 게 누군데"}, {"speaker": "윤도운", "text": "누구때문에 수업 못 가서 교수님 보고 왔다"}, {"speaker": "강영현", "text": "아 미안..."}, {"speaker": "강영현", "text": "나 방금 일어나 가지고"}, {"speaker": "윤도운", "text": "그래 보이네 목소리가"}, {"speaker": "강영현", "text": "그, 아..."}, {"speaker": "윤도운", "text": "뭐"}, {"speaker": "강영현", "text": "나 어제 너한테 뭐 실수한 거 없지?"}, {"speaker": "윤도운", "text": "무슨 실수"}, {"speaker": "강영현", "text": "아이 그냥 뭐 이것저것"}, {"speaker": "윤도운", "text": "형은 몰라도"}, {"speaker": "윤도운", "text": "나는 실수 아니었는데"}, {"speaker": "강영현", "text": "도운아"}, {"speaker": "윤도운", "text": "얼굴 보고 얘기하자 나온나"}], "성유찬(실음)": [{"speaker": "성유찬", "text": "야 안 오냐? 교수님이,"}, {"speaker": "윤도운", "text": "야"}, {"speaker": "성유찬", "text": "왜"}, {"speaker": "윤도운", "text": "내 했다"}, {"speaker": "성유찬", "text": "뭘"}, {"speaker": "윤도운", "text": "강영현이랑 키스했다고"}, {"speaker": "성유찬", "text": "개소리야 잠 덜 깼냐?"}, {"speaker": "성유찬", "text": "중삐리도 아니고 존나 건강,"}, {"speaker": "윤도운", "text": "아니 씨, 진짜라고"}, {"speaker": "성유찬", "text": "아 예..."}, {"speaker": "성유찬", "text": "다시 잠이나 자라 그냥"}], "최성원(경영)": [{"speaker": "최성원", "text": "후문 할맥"}, {"speaker": "윤도운", "text": "안 간다"}, {"speaker": "최성원", "text": "그럼 형 그냥 여기 버림 우리 3차 갈 거야"}, {"speaker": "윤도운", "text": "택시 태워가 보내라 인성 문제 있나"}, {"speaker": "최성원", "text": "아니 형 계속 니 찾는다니까"}, {"speaker": "윤도운", "text": "하...."}]};
+let callSession=null,callGeneration=0;
+function phoneLineDuration(text,name=''){return Math.round(Math.max(1050,Math.min(3300,700+Array.from(text).length*65))*1.12*(name==='영현이 형'?1.3:1));}
+// 연결음은 제외하고, 마지막 대사 뒤 자동 종료 대기 1초는 포함합니다.
+function plannedCallSeconds(name){return Math.floor(((PHONE_DIALOGUES[name]||[]).reduce((sum,line)=>sum+phoneLineDuration(line.text,name),0)+1000)/1000);}
+function openDirectCall(contact){endDirectCall();pause();directCall.className='call-overlay live-call';directCall.innerHTML=`<div class="call-top"><span class="live-status" id="live-status">휴대전화 연결 중...</span><h2 class="live-name">${esc(contact.name)}</h2></div><div class="live-dialogue"><span class="live-speaker" id="live-speaker"></span><span class="live-phrase" id="live-phrase"></span></div><div class="live-controls">${control('speaker','스피커')}${control('video','FaceTime')}${control('mute','소리 끔')}${control('dots','더 보기')}${control('hangup','종료',true)}${control('keypad','키패드')}</div>`;directCall.hidden=false;directCall.querySelector('button').focus();startPhoneSequence(contact);}
+function startPhoneSequence(contact){
+ const session={id:++callGeneration,contact,ring:null,timers:[],clock:null,connectedAt:null};callSession=session;
+ const current=()=>callSession===session;
+ const later=(fn,ms)=>{const id=setTimeout(()=>{if(current())fn();},ms);session.timers.push(id);return id;};
+ const stopRing=()=>{if(session.ring){session.ring.pause();session.ring.removeAttribute('src');session.ring.load();}};
+ const connect=()=>{if(!current()||session.connectedAt!==null)return;stopRing();session.connectedAt=Date.now();
+  const clock=()=>{const status=directCall.querySelector('#live-status');if(status)status.textContent=fmt((Date.now()-session.connectedAt)/1000);};clock();session.clock=setInterval(clock,1000);
+  const lines=PHONE_DIALOGUES[contact.name]||[];
+  const show=index=>{if(!current())return;if(index>=lines.length){later(endDirectCall,1000);return;}showCallLine(lines[index]);later(()=>show(index+1),phoneLineDuration(lines[index].text,contact.name));};show(0);
+ };
+ if(contact.name!=='영현이 형'){connect();return;}
+ const ring=session.ring=new Audio('sound/call.mp3');ring.loop=true;ring.volume=0.45;
+ let scheduled=false;const schedule=()=>{if(!current()||scheduled)return;scheduled=true;later(connect,3000);};
+ ring.addEventListener('playing',schedule,{once:true});ring.addEventListener('error',schedule,{once:true});
+ try{const playback=ring.play();if(playback?.catch)playback.catch(schedule);}catch{schedule();}
+ later(()=>{if(!scheduled)schedule();},3000);
+}
+function endDirectCall(){
+ const session=callSession;callSession=null;callGeneration++;
+ if(session){session.timers.forEach(clearTimeout);clearInterval(session.clock);if(session.ring){session.ring.pause();session.ring.removeAttribute('src');session.ring.load();}
+  if(session.contact.name==='영현이 형'&&session.connectedAt!==null)younghyunCallSeconds=Math.floor((Date.now()-session.connectedAt)/1000);
+ }
+ directCall.hidden=true;directCall.innerHTML='';if(session&&page==='detail'){const pos=content.scrollTop;content.innerHTML=detailPage();content.scrollTop=pos;}
+}
+window.addEventListener('pagehide',endDirectCall);
+window.addEventListener('resize',()=>{if(!callSession)return;const speaker=directCall.querySelector('#live-speaker'),phrase=directCall.querySelector('#live-phrase');if(phrase?.textContent)showCallLine({speaker:speaker.textContent,text:phrase.textContent});});
+document.addEventListener('keydown',event=>{if(event.target.id==='sms-compose-input'&&event.key==='Enter'){event.preventDefault();if(event.isComposing||smsComposing||event.keyCode===229||event.repeat||performance.now()-smsCompositionEndedAt<120)return;sendSmsMessage();return;}if(event.key!=='Escape')return;if(!dialogLayer.hidden)closeDialog();else if(menuOpen)closeMenu();else if(!directCall.hidden)endDirectCall();});
+render();
+})();</script></body></html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+<title>윤도운의 iPhone</title>
+<style>
+html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;background:#fff!important;overflow:hidden!important}
+*{box-sizing:border-box}button{font:inherit;color:inherit;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}button:disabled{cursor:default} [hidden]{display:none!important}
+.kakao-app-wrapper{position:fixed;inset:0;width:100%;height:100%;height:100dvh;display:flex;flex-direction:column;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;z-index:9999}
+.app-header{display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 8px;background:#fff;z-index:10;flex:none}
+.header-title{font-size:22px;font-weight:700;color:#000;margin:0;letter-spacing:-.5px}.header-icons{display:flex;align-items:center;gap:16px}.header-icons svg{width:22px;height:22px;stroke:#111;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.main-content{flex:1;min-height:0;overflow-y:auto;padding:0 16px}.main-content::-webkit-scrollbar{display:none}
+.profile-img-default{background:#e5e5ea;border-radius:40%;display:flex;justify-content:center;align-items:center;overflow:hidden;flex-shrink:0}.profile-img-default svg{fill:#fff;width:70%;height:70%;display:block}.profile-img-default img{display:block;width:100%;height:100%;object-fit:cover}
+.my-profile{display:flex;align-items:center;padding:12px 0 20px;border-bottom:1px solid #f2f2f7}.my-profile .profile-img-default{width:56px;height:56px}.my-name{font-size:17px;font-weight:600;margin-left:14px}
+.section-header{font-size:12px;color:#8e8e93;padding:16px 0 8px;display:flex;justify-content:space-between;align-items:center}.section-header svg{width:12px;height:12px;stroke:#8e8e93;stroke-width:2;fill:none;stroke-linecap:round}
+.list-profile{display:flex;align-items:center;margin:0 -16px;padding:10px 16px}.list-profile .profile-img-default{width:44px;height:44px}.list-name{font-size:15px;font-weight:500;margin-left:14px}
+.bottom-tab-bar{display:flex;justify-content:space-around;align-items:center;background:#fafafa;border-top:1px solid #ebebeb;height:calc(56px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);flex:none}.tab-icon{display:flex;justify-content:center;align-items:center;width:25%;height:100%}.tab-icon svg{width:26px;height:26px;stroke:#111;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}.tab-icon.active svg{fill:#111;stroke:none}
+.chat-filter{font-size:14px;font-weight:600;padding:14px 0 8px}.chat-row{display:flex;align-items:center;gap:13px;width:calc(100% + 32px);margin:0 -16px;padding:14px 16px;text-align:left}.chat-row:active{background:#f5f5f5}.chat-row .profile-img-default{width:54px;height:54px}.chat-copy{flex:1;min-width:0}.chat-name{font-size:16px;font-weight:500;line-height:1.4}.chat-preview{font-size:14px;color:#8e8e93;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat-time{align-self:flex-start;margin-top:4px;flex:none;font-size:11px;color:#999;white-space:nowrap}
+/* 채팅방: 참고 코드의 알약 헤더, 날짜, 양쪽 말풍선 */
+.room{position:absolute;inset:0;background:#aebfd1;display:flex;flex-direction:column;z-index:20}
+.room-header{position:relative;display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;flex:none}
+.room-pill{height:38px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px #0000000d}
+.room-back{width:44px}.room-pill svg{width:22px;height:22px;fill:none;stroke:#111;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.room-tools{padding:0 14px;gap:16px}.room-tools svg{width:20px;height:20px}
+.room-title{position:absolute;left:50%;transform:translateX(-50%);max-width:calc(100% - 220px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:17px;font-weight:600;margin:0;pointer-events:none}
+.room-content{flex:1;min-height:0;overflow:auto;padding:12px 16px}.room-date{display:flex;justify-content:center;margin:8px 0 16px}.room-date span{background:rgba(0,0,0,.08);padding:6px 16px;border-radius:20px;font-size:12px;color:#333}
+.room-message{display:flex;gap:9px;align-items:flex-start;margin-bottom:16px}.room-message .profile-img-default{width:36px;height:36px}.room-message .chat-copy{flex:initial;max-width:calc(100% - 45px)}.room-sender{font-size:12px;color:#364654;margin-bottom:7px}.bubble-line{display:flex;align-items:flex-end;gap:6px}.bubble{background:#fff;padding:9px 14px;border-radius:17px;line-height:1.4;font-size:15px;overflow-wrap:anywhere;white-space:pre-wrap;min-width:0}.bubble-time{font-size:11.5px;color:#546473;flex:none;margin-bottom:2px}.message-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}.message-unread{font-size:11px;line-height:1.2;color:#fee500}
+.room-message.me{justify-content:flex-end;align-items:flex-end;gap:6px}.room-message.me .bubble{background:#fee500;color:#000;border-radius:17px;max-width:72%}
+.room-input{padding:10px 16px calc(14px + env(safe-area-inset-bottom,0px));flex:none}.input-pill{background:#fff;border-radius:24px;min-height:44px;display:flex;align-items:center;padding:0 14px;gap:12px}.input-pill svg{width:22px;height:22px;stroke:#111;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}.message-input{flex:1;min-width:0;width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;padding:12px 0}.send-button{font-size:13px;background:#fee500;border-radius:12px;padding:7px 9px;flex:none}.send-button:disabled{background:#f0f0f0;color:#aaa}
+
+.birthday-link{width:100%;border-bottom:1px solid #f2f2f7;padding-bottom:16px;text-align:left}.list-profile{width:calc(100% + 32px);text-align:left}.chat-row:disabled:active{background:transparent}.chat-side{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:8px;align-self:flex-start;min-width:42px}.unread-badge{display:flex;align-items:center;justify-content:center;min-width:19px;height:19px;border-radius:10px;padding:0 5px;background:#ff573d;color:#fff;font-size:11px}.birthday-page{position:absolute;inset:0;background:#fff;z-index:19;display:flex;flex-direction:column}.birthday-header{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid #f2f2f7;flex:none}.birthday-header h2{font-size:18px;text-align:center;margin:0}.birthday-header button{height:40px;display:grid;place-items:center}.birthday-header svg,.gift-button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.birthday-content{flex:1;overflow:auto;padding:26px 20px}.birthday-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.birthday-heading h3{font-size:16px;margin:0}.birthday-heading time{font-size:13px;color:#8e8e93}.birthday-person{display:flex;align-items:center;gap:12px}.birthday-person .profile-img-default{width:54px;height:54px}.birthday-name{flex:1;font-size:16px;font-weight:600;min-width:0}.birthday-name span{display:block;font-size:12px;color:#8e8e93;font-weight:400;margin-top:7px}.gift-button{display:flex;align-items:center;gap:4px;border:1px solid #e6e6e6;border-radius:17px;padding:7px 9px;font-size:12px;white-space:nowrap}.gift-button svg{width:17px;height:17px;color:#ef666a}
+
+.birthday-inline{padding:14px 0 18px;border-bottom:1px solid #f2f2f7}.birthday-inline .birthday-heading{margin-bottom:18px}.birthday-inline .birthday-heading h3{font-size:14px}.birthday-person-link{display:flex;align-items:center;gap:12px;flex:1;min-width:0;text-align:left}.birthday-person-link .birthday-name{font-size:15px}.birthday-person-link .profile-img-default{width:44px;height:44px}.room-message{margin-bottom:14px}.room-message.group-next{margin-bottom:6px}.avatar-spacer{width:36px;flex:none}.room-message .bubble-line{min-width:0}
+.dw-profile,.dw-gift{position:absolute;inset:0;display:flex;flex-direction:column}.dw-profile{background:#7a8289;color:#fff;z-index:21}.dw-profile svg,.dw-gift svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.dw-profile-header{display:flex;justify-content:space-between;align-items:center;padding:calc(20px + env(safe-area-inset-top,0px)) 20px 20px;flex:none}.dw-close{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:#fff;color:#111}.dw-menu{display:flex;gap:14px;align-items:center;background:#fff;color:#111;border-radius:20px;height:36px;padding:0 16px}.dw-menu button{display:grid;place-items:center}.dw-menu svg{width:18px;height:18px}.dw-profile-main{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 20px calc(120px + env(safe-area-inset-bottom,0px))}.dw-profile-block{display:flex;align-items:center;flex-direction:column;align-self:flex-start;margin-bottom:24px}.dw-profile-block .profile-img-default{width:86px;height:86px;margin-bottom:12px}.dw-profile-block h2{font-size:24px;font-weight:600;margin:0}.dw-chat{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;width:100%;border:1px solid #aeb3b8;border-radius:10px;color:#fff;font-size:14px}.dw-chat svg{width:16px;height:16px}.dw-bottom-text{position:absolute;bottom:calc(40px + env(safe-area-inset-bottom,0px));width:100%;text-align:center;font-size:13px;color:#e3e5e7}.dw-gift{background:#f4f5f7;z-index:23}.dw-gift-header{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid #f0f0f0;flex:none}.dw-gift-header h2{font-size:17px;margin:0}.dw-header-icons{display:flex;align-items:center;gap:14px}.dw-header-icons button{display:grid;place-items:center;min-height:32px}.dw-gift-scroll{flex:1;min-height:0;overflow:auto;padding-bottom:16px}.dw-gift-person{display:flex;align-items:center;gap:12px;padding:16px 20px}.dw-gift-person .profile-img-default{width:44px;height:44px}.dw-gift-person strong{font-size:18px;flex:1}.dw-memory{font-size:12px;color:#555;background:#fff;border:1px solid #e0e0e0;border-radius:20px;padding:6px 12px;white-space:nowrap}.dw-message-card{background:#fff;border-radius:12px;margin:0 20px 16px;padding:20px}.dw-message-card p{font-size:15px;color:#333;margin:0 0 20px;line-height:1.4}.dw-message-card button{width:100%;background:#f4f6fa;padding:14px 0;border-radius:8px;font-size:14px}.dw-gift-card{background:#fff;border-radius:12px;margin:0 20px 24px;padding:30px 20px;display:flex;flex-direction:column;align-items:center}.dw-gift-image{width:min(200px,100%);aspect-ratio:1;background:#d8d8d8;border-radius:16px;margin-bottom:20px;filter:blur(8px)}.dw-gift-brand{font-size:13px;color:#888;margin-bottom:6px}.dw-gift-card h3{font-size:18px;line-height:1.5;text-align:center;margin:0 0 30px}.dw-gift-card h3 span{font-size:16px}.dw-barcode{display:flex;flex-direction:column;align-items:center;width:100%;filter:blur(4px)}.dw-gift .dw-bars{width:65%;height:45px;margin-bottom:10px;fill:#111;stroke:none;filter:none}.dw-barcode-number{display:flex;align-items:center;gap:6px}.dw-barcode-number span{font-size:17px;font-weight:700;color:#222;letter-spacing:1px}.dw-gift .dw-copy-icon{width:14px;height:14px;stroke:#888;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}.dw-gift-footer{flex:none;background:#fff;border-top:1px solid #eee;padding:10px 20px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:12px}.dw-gift-footer button{flex:1;background:#f2f2f2;color:#333;font-size:15px;padding:16px 0;border-radius:8px}
+
+.dw-gift-message{display:flex;align-items:flex-start;gap:8px}.dw-gift .dw-camera-icon{width:18px;height:18px;flex:none;fill:#b0b0b0;stroke:none;margin-top:2px}
+.room-message .bubble{position:relative}.room-message:not(.group-prev) .bubble::before{content:"";position:absolute;top:0;left:-4px;width:12px;height:12px;background:#fff;clip-path:path('M 0 0 C 5 0 9 2 12 6 L 12 12 L 4 12 C 4 7 3 3 0 0 Z');pointer-events:none}.room-message.me:not(.group-prev) .bubble::before{left:auto;right:-4px;background:#fee500;transform:scaleX(-1)}
+
+/* 스크롤 동작은 유지하고 모든 내부 화면의 스크롤바만 숨깁니다. */
+.kakao-app-wrapper .main-content,
+.kakao-app-wrapper .room-content,
+.kakao-app-wrapper .birthday-content,
+.kakao-app-wrapper .dw-profile-main,
+.kakao-app-wrapper .dw-gift-scroll{scrollbar-width:none;-ms-overflow-style:none}
+.kakao-app-wrapper .main-content::-webkit-scrollbar,
+.kakao-app-wrapper .room-content::-webkit-scrollbar,
+.kakao-app-wrapper .birthday-content::-webkit-scrollbar,
+.kakao-app-wrapper .dw-profile-main::-webkit-scrollbar,
+.kakao-app-wrapper .dw-gift-scroll::-webkit-scrollbar{display:none;width:0;height:0}
+/* 윤도운 프로필 게시물: 사진 아래 빈 공간을 두고 프로필 본문에서 스크롤 */
+.dw-profile .dw-profile-main{display:block;padding:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.dw-profile-scroll-content{min-height:calc(100% + 100px);display:flex;flex-direction:column;justify-content:flex-end;padding:20px 20px calc(180px + env(safe-area-inset-bottom,0px))}
+.dw-profile-gallery{position:static;flex:none;margin:24px -20px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:#7a8289}
+.dw-profile-gallery-item{aspect-ratio:4/5;overflow:hidden;min-width:0}
+.dw-profile-gallery-item img{display:block;width:100%;height:100%;object-fit:cover}
+</style>
+<style>
+/* 프로필의 채팅 · 통화 */
+.dw-contact-actions{display:flex;align-items:center;border:1px solid #aeb3b8;border-radius:10px;width:100%}
+.dw-contact-actions .dw-chat{flex:1;min-width:0;border:0;border-radius:0;position:relative}
+.dw-contact-actions .dw-chat + .dw-chat:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:1px;background:#aeb3b8}
+#vt-screen{position:fixed;inset:0;width:100%;height:100%;height:100dvh;display:flex;flex-direction:column;justify-content:space-between;background:#2a2b2d;color:#fff;box-sizing:border-box;padding:calc(40px + env(safe-area-inset-top,0px)) 20px calc(80px + env(safe-area-inset-bottom,0px));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;z-index:10000;overflow:hidden}
+#vt-screen .vt-top-half,#vt-screen .vt-center,#vt-screen .vt-bottom-half{display:flex;flex-direction:column;align-items:center}
+#vt-screen .vt-header{text-align:center;margin-bottom:50px}#vt-screen .vt-title{font-size:15px;color:#999;font-weight:500;letter-spacing:-.5px}
+#vt-screen .vt-profile-img{background:#e5e5ea;border-radius:40%;width:110px;height:110px;overflow:hidden;margin-bottom:20px}#vt-screen .vt-profile-img img{display:block;width:100%;height:100%;object-fit:cover}
+#vt-screen .vt-name{font-size:28px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:-.5px}#vt-screen .vt-status{font-size:16px;color:#aaa;font-weight:400;font-variant-numeric:tabular-nums}
+#vt-screen .vt-bottom-half{width:100%}#vt-screen .vt-utilities{display:flex;justify-content:center;gap:20px;width:100%;margin-bottom:50px}
+#vt-screen .util-item{display:flex;flex-direction:column;align-items:center;gap:10px}#vt-screen .util-icon{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;justify-content:center;align-items:center}
+#vt-screen .util-icon svg{width:24px;height:24px;stroke:#fff;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}#vt-screen .util-text{font-size:12px;color:#999}
+#vt-screen .end-call-btn{width:72px;height:72px;background:#ff3b30;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}#vt-screen .end-call-btn:active{background:#d63026}#vt-screen .end-call-btn svg{width:34px;height:34px;fill:#fff;transform:rotate(135deg)}
+#vt-screen .vt-retry{font-size:14px;color:#fff;border:1px solid #777;border-radius:8px;padding:9px 14px;margin-top:14px}
+@media(max-height:690px){#vt-screen{padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}#vt-screen .vt-header{margin-bottom:26px}#vt-screen .vt-profile-img{width:90px;height:90px}#vt-screen .vt-utilities{margin-bottom:24px}}
+@media(max-width:360px){#vt-screen .vt-utilities{gap:14px}#vt-screen .util-icon{width:54px;height:54px}}
+</style><style>
+/* 요청 화면: 고정된 프레임 안의 콘텐츠만 스크롤 */
+.app-header{padding:calc(16px + env(safe-area-inset-top,0px)) 16px 10px;gap:12px}.header-title{display:flex;align-items:center;gap:9px;font-size:21px;white-space:nowrap}.header-title .profile-img-default{width:34px;height:34px}.header-icons{gap:17px}.header-icons svg{width:23px;height:23px;stroke-width:1.8}.header-icons button{display:grid;place-items:center}
+.main-content,.room-content{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.self-profile::-webkit-scrollbar{display:none;width:0;height:0}.view-filters{display:flex;gap:7px;padding:10px 0 16px;font-size:14px;font-weight:600}.view-filters>span{border-radius:24px;background:#f3f3f3;color:#666;padding:10px 17px}.view-filters .selected{background:#191919;color:white}.view-filters b{font-weight:500;margin-left:3px}.friend-section{border-bottom:1px solid #f2f2f2;padding:4px 0 12px}.friend-section summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:17px 0;font-size:14px;font-weight:650;cursor:pointer}.friend-section summary::-webkit-details-marker{display:none}.friend-section summary:after{content:'';width:8px;height:8px;border-right:1.8px solid #999;border-bottom:1.8px solid #999;transform:rotate(45deg);margin-right:3px;margin-top:-4px}.friend-section[open] summary:after{transform:rotate(225deg);margin-top:4px}.special-row{display:flex;gap:10px;padding:5px 0 10px}.special-row .profile-img-default{width:48px;height:48px}.birthday-name span{font-size:12px;margin-top:6px}.gift-button{background:#f5f5f5;border:0;font-size:12px;padding:9px 12px;align-self:center}.list-profile{padding-top:10px;padding-bottom:10px}.list-profile .profile-img-default{width:48px;height:48px}.profile-img-default{position:relative;border-radius:39%;border:1px solid #00000009}.profile-img-default svg{width:66%;height:66%;fill:#ffffffb5}.partner-avatar{background:#abd8dc}.profile-img-default img{position:absolute;inset:0}.friends-heading{display:flex;align-items:center;gap:10px;padding:14px 0 6px;font-size:14px;font-weight:650}.friends-heading>button{margin-right:auto}.sort-labels{display:flex;padding:3px;background:#f5f5f5;border-radius:20px;font-size:10px;font-weight:400;color:#555;gap:2px;white-space:nowrap}.sort-labels span{padding:5px 7px}.sort-labels span:first-child{background:#fff;border-radius:16px;color:#111}.muted{color:#888}.recommend-avatar{width:48px;height:48px;display:grid;place-items:center;border-radius:39%;background:#fff0ba;font-size:29px}.empty-note{font-size:12px;color:#999;margin:4px 0 15px}.initial-label{font-size:11px;color:#999;padding-top:12px}.person-row{padding-right:28px}
+#alphabet-nav{position:absolute;right:2px;top:24%;bottom:calc(70px + env(safe-area-inset-bottom,0px));width:19px;display:flex;flex-direction:column;justify-content:center;gap:2px;opacity:0;pointer-events:none;transition:opacity .18s;z-index:12;touch-action:none}#alphabet-nav.visible{opacity:1;pointer-events:auto}#alphabet-nav button{font-size:10px;color:#777;min-height:19px;width:19px}#alphabet-nav button:active{background:#eee;border-radius:10px}.pin{display:inline-block;margin-left:5px;vertical-align:middle;color:#aaa}.pin svg{width:12px;height:12px;fill:currentColor}
+.room-header{gap:10px;z-index:2}.room-back{width:auto;min-width:58px;gap:2px;padding:0 9px}.room-title{position:static;transform:none;flex:1;max-width:none;text-align:center;font-size:16px}.room-tools{gap:13px;padding:0 12px}.room-tools button{display:grid;place-items:center}.room-search{flex:none;display:flex;align-items:center;gap:8px;padding:8px 16px;background:#e5edf3}.room-search input{width:0;min-width:0;flex:1;padding:8px;border:0;border-radius:7px;font:inherit;font-size:14px}.room-search button{font-size:20px}.room-search span{font-size:10px;white-space:nowrap}.search-match{outline:2px solid #e9a12b}.search-current{outline:3px solid #e8752b}.room-input{padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px))}.input-pill{border:1px solid #8b9aa559;gap:11px;padding:0 14px}.input-pill button{display:grid;place-items:center}.input-pill #tag-button{font-size:25px;font-weight:650}.input-pill .send-button:disabled{display:none}.input-pill:has(.send-button:not(:disabled)) #tag-button{display:none}
+#photo-overlay{position:absolute;inset:0;z-index:10}.photo-backdrop{position:absolute;inset:0;background:#0008;width:100%;height:100%}.photo-sheet{position:absolute;bottom:0;left:0;right:0;background:white;border-radius:26px 26px 0 0;padding:8px 0 calc(24px + env(safe-area-inset-bottom,0px))}.sheet-handle{margin:0 auto;width:34px;height:4px;background:#aaa;border-radius:4px}.photo-heading{display:flex;align-items:center;justify-content:space-between;padding:13px 18px}.photo-heading h3{font-size:16px;margin:0}.photo-heading button{padding:7px 11px;background:#fee500;border-radius:20px;font-size:13px}.photo-heading button:disabled{background:#f2f2f2;color:#aaa}#photo-strip{display:flex;gap:8px;overflow-x:auto;padding:0 16px;scrollbar-width:none}.photo-tile{position:relative;flex:0 0 104px;height:104px;background:#eee;border-radius:12px;overflow:hidden;display:grid;place-items:center}.photo-tile img{width:100%;height:100%;object-fit:cover}.photo-tile small{color:#bbb;font-size:11px}.photo-tile svg{width:35px;height:35px;fill:none;stroke:white;stroke-width:2}.photo-tile.camera{background:#999}.photo-tile .check{position:absolute;top:6px;right:6px;border:1.5px solid #aaa;border-radius:50%;width:20px;height:20px;font-size:12px}.photo-tile[aria-pressed=true] .check{background:#fee500;border-color:#fee500}.bubble-photo{display:block;max-width:200px;max-height:260px;border-radius:12px}.bubble:has(.bubble-photo){padding:0;background:transparent}.room-message:has(.bubble-photo) .bubble:before{display:none}
+@media(max-width:360px){.header-icons{gap:12px}.header-title{font-size:19px}.room-tools{gap:9px;padding:0 10px}.room-header{padding-left:12px;padding-right:12px}.sort-labels span{padding:5px}.input-pill{gap:8px}}
+</style><style>
+/* 2차 수정: 메인 상단은 목록과 함께 스크롤, 하단바만 고정 */
+.main-content>.app-header{margin:0 -16px;position:static;flex-shrink:0}.header-icons{flex:none}.header-icons button{flex:0 0 24px;width:24px;height:28px}.header-icons svg,.room-tools svg{display:block;flex-shrink:0;aspect-ratio:1;overflow:visible}.header-icons svg{width:24px;height:24px}.header-title{min-width:0}.room-tools{flex-shrink:0}.room-tools button{width:22px;height:28px;flex-shrink:0}
+.partner-avatar,.profile-img-default:has(img[src="imges/kakaoyh1.JPEG"]){border:0!important;outline:0!important;box-shadow:none!important}
+#alphabet-nav{top:calc(16px + env(safe-area-inset-top,0px));bottom:calc(72px + env(safe-area-inset-bottom,0px));justify-content:space-between;gap:0;padding:6px 0}#alphabet-nav button{flex:1;min-height:0;width:19px;display:grid;place-items:center}
+.view-filters>span{display:inline-flex;align-items:center;gap:5px}.view-filters #unread-count{display:inline-flex;align-items:center;justify-content:center;margin-left:0;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#ff543c;color:white;font-size:11px;font-weight:500;line-height:1}.view-filters #unread-count:empty{display:none}
+.room.searching>.room-header,.room.searching>.room-input{display:none}.room-search{padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;background:transparent;gap:12px;min-height:64px}.search-field{display:flex;align-items:center;gap:10px;flex:1;min-width:0;background:#00000014;border-radius:7px;padding:0 12px;height:42px}.search-field>svg{width:20px;height:20px;fill:none;stroke:#20272c;stroke-width:1.8;stroke-linecap:round;flex:none}.room-search .search-field input{padding:8px 0;background:transparent;font-size:17px;outline:none;color:#111}.search-field #search-clear{display:grid;place-items:center;width:24px;height:28px;flex:none;color:#526573}.search-field #search-clear svg{width:20px;height:20px}.room-search #search-close{font-size:16px;white-space:nowrap;flex:none;padding:8px 0}
+#search-footer{flex:none;padding:8px 12px calc(10px + env(safe-area-inset-bottom,0px))}.search-footer-pill{display:flex;align-items:center;justify-content:flex-end;position:relative;min-height:48px;background:#fff;border:1px solid #8b9aa559;border-radius:26px;padding:4px 10px;gap:7px}.search-footer-pill #search-count{position:absolute;left:50%;transform:translateX(-50%);font-size:15px;font-weight:600;color:#888}.search-footer-pill #search-count strong{color:#222;font-weight:600}.search-footer-pill button{display:grid;place-items:center;width:36px;height:36px;color:#222}.search-footer-pill button:disabled{color:#aaa}.search-footer-pill svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:360px){.header-icons{gap:12px}.header-icons button{width:23px;flex-basis:23px}.header-icons svg{width:23px;height:23px}.header-title{gap:7px;font-size:19px}.search-footer-pill button{width:32px}.search-footer-pill{gap:2px}}
+</style><style>
+/* 공통 아이콘의 비율·획을 고정합니다. */
+.kakao-app-wrapper .ui-icon{display:block;width:24px;height:24px;min-width:24px;max-width:24px;flex:0 0 24px;aspect-ratio:1;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.kakao-app-wrapper .header-icons button{width:24px;height:28px;flex:0 0 24px}.kakao-app-wrapper .room-tools button{width:24px;flex:0 0 24px}.room-tools{gap:12px}
+.static-summary{display:flex;justify-content:space-between;align-items:center;padding:17px 0;font-size:14px;font-weight:650}.static-summary span{width:8px;height:8px;border-right:1.8px solid #999;border-bottom:1.8px solid #999;transform:rotate(45deg);margin:0 3px 4px 0}
+.room-search{min-height:0;padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px;gap:12px}.search-field{height:36px;padding:0 11px;gap:9px}.room-search .search-field input{font-size:16px;padding:6px 0;line-height:24px}.search-field .ui-icon{width:20px;height:20px;min-width:20px;max-width:20px;flex-basis:20px}.room-search #search-close{font-size:15px;padding:6px 0}
+.friend-switch>button{border-radius:24px;background:#f3f3f3;color:#666;padding:10px 17px;font-size:14px;font-weight:600}.friend-switch>button.selected{background:#191919;color:#fff}.news-head{display:flex;align-items:center;gap:10px;padding:12px 0}.news-head .profile-img-default{width:42px;height:42px}.news-copy{flex:1;min-width:0}.news-copy strong{font-size:15px;font-weight:600}.news-date{color:#888;font-size:12px;margin-top:5px}.news-more{color:#888;flex:none}.news-photo{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:14px;background:#f3f3f3}.news-reactions{display:flex;align-items:center;gap:18px;padding:13px 1px 19px}.news-like{display:flex;align-items:center;gap:7px;font-size:15px}.news-post{margin-bottom:8px}
+</style><style>
+/* 아이콘을 용도별 동일한 크기로 맞춥니다. */
+.kakao-app-wrapper .header-title{font-size:18px;font-weight:600;letter-spacing:-.4px}.header-title .profile-img-default{width:31px;height:31px}
+.kakao-app-wrapper .header-icons .ui-icon{width:21px;height:21px;min-width:21px;max-width:21px;flex-basis:21px;stroke-width:1.6}.kakao-app-wrapper .header-icons button{width:24px;height:28px;flex-basis:24px}
+.room-header{display:grid;grid-template-columns:1fr auto 1fr;column-gap:8px;padding-left:12px;padding-right:12px}.room-title{grid-column:2;grid-row:1;font-size:16px;font-weight:600;max-width:min(38vw,240px);text-align:center;justify-self:center}.room-back{grid-column:1;grid-row:1;justify-self:start;display:flex;align-items:center;justify-content:center;width:68px;min-width:68px;height:36px;padding:0 10px;gap:5px}.room-back svg{width:18px;height:18px;flex:none}.room-back span{font-size:15px;line-height:1}.room-tools{grid-column:3;grid-row:1;justify-self:end;gap:9px;padding:0 11px;height:36px}.kakao-app-wrapper .room-tools button{width:18px;height:28px;flex-basis:18px}.kakao-app-wrapper .room-tools .ui-icon{width:18px;height:18px;min-width:18px;max-width:18px;flex-basis:18px;stroke-width:1.7}
+.dw-profile{background:#7a8289 url('imges/kakaoyh2.JPEG') center/cover no-repeat}.dw-profile:before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 30%,#0005);pointer-events:none}.dw-profile-header,.dw-profile-main{position:relative}.dw-profile-gallery{background:transparent}.dw-menu{gap:14px;padding:0 14px}.kakao-app-wrapper .dw-menu svg,.kakao-app-wrapper .dw-menu .ui-icon{width:18px;height:18px;min-width:18px;max-width:18px;flex:0 0 18px;stroke-width:1.6}.dw-menu button{width:18px;height:22px}.dw-profile-header .dw-close svg{width:18px;height:18px}.dw-profile-gallery-item:last-child{background:transparent}
+.bubble.search-match,.bubble.search-current{outline:none}.search-word{color:inherit;background:#c3dbee;padding:0;border:0;border-radius:0;outline:none}.search-word.search-current{background:#9ec8ed;outline:none}
+.news-like.liked{color:#f04b60}.kakao-app-wrapper .news-like.liked .ui-icon{fill:#f04b60;stroke:#f04b60}.news-comment{display:flex;align-items:center}.news-comments{padding:0 0 16px}.comment-form{display:flex;gap:8px;align-items:center}.comment-input{flex:1;min-width:0;border:1px solid #e8e8e8;border-radius:18px;background:#f7f7f7;font:inherit;font-size:14px;padding:9px 12px;outline:none}.comment-submit{font-size:13px;padding:8px 11px;border-radius:16px;background:#fee500}.comment-submit:disabled{background:#f1f1f1;color:#aaa}.post-comment{display:flex;gap:9px;font-size:13px;line-height:1.6;margin:0 0 10px;overflow-wrap:anywhere}.post-comment strong{flex:none}.typing-bubble{display:flex;align-items:center;gap:5px;height:36px;width:57px;min-width:57px;padding:10px 13px}.typing-dot{display:block;width:5px;height:5px;border-radius:50%;background:#999;animation:typing-pulse 1.1s infinite ease-in-out}.typing-dot:nth-child(2){animation-delay:.15s}.typing-dot:nth-child(3){animation-delay:.3s}@keyframes typing-pulse{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-3px);opacity:1}}
+@media(max-width:360px){.room-header{column-gap:5px;padding-left:10px;padding-right:10px}.room-tools{gap:7px;padding:0 9px}.room-back{width:62px;min-width:62px}.room-title{font-size:15px;max-width:34vw}}
+</style><style>
+/* 하단바 26px와 동일한 상단 아이콘 기준 */
+.kakao-app-wrapper .header-title{font-size:26px;font-weight:600}.kakao-app-wrapper .header-icons .ui-icon,.kakao-app-wrapper .room-tools .ui-icon,.kakao-app-wrapper .dw-menu svg,.kakao-app-wrapper .dw-menu .ui-icon{width:26px;height:26px;min-width:26px;max-width:26px;flex-basis:26px;stroke-width:1.5}.kakao-app-wrapper .header-icons button,.kakao-app-wrapper .room-tools button,.dw-menu button{width:26px;flex-basis:26px;height:30px}.room-title{font-size:26px;max-width:40vw}.room-header{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px}.room-tools{gap:7px;padding:0 9px;height:40px}.room-back{height:40px;width:72px;min-width:72px}.room-back svg{width:26px;height:26px}.room-back span{font-size:18px}.dw-close svg{width:26px!important;height:26px!important}
+.dw-profile{background:#aaa}.dw-profile:before{display:none}.dw-profile .dw-profile-main{flex:1;min-height:0;overflow-y:auto}.dw-profile-scroll-content{display:block;min-height:100%;padding:0 0 calc(100px + env(safe-area-inset-bottom,0px));background:#aaa}.profile-hero{min-height:calc(100dvh - 180px);display:flex;flex-direction:column;background:linear-gradient(to bottom,transparent 42%,#aaaaaa66 68%,#aaa 100%),url('imges/kakaoyh2.JPEG') center/cover no-repeat}.profile-hero .dw-profile-header{width:100%}.profile-hero-details{margin-top:auto;padding:100px 20px 34px}.dw-profile-gallery{margin:0;gap:2px;background:#aaa}.dw-profile-gallery-item{background:#aaa}.dw-profile-gallery-item:last-child{background:#aaa}
+.settings-header{position:relative!important;justify-content:center;padding-bottom:16px}.settings-header .header-title{font-size:20px}.settings-header .header-icons{position:absolute;right:16px}.settings-profile{display:flex;align-items:center;gap:13px;padding:18px 0 26px}.settings-profile .profile-img-default{width:58px;height:58px}.settings-self{flex:1;min-width:0}.settings-self strong{display:block;font-size:18px}.settings-number{display:block;font-size:13px;color:#777;margin-top:8px;white-space:nowrap;pointer-events:none;-webkit-user-select:none;user-select:none}.settings-number a,a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;pointer-events:none!important}.settings-manage{border:1px solid #ddd;border-radius:18px;padding:7px 12px;font-size:13px}.settings-group{border-top:1px solid #eee;padding:12px 0}.settings-row{display:flex;align-items:center;gap:16px;min-height:57px;border-bottom:1px solid #f7f7f7}.settings-row:last-child{border-bottom:0}.settings-icon{display:grid;place-items:center;flex:0 0 26px}.settings-icon svg{width:24px;height:24px}.settings-label{font-size:16px;white-space:nowrap}.settings-value{margin-left:auto;color:#777;font-size:13px;text-align:right;overflow-wrap:anywhere}.group-avatar{display:grid!important;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:2px;background:transparent!important;border:0;border-radius:0;padding:1px}.group-person{display:grid;place-items:center;min-width:0;min-height:0;border-radius:38%;overflow:hidden}.group-person svg{width:72%;height:72%;fill:#ffffffb5}.chat-name{overflow-wrap:anywhere}.chat-muted{display:inline-block;vertical-align:middle;margin-left:5px;color:#aaa}.kakao-app-wrapper .chat-muted .ui-icon{width:13px;height:13px;min-width:13px;max-width:13px;stroke-width:1.6}
+@media(max-width:375px){.header-icons{gap:12px}.room-title{font-size:22px}.room-tools{gap:4px;padding:0 6px}.room-back{width:62px;min-width:62px;padding:0 5px;gap:2px}.settings-row{gap:12px}.settings-value{font-size:12px}}
+</style><style>
+/* 최종 크기 기준: 텍스트와 아이콘, 흰색 알약 높이를 각각 분리 */
+.kakao-app-wrapper{--bar-pill-height:44px;--toolbar-icon-size:22px}
+.kakao-app-wrapper .header-title{font-size:18px;font-weight:600}.kakao-app-wrapper .settings-header .header-title{font-size:18px}.header-title .profile-img-default{width:31px;height:31px}
+.room-title{font-size:16px!important;font-weight:600;max-width:40vw}.room-header{padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:10px;column-gap:8px}
+.room-pill,.input-pill{height:var(--bar-pill-height);min-height:var(--bar-pill-height);border-radius:24px}.input-pill{box-sizing:border-box}.room-back{height:var(--bar-pill-height);width:68px;min-width:68px;gap:5px;padding:0 9px}.room-back span{font-size:15px}.room-back svg{width:22px;height:22px}.room-tools{height:var(--bar-pill-height);gap:10px;padding:0 12px}.kakao-app-wrapper .room-tools button{width:22px;height:30px;flex:0 0 22px}
+.kakao-app-wrapper .header-icons .ui-icon,.kakao-app-wrapper .room-tools .ui-icon,.kakao-app-wrapper .dw-menu .ui-icon,.kakao-app-wrapper .dw-menu>svg,.input-pill>svg,.input-pill button>svg{width:var(--toolbar-icon-size);height:var(--toolbar-icon-size);min-width:var(--toolbar-icon-size);max-width:var(--toolbar-icon-size);flex:0 0 var(--toolbar-icon-size);stroke-width:1.5}.kakao-app-wrapper .header-icons button,.dw-menu button{width:22px;height:30px;flex:0 0 22px}.dw-menu{height:var(--bar-pill-height);border-radius:24px;gap:14px}.dw-close{height:var(--bar-pill-height);width:var(--bar-pill-height)}.dw-close svg{width:22px!important;height:22px!important}
+.dw-profile-block{display:flex;width:max-content;max-width:100%;align-items:flex-start;text-align:left;margin-right:auto;margin-left:0}.dw-profile-block .profile-img-default{margin-left:0;margin-right:0}.dw-profile-block h2{font-size:24px}
+.kakao-app-wrapper .group-avatar{display:grid!important;width:54px!important;height:54px!important;min-width:54px;max-width:54px;flex:0 0 54px;grid-template-columns:25px 25px;grid-template-rows:25px 25px;gap:2px;padding:1px;align-items:stretch;justify-items:stretch;overflow:hidden;aspect-ratio:1}
+.kakao-app-wrapper .group-avatar .group-person{width:25px;height:25px;min-width:25px;min-height:25px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:38%}.kakao-app-wrapper .group-avatar .group-person svg{display:block;width:18px;height:18px;min-width:18px;max-width:18px;flex:0 0 18px;aspect-ratio:1;fill:#ffffffb5;stroke:none}
+.kakao-app-wrapper .room-message .group-avatar{width:36px!important;height:36px!important;min-width:36px;max-width:36px;flex-basis:36px;grid-template-columns:16px 16px;grid-template-rows:16px 16px}.kakao-app-wrapper .room-message .group-person{width:16px;height:16px;min-width:16px;min-height:16px}.kakao-app-wrapper .room-message .group-person svg{width:12px;height:12px;min-width:12px;max-width:12px;flex-basis:12px}
+.settings-icon{display:flex;align-items:center;justify-content:center;width:26px;height:26px;min-width:26px;flex:0 0 26px}.settings-icon svg{display:block;width:24px;height:24px;min-width:24px;max-width:24px;flex:0 0 24px;aspect-ratio:1;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.pin,.chat-muted{display:inline-flex;align-items:center;justify-content:center;vertical-align:-2px;width:14px;height:14px;margin-left:5px;color:#999}.pin svg,.kakao-app-wrapper .chat-muted .ui-icon{width:14px;height:14px;min-width:14px;max-width:14px;flex:0 0 14px;aspect-ratio:1}.pin svg{fill:currentColor;stroke:none}
+@media(max-width:360px){.room-tools{gap:8px;padding:0 9px}.room-back{width:62px;min-width:62px}.room-title{font-size:16px!important}.header-icons{gap:14px}}
+</style><style>
+/* 화살표와 숫자의 실제 도형 영역을 한 묶음으로 중앙 정렬 */
+.kakao-app-wrapper #room-back{display:flex;align-items:center;justify-content:center;gap:0;padding:0 12px;width:max-content;min-width:68px}
+.kakao-app-wrapper #room-back .back-content{display:flex;align-items:center;justify-content:center;gap:9px;width:max-content;height:22px;line-height:22px}
+.kakao-app-wrapper #room-back .back-content svg{display:block;width:10px;height:18px;min-width:10px;max-width:10px;flex:0 0 10px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.kakao-app-wrapper #room-back .back-count{display:flex;align-items:center;justify-content:center;min-width:10px;height:22px;font-size:15px;line-height:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.kakao-app-wrapper .room-title{font-size:18px!important}
+.chat-row:disabled{opacity:1;cursor:default}
+</style><style>
+/* 선물 추억: 상단 고정, 선물 카드 끝까지 내부 스크롤 */
+.gift-memories{background:#e8ebf0;color:#111}.gift-memories .dw-gift-header{height:calc(56px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 18px 0;border:0;background:#fff;flex:none}.gift-memories .dw-header-icons{gap:22px}.gift-memories .dw-gift-header button{display:grid;place-items:center;width:28px;height:36px}.gift-memories .dw-gift-header svg{display:block;width:24px;height:24px;fill:none;stroke:#111;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}.gift-memories .dw-gift-scroll{padding:0;min-height:0;overscroll-behavior:contain}.gift-memory-intro{background:#fff;text-align:center;padding:8px 16px 16px}.gift-memory-avatars{display:flex;justify-content:center;margin:0 auto 10px}.gift-memory-avatars .profile-img-default{width:66px;height:66px;border:2px solid white;background:#a2d9d6;position:relative}.gift-memory-avatars .profile-img-default:first-child{z-index:1;margin-right:-8px}.gift-memory-intro h2{font-size:21px;line-height:1.4;font-weight:400;margin:0 0 20px;letter-spacing:-.5px}.gift-memory-intro h2 strong{font-weight:650}.gift-memory-filters{display:flex;justify-content:center;gap:7px}.gift-memory-filters span{font-size:14px;border:1px solid #e7e7eb;border-radius:24px;padding:9px 16px;white-space:nowrap;line-height:1.2}.gift-memory-filters .selected{background:#3b3d3e;border-color:#3b3d3e;color:white;font-weight:600}
+.gift-memory-timeline{padding:36px 10px calc(18px + env(safe-area-inset-bottom,0px));background:#e8ebf0}.gift-memory-date{display:flex;align-items:center;gap:10px;color:#929292;font-size:12px;margin:0 0 34px;text-align:center;white-space:nowrap}.gift-memory-date:before,.gift-memory-date:after{content:'';height:1px;background:#cfd3d9;flex:1}.gift-memory-entry{display:flex;align-items:flex-start;gap:10px}.gift-memory-entry>.gift-sender-avatar{width:46px;height:46px;flex:0 0 46px}.gift-entry-body{flex:1;min-width:0;padding-top:4px}.gift-sender-name{display:block;font-size:14px;font-weight:650;line-height:1.3}.gift-entry-body>time{display:block;font-size:12px;color:#929292;margin-top:3px}.gift-announcement{position:relative;background:#fff;border-radius:15px;padding:10px 12px;font-size:13px;line-height:1.45;margin:7px 0 9px;width:fit-content;max-width:100%;overflow-wrap:anywhere}.gift-announcement:before{content:'';position:absolute;left:-4px;top:0;width:10px;height:9px;background:white;clip-path:polygon(0 0,100% 20%,100% 100%)}.gift-announcement span{white-space:nowrap}.gift-memory-card{width:100%;max-width:340px;overflow:hidden;border-radius:12px;background:#fff;box-shadow:0 8px 12px -12px #0006}.gift-black-art{background:#555;aspect-ratio:1.5;width:100%}.gift-card-message{font-size:14px;line-height:1.55;padding:0;margin:16px 15px 22px;overflow-wrap:anywhere}.gift-product{display:flex;gap:8px;padding:0 12px 12px;align-items:center}.gift-product-placeholder{width:42px;height:42px;flex:0 0 42px;border-radius:2px;background:#555}.gift-product-info{flex:1;min-width:0}.gift-product-brand{display:block;color:#888;font-size:12px;margin-bottom:5px}.gift-product-name{font-size:13px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:350px){.gift-memory-intro h2{font-size:20px}.gift-memory-filters span{padding:9px 12px}.gift-memory-entry{gap:8px}.gift-memory-entry>.gift-sender-avatar{width:40px;height:40px;flex-basis:40px}.gift-announcement{font-size:12px;padding:9px 10px}}
+</style><style>
+/* 선물 화면의 일반 SVG 선 스타일이 기본 프사에 적용되지 않도록 분리 */
+#gift-self-avatar{background:#a2d9d6}
+#gift-self-avatar svg{display:block;width:66%;height:66%;fill:#ffffffb5;stroke:none;stroke-width:0}
+</style><style>
+.kakao-app-wrapper .header-title.chat-category-title{font-size:24px;font-weight:700;letter-spacing:-.5px}
+</style><style>
+#chat-notice{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;right:12px;max-width:480px;margin:auto;z-index:11000;display:flex;align-items:center;gap:10px;border-radius:16px;background:#fff;color:#111;padding:13px 14px;box-shadow:0 5px 24px #0003;font-family:-apple-system,BlinkMacSystemFont,sans-serif}#notice-open{flex:1;min-width:0;text-align:left}#notice-open strong{display:block;font-size:14px;margin-bottom:5px}#notice-text{display:block;font-size:14px;line-height:1.4}#notice-close{width:24px;height:30px;align-self:flex-start;font-size:23px;color:#777}
+#vt-screen .vt-dialogue{width:100%;max-width:460px;margin:12px auto;flex:1;min-height:90px;display:flex;align-items:center;justify-content:center;overflow:auto}#vt-screen .vt-dialogue .room-message{width:100%;margin:0}#vt-screen .vt-dialogue .chat-copy{max-width:90%;flex:initial}#vt-screen .vt-dialogue .room-sender{color:#ccc}#vt-screen .vt-dialogue .bubble{color:#111;max-width:100%}#vt-screen .vt-dialogue .me .room-sender{text-align:right}#vt-screen .vt-dialogue .me .bubble{background:#fee500}#vt-screen:has(.vt-dialogue:not([hidden])) .vt-header{margin-bottom:16px}#vt-screen:has(.vt-dialogue:not([hidden])) .vt-profile-img{width:76px;height:76px;margin-bottom:12px}#vt-screen:has(.vt-dialogue:not([hidden])) .vt-utilities{margin-bottom:20px}
+</style><style>
+#chat-notice{padding:0;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);touch-action:pan-x;border:1px solid #ffffff66;overflow:hidden}#notice-open{display:flex;align-items:center;gap:11px;width:100%;padding:13px 14px;text-align:left}#notice-avatar{width:42px;height:42px;flex:0 0 42px;border:0;background:#a2d9d6}#notice-avatar svg{fill:#ffffffb5;stroke:none;width:66%;height:66%}.notice-copy{display:block;flex:1;min-width:0}#notice-open strong{font-size:14px;margin:0 0 4px}#notice-text{font-size:14px;line-height:1.4}
+#vt-screen .vt-dialogue{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:10px 16px;overflow:auto}#vt-screen .vt-line-speaker{font-size:13px;font-weight:400;color:#aaa}#vt-screen .vt-line-text{font-size:18px;font-weight:400;line-height:1.55;color:#fff;white-space:pre-wrap;overflow-wrap:anywhere;max-width:380px}
+/* 말풍선과 꼬리가 만나는 코너를 평평하게 연결해 끊긴 테두리를 없앱니다. */
+.room-message:not(.me):not(.group-prev) .bubble{border-top-left-radius:0}
+.room-message.me:not(.group-prev) .bubble{border-top-right-radius:0}
+.room-message:not(.group-prev) .bubble::before{top:0;left:-6px;width:10px;height:12px;clip-path:path('M0 0 H10 V12 C5 10 4 4 0 0 Z');background:#fff;transform:none}
+.room-message.me:not(.group-prev) .bubble::before{left:auto;right:-6px;background:#fee500;transform:scaleX(-1)}
+.room-message:has(.bubble-photo) .bubble{border-radius:12px}.fixed-comment{margin-bottom:12px}
+</style><style>
+/* 둥근 말풍선을 유지하며 짧은 곡선 꼬리를 본문 안쪽으로 겹쳐 연결 */
+.room-message:not(.me):not(.group-prev) .bubble{border-top-left-radius:17px}
+.room-message.me:not(.group-prev) .bubble{border-top-right-radius:17px}
+.room-message:not(.group-prev) .bubble::before{top:1px;left:-4px;width:16px;height:17px;clip-path:path('M0 0 C6 0 12 4 16 9 L16 17 H6 C6 9 4 3 0 0 Z');background:#fff;transform:none}
+.room-message.me:not(.group-prev) .bubble::before{left:auto;right:-4px;background:#fee500;transform:scaleX(-1)}
+.room-message:has(.bubble-photo) .bubble{border-radius:12px}
+</style><style>
+/* 윤도운 본인 프로필 */
+.self-profile{position:absolute;inset:0;z-index:25;background:#788590;color:#fff;display:block;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.self-profile::-webkit-scrollbar{display:none;width:0;height:0}
+.self-profile-hero{position:relative;min-height:calc(100dvh - 180px);display:flex;flex-direction:column}
+.self-profile-empty{min-height:calc((100vw - 4px) * 5 / 12 + 100px + env(safe-area-inset-bottom,0px));padding:24px 20px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
+.self-profile .self-empty-art{width:52px;height:52px;fill:none;stroke:none;overflow:visible}
+.self-profile-empty p{margin:0;font-size:16px;line-height:1.5;font-weight:400}
+.self-profile-empty button{padding:10px 18px;border-radius:9px;color:#fff;background:#ffffff14;font-size:16px;opacity:1}
+.self-profile-header{display:flex;align-items:center;gap:11px;padding:calc(11px + env(safe-area-inset-top,0px)) 16px 10px;border-bottom:1px solid #00000008;flex:none}
+.self-profile-header button{height:44px;border-radius:24px;background:#f6fafc;color:#2c3033;display:flex;align-items:center;justify-content:center;opacity:1;font-size:16px;font-weight:500}
+.self-profile-header .self-round{width:44px;flex:0 0 44px}.self-edit{margin-left:auto;padding:0 18px}
+.self-profile svg{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.self-profile-details{margin-top:auto;padding:70px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+.self-profile-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.self-profile #self-profile-avatar{width:64px;height:64px;min-width:64px;border-radius:25px;background:#a2d9d6}
+.self-profile #self-profile-avatar svg{width:38px;height:38px;fill:#ffffffb5;stroke:none}
+.self-music{position:absolute;right:20px;top:calc(33.5dvh - 20px);display:flex;align-items:center;gap:7px;padding:9px 12px;max-width:calc(100% - 80px);border:1px solid #ffffff20;border-radius:24px;background:#ffffff0c;color:white;text-decoration:none;font-size:13px;line-height:1.4}
+.self-music-copy{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.self-music-artist{color:#ffffffa6;margin-left:5px}.self-music svg{width:14px;height:14px;fill:currentColor;stroke:none}
+.self-profile h2{font-size:26px;line-height:1.3;margin:12px 0 26px;font-weight:700}
+.self-profile-actions{display:flex;align-items:center;border:1px solid #ffffff70;border-radius:9px;min-height:48px;background:#ffffff08}
+.self-profile-actions button{display:flex;align-items:center;justify-content:center;gap:7px;flex:1;min-width:0;color:white;font-size:15px;opacity:1;padding:10px 6px}
+.self-profile-actions button+button{border-left:1px solid #ffffff70}.self-profile-actions svg{width:22px;height:22px}
+.self-profile-trigger{display:inline-flex;align-items:center;gap:10px;font:inherit;color:inherit;text-align:left}
+</style></head>
+<body>
+<div class="kakao-app-wrapper">
+<main class="main-content"><header class="app-header"><h1 class="header-title" id="page-title">친구</h1><div class="header-icons" id="header-icons" aria-hidden="true"></div></header>
+<section id="friends-view">
+<div class="view-filters friend-switch" role="tablist" aria-label="친구와 소식"><button type="button" id="friend-mode" class="selected" role="tab" aria-selected="true">친구</button><button type="button" id="news-mode" role="tab" aria-selected="false">소식</button></div><div id="friend-panels">
+<details class="friend-section"><summary>업데이트 프로필 1</summary><button type="button" id="updated-profile" class="list-profile"><div class="profile-img-default partner-avatar"></div><span class="list-name">영현이 형</span></button></details>
+<details class="friend-section" open><summary>특별한 친구 1</summary><div class="special-row"><button id="birthday-dowoon" class="birthday-person-link"><div class="profile-img-default partner-avatar"></div><div class="birthday-name">영현이 형<span>어제 선물하려던 친구</span></div></button><button class="gift-button" id="birthday-gift">선물하기</button></div></details>
+<div class="friend-section birthday-static"><div class="static-summary">생일인 친구<span aria-hidden="true"></span></div></div>
+<details class="friend-section" open><summary>즐겨찾는 친구 1</summary><button id="favorite-dowoon" class="list-profile"><div class="profile-img-default partner-avatar"></div><span class="list-name">영현이 형</span></button></details>
+<div class="friend-section"><div class="friends-heading"><button id="friends-toggle" aria-expanded="true">친구 825</button><div class="sort-labels"><span>가나다순</span><span>친구추가순</span></div><span id="friends-chevron">⌃</span></div><div id="all-friends"><div class="list-profile"><div class="recommend-avatar">🙂</div><span class="list-name">추천친구 <span class="muted">95</span></span></div><div id="friend-list"></div></div></div>
+</div><div id="news-feed" hidden></div></section>
+<section id="chats-view" hidden><div class="view-filters"><span class="selected">전체</span><span>안 읽음 <b id="unread-count"></b></span></div><div id="chat-list"></div></section>
+<section id="settings-view" hidden></section></main><nav id="alphabet-nav" aria-label="친구 초성 탐색"></nav>
+<nav class="bottom-tab-bar" aria-label="하단 메뉴">
+<button type="button" class="tab-icon active" id="friends-tab" aria-label="친구" aria-current="page"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
+<button type="button" class="tab-icon" id="chats-tab" aria-label="채팅"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></button>
+<div class="tab-icon" aria-label="쇼핑"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+<button type="button" class="tab-icon" id="settings-tab" aria-label="설정"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg></button>
+</nav>
+<section class="room" id="room" hidden aria-label="채팅방">
+<header class="room-header">
+<button type="button" class="room-pill room-back" id="room-back" aria-label="전체 목록으로"><span class="back-content"><svg viewBox="0 0 10 18" aria-hidden="true"><path d="M8 2 2 9l6 7"/></svg></span></button>
+<h2 class="room-title" id="room-title"></h2>
+<div class="room-pill room-tools"><button type="button" id="room-search-toggle" aria-label="대화 검색"></button><button type="button" id="room-call" aria-label="보이스톡"></button><button type="button" id="room-menu" aria-label="메뉴" disabled></button></div>
+</header>
+<div class="room-search" id="room-search" hidden><div class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></svg><input id="search-input" placeholder="대화내용 검색" aria-label="대화 내용 검색" autocomplete="off"><button type="button" id="search-clear" hidden aria-label="검색어 지우기"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="m8 8 8 8M16 8l-8 8" stroke="#aebfd1" stroke-width="2.5"/></svg></button></div><button type="button" id="search-close">취소</button></div><div class="room-content" id="room-content"></div>
+<div id="search-footer" hidden><div class="search-footer-pill"><span id="search-count" aria-live="polite">0/0</span><button type="button" id="search-prev" aria-label="이전 검색 결과"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><button type="button" id="search-next" aria-label="다음 검색 결과"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button></div></div><form class="room-input" id="message-form"><div class="input-pill">
+<button type="button" id="photo-open" aria-label="최근 사진" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+<input class="message-input" id="message-input" aria-label="메시지" placeholder="메시지 입력" autocomplete="off">
+<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
+<button type="button" id="tag-button" disabled aria-label="태그">#</button><button type="submit" class="send-button" id="send-button" disabled>전송</button>
+</div></form><div id="photo-overlay" hidden><button type="button" class="photo-backdrop" id="photo-dismiss" aria-label="사진 선택 닫기"></button><section class="photo-sheet" role="dialog" aria-modal="true" aria-label="최근 사진"><div class="sheet-handle"></div><div class="photo-heading"><h3>최근 사진</h3><button type="button" id="photo-send" disabled>전송</button></div><div id="photo-strip"></div></section></div>
+</section>
+<section id="self-profile" class="self-profile" hidden aria-label="윤도운 프로필"><div class="self-profile-hero">
+<header class="self-profile-header"><button type="button" id="self-profile-close" class="self-round" aria-label="프로필 닫기"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><button type="button" class="self-edit" disabled>프로필 편집</button><button type="button" class="self-round" disabled aria-label="더보기"><svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button></header>
+<div class="self-profile-details"><div class="self-profile-row"><div id="self-profile-avatar" class="profile-img-default"></div><a class="self-music" href="https://youtu.be/M_zLZ0jogC4?si=RN45yOFKMv0Nq4Lj&amp;t=29" target="_blank" rel="noopener noreferrer" aria-label="널 생각해, 원 모어 찬스 — YouTube에서 29초부터 재생"><span class="self-music-copy">널 생각해<span class="self-music-artist">원 모어 찬스</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3 21 12 7 21Z"/></svg></a></div><h2>윤도운</h2>
+<div class="self-profile-actions"><button type="button" disabled><svg viewBox="0 0 24 24"><path d="M21 11a9 8 0 0 1-9 8 10 10 0 0 1-3-.5L4 22l.8-6A7.5 7.5 0 0 1 3 11a9 8 0 0 1 18 0Z"/></svg>나와의 채팅</button><button type="button" disabled><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/></svg>새 게시물</button></div></div></div><div class="self-profile-empty" aria-label="게시물 없음"><svg class="self-empty-art" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="self-sky" x2="0" y2="1"><stop stop-color="#a6f1ff"/><stop offset="1" stop-color="#49d5ed"/></linearGradient><linearGradient id="self-hills" x2="0" y2="1"><stop stop-color="#24d77f"/><stop offset="1" stop-color="#00ba91"/></linearGradient></defs><rect x="7" y="8" width="48" height="49" rx="10" fill="#53bdd5" transform="rotate(-12 31 32)"/><rect x="11" y="7" width="48" height="49" rx="10" fill="url(#self-sky)" transform="rotate(5 35 31)"/><circle cx="46" cy="21" r="6" fill="#ffe568"/><path d="m12 39 12-12q4-4 8 0l10 13 5-5q3-3 6 0l5 6-1 9q-1 8-10 8l-27-2q-9-1-9-9Z" fill="url(#self-hills)"/></svg><p>첫 번째 게시물을 올려보세요.</p><button type="button" disabled>게시물 올리기</button></div></section>
+<section class="dw-profile" id="dowoon-profile" hidden aria-label="영현이 형 프로필"><div class="dw-profile-main"><div class="dw-profile-scroll-content"><div class="profile-hero"><header class="dw-profile-header"><button class="dw-close" id="profile-close" aria-label="프로필 닫기"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button><div class="dw-menu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m7 8 3 8 2-6 2 6 3-8M7 12h10"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></div></header><div class="profile-hero-details"><div class="dw-profile-block"><div class="profile-img-default"><img src="imges/kakaoyh1.JPEG" alt="영현이 형"></div><h2>영현이 형</h2></div><div class="dw-contact-actions"><button id="profile-chat" class="dw-chat"><svg viewBox="0 0 24 24"><path d="M21 11a9 9 0 0 1-9 9c-1.5 0-3-.4-4-1l-5 2 1-5a9 9 0 1 1 17-5Z"/></svg>1:1 채팅</button><button type="button" id="profile-call" class="dw-chat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>통화</button></div></div></div><div class="dw-profile-gallery" aria-label="영현이 형의 게시물 사진"><div class="dw-profile-gallery-item"><img src="imges/kakaoyh1.JPEG" alt="영현이 형 게시물 사진 1"></div><div class="dw-profile-gallery-item"><img src="imges/kakaoyh2.JPEG" alt="영현이 형 게시물 사진 2"></div><div class="dw-profile-gallery-item" aria-hidden="true"></div></div></div></div></section>
+<section class="dw-gift gift-memories" id="gift-page" hidden aria-label="강영현님과 주고받은 선물 추억">
+<header class="dw-gift-header"><div class="dw-header-icons"><button type="button" id="gift-back" aria-label="뒤로"><svg viewBox="0 0 24 24"><path d="m15 4-8 8 8 8"/></svg></button><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16l1 14H3L4 7ZM8 8V5a4 4 0 0 1 8 0v3"/></svg></div><button type="button" id="gift-close" aria-label="선물 창 닫기"><svg viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></svg></button></header>
+<div class="dw-gift-scroll">
+<div class="gift-memory-intro"><div class="gift-memory-avatars"><div id="gift-self-avatar" class="profile-img-default"></div><div class="profile-img-default partner-avatar"></div></div><h2>나와 <strong>강영현</strong>님과<br>주고받은 선물 추억</h2><div class="gift-memory-filters" aria-label="선물 분류"><span>전체보기</span><span class="selected" aria-current="true">받은선물</span><span>보낸선물</span></div></div>
+<div class="gift-memory-timeline"><div class="gift-memory-date"><span id="gift-date-label"></span></div><div class="gift-memory-entry"><div class="profile-img-default partner-avatar gift-sender-avatar"></div><div class="gift-entry-body"><strong class="gift-sender-name">영현이 형</strong><time id="gift-sent-at"></time><div class="gift-announcement">1개의 선물과 메시지 카드를 보냈어요. <span aria-label="하트 편지">💌</span></div><article class="gift-memory-card"><div class="gift-black-art" aria-label="진회색 메시지 카드 이미지"></div><p class="gift-card-message">못 가서 미안 ㅠㅠ 공연 잘 해 우리 도우니 짱</p><div class="gift-product"><div class="gift-product-placeholder" aria-label="진회색 선물 이미지"></div><div class="gift-product-info"><span class="gift-product-brand">독앤캣플레이스</span><div class="gift-product-name">응원한다냥! 생각을 비워주는 행운 멍...</div></div></div></article></div></div></div>
+</div></section>
+
+</div>
+<script>
+(function(){
+/* ━━━ 여기서 숫자 / 사진 / 대화 / 시간을 수정하세요 ━━━
+me = 윤도운(오른쪽), them = 영현이 형(왼쪽).
+날짜 구분선은 {date:'2027년 8월 25일 수요일'} 형태로 추가합니다.
+recentPhotos에서 전송할 사진 경로를 수정할 수 있습니다. PHOTO_REPLIES에서 사진별 대사를 수정할 수 있습니다. */
+const SETTINGS = {
+  // '안 읽음' 합계는 각 채팅방 unread 값을 자동 합산합니다.
+  partnerPhoto: 'imges/kakaoyh1.JPEG',
+  listTime: '오전 10:41',   // 채팅 목록 시간
+  recentPhotos: ['imges/kakaodw1.JPG', 'imges/kakaodw2.JPG', 'imges/kakaodw3.JPG', 'imges/kakaodw4.JPG', 'imges/kakaodw5.JPG', 'imges/kakaodw6.JPG']
+};
+const chats = [{name:'영현이 형',date:'2026년 9월 2일 화요일',listTime:SETTINGS.listTime,messages:[
+ {sender:'me',text:'어디?',time:'오후 8:10'},
+ {sender:'them',text:'후문 야야',time:'오후 8:12'},
+ {sender:'me',text:'거 오늘 돼지창자 멸망하겠네',time:'오후 8:12'},
+ {sender:'them',text:'그정돈 아니다',time:'오후 8:13'},
+ {sender:'me',text:'누구랑 있어? 형 친구들?',time:'오후 8:14'},
+ {sender:'them',text:'엉 동기들',time:'오후 8:14'},
+ {sender:'me',text:'내거 밥 시켜주라',time:'오후 8:15'},
+ {sender:'me',text:'형 반 먹고 반만 남겨도',time:'오후 8:15'},
+ {sender:'them',text:'얼마나 걸려?',time:'오후 8:16'},
+ {sender:'me',text:'몰라 한 십오분?',time:'오후 8:16'},
+ {sender:'them',text:'확인',time:'오후 8:17'},
+ {date:'2026년 9월 21일 월요일'},
+ {sender:'them',text:'혹시학교갔어?',time:'오전 10:02'},
+ {sender:'me',text:'가는중 왜',time:'오전 10:05'},
+ {sender:'them',text:'디근일어낫어',time:'오전 10:06'},
+ {sender:'me',text:'잘한다',time:'오전 10:06'},
+ {sender:'them',text:'나 실어가면안되나?ㅠㅠ',time:'오전 10:07'},
+ {sender:'me',text:'알았다',time:'오전 10:07'},
+ {sender:'them',text:'도운아 땡큐',time:'오전 10:38'},
+ {sender:'me',text:'하여튼간에 손 마이간다',time:'오전 10:41'}
+]}];
+// 다른 채팅방: name(이름), preview(최근 대화), listTime(시간), unread(안 읽은 개수).
+// unread: 0이면 빨간 표시를 숨깁니다. 각 {name: ...} 항목 전체를 삭제하면 목록에서도 사라집니다.
+// messages에 대화를 추가하세요. 빈 배열이면 preview를 첫 대화로 표시합니다.
+chats.push(
+ {name:'누나',preview:'전화 좀',listTime:'오후 2:06',unread:2,messages:[]},
+ {name:'성유찬(실음)',preview:'닌 그 정도면 경영으로 전과해라 그냥',listTime:'오후 1:07',unread:1,messages:[]},
+ {name:'2026 실음 4학년',group:true,muted:true,preview:'내일 최지원 교수님 전공 실기 강의실 405호로 변경됐습니다.',listTime:'오전 11:07',unread:0,messages:[]},
+ {name:'노랑통닭 알바톡',group:true,muted:true,preview:'홀에 이거 누구 거임?',listTime:'오전 09:02',unread:0,messages:[]},
+ {name:'디앤비 2026 전체 공지방(사담XX)',group:true,muted:true,preview:'연습실에서 음료 말고 뭐 먹지 말....',listTime:'어제',unread:6,messages:[]},
+ {name:'디앤비 2026',group:true,muted:true,preview:'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',listTime:'어제',unread:78,messages:[]},
+ {name:'ㅋㅋ',group:true,muted:true,preview:'누가 윤도운 전화 좀 해보셈',listTime:'어제',unread:32,messages:[]},
+ {name:'고민재',preview:'고마워서 주말에 밥 사고 싶은데 시간 돼?',listTime:'어제',unread:3,messages:[]}
+);
+// 소식 게시물: date / photo / likes를 바꾸거나 항목을 추가·삭제하세요.
+const PROFILE_UPDATES = [
+ {date:'8월 25일',photo:'imges/kakaoyh1.JPEG',likes:11},
+ {date:'8월 24일',photo:'imges/kakaoyh2.JPEG',likes:18}
+];
+// 선물 추억 날짜: 아래 두 문자열만 바꾸세요.
+const GIFT_MEMORY = {
+ dateLabel: '2027년 08월 25일 수요일', // 가운데 날짜 구분선
+ sentAt: '2027.08.25 00:17'           // 영현이 형 이름 아래 날짜·시간
+};
+/* ━━━ 수정 영역 끝 ━━━ */
+chats.forEach(chat=>{if(!chat.messages.length&&chat.preview)chat.messages.push({sender:'them',text:chat.preview,time:chat.listTime||''});});
+const colors=['#a6c9f1','#a2d9d6','#bdb6f0'];
+const person='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>';
+const $=id=>document.getElementById(id);
+$('gift-date-label').textContent=GIFT_MEMORY.dateLabel;$('gift-sent-at').textContent=GIFT_MEMORY.sentAt;$('gift-self-avatar').innerHTML=person;
+// 공통 아이콘: 같은 종류는 어느 화면에서도 이 SVG만 사용합니다.
+const icons={
+ search:'<circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/>',
+ add:'<circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20v-1.5a5 5 0 0 1 5-5h3a5 5 0 0 1 3 1M19 12v8M15 16h8"/>',
+ gift:'<path d="m4 9 8 4 8-4-8-4-8 4ZM4 9v10l8 4 8-4V9M12 13v10" transform="translate(0 -1)"/><path d="M12 5C8 5 6 2 8 1.5c2-.5 4 3.5 4 3.5Zm0 0c4 0 6-3 4-3.5-2-.5-4 3.5-4 3.5Z"/>',
+ settings:'<path d="M9.5 2.5h5l.5 2.4 2 1.2 2.3-.8 2.5 4.4-1.8 1.6v2.4l1.8 1.6-2.5 4.4-2.3-.8-2 1.2-.5 2.4h-5L9 20.1l-2-1.2-2.3.8-2.5-4.4L4 13.7v-2.4L2.2 9.7l2.5-4.4 2.3.8 2-1.2.5-2.4Z" transform="translate(.6 0) scale(.95)"/><circle cx="12" cy="12" r="3.5"/>',
+ chat:'<path d="M14 4H7a4.5 4.5 0 0 0-4.5 4.5v6A4.5 4.5 0 0 0 7 19h1v3l5-3h3.5a4.5 4.5 0 0 0 4.5-4.5V12M19 2v7M15.5 5.5h7"/>',
+ phone:'<path d="M5 3 2.5 5.5c-.5 6.5 9.5 16.5 16 16l3-3-5-4-2.5 2.5c-3-1.5-5.5-4-7-7L9.5 7 5 3Z"/>',
+ muted:'<defs><mask id="muted-cut"><rect width="24" height="24" fill="white"/><path d="M3 21 21 3" stroke="black" stroke-width="5"/></mask></defs><g mask="url(#muted-cut)" fill="currentColor" stroke="none"><path d="M5 16V9a7 7 0 0 1 14 0v7l2 3H3l2-3Z"/><path d="M9 20a3 3 0 0 0 6 0Z"/></g><path d="M3 21 21 3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>',
+ menu:'<path d="M3 6h18M3 12h18M3 18h18"/>',
+ more:'<circle cx="5" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/>',
+ heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>',
+ comment:'<path d="M21 11.5a9 9 0 0 1-9 9 10 10 0 0 1-4-.9L3 21l1.4-4.7A9 9 0 1 1 21 11.5Z"/>'
+};
+const svg=key=>'<svg class="ui-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+icons[key]+'</svg>';
+function setHeader(chat){
+ $('page-title').classList.toggle('chat-category-title',chat);
+ $('page-title').replaceChildren();
+ if(!chat){const a=el('div','profile-img-default');a.style.background='#a2d9d6';a.innerHTML=person;const trigger=el('button','self-profile-trigger');trigger.type='button';trigger.setAttribute('aria-label','윤도운 프로필 열기');trigger.append(a,document.createTextNode('윤도운'));trigger.onclick=openSelfProfile;$('page-title').append(trigger);}else $('page-title').textContent='채팅';
+ $('header-icons').innerHTML=(chat?['search','chat','settings']:['search','add','settings']).map(key=>'<button type="button" disabled aria-label="'+({search:'검색',chat:'새로운 채팅',settings:'설정',add:'친구추천',gift:'선물'}[key])+'">'+svg(key)+'</button>').join('');
+}
+document.querySelector('.search-field>svg').outerHTML=svg('search');
+
+
+$('room-search-toggle').innerHTML=svg('search');$('room-call').innerHTML=svg('phone');$('room-menu').innerHTML=svg('menu');
+$('room-back').querySelector('.back-content').append(el('span','back-count',''));
+function el(tag,cls,text){const e=document.createElement(tag);e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function avatar(i){const a=el('div','profile-img-default');a.style.backgroundColor=colors[i % colors.length];if(chats[i]?.group){a.classList.add('group-avatar');a.setAttribute('aria-label','단체 채팅 프로필');for(let n=0;n<4;n++){const tile=el('div','group-person');tile.style.background=colors[(i+n)%colors.length];tile.innerHTML=person;a.append(tile);}return a;}if(i===0){a.classList.add('partner-avatar');a.innerHTML=person;const img=document.createElement('img');img.src=SETTINGS.partnerPhoto;img.addEventListener('error',()=>img.hidden=true);img.alt=chats[i].name;a.append(img);}else a.innerHTML=person;return a;}
+function switchTab(tab){
+ const isChat=tab==='chats',isSettings=tab==='settings';
+ $('friends-view').hidden=tab!=='friends';$('chats-view').hidden=!isChat;$('settings-view').hidden=!isSettings;
+ document.querySelector('.app-header').classList.toggle('settings-header',isSettings);
+ if(isSettings){$('page-title').classList.remove('chat-category-title');$('page-title').textContent='설정';$('header-icons').innerHTML='<button disabled aria-label="검색">'+svg('search')+'</button>';}else setHeader(isChat);
+ $('alphabet-nav').classList.remove('visible');document.querySelector('.main-content').scrollTop=0;
+ ['friends','chats','settings'].forEach(t=>{const button=$(t+'-tab');button.classList.toggle('active',t===tab);if(t===tab)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
+}
+// 새로 주고받는 대화의 날짜선. 처음 메시지가 추가될 때만 표시합니다.
+const NEW_CHAT_DATE='2026년 9월 22일 화요일';
+function appendNewChatMessage(chatIndex,message){
+ const chat=chats[chatIndex];
+ const lastDate=chat.messages.filter(item=>item.date).at(-1)?.date||chat.date;
+ if(lastDate!==NEW_CHAT_DATE)chat.messages.push({date:NEW_CHAT_DATE});
+ chat.messages.push(message);
+}
+function renderList(){
+ const total=chats.reduce((sum,c)=>sum+(Number(c.unread)||0),0);$('unread-count').textContent=total?String(total):'';
+ const backCount=$('room-back').querySelector('.back-count');backCount.textContent=total?String(total):'';backCount.hidden=total===0;
+ $('room-back').setAttribute('aria-label',total?'전체 목록으로, 안 읽은 메시지 '+total+'개':'전체 목록으로');
+ $('chat-list').replaceChildren();
+ chats.forEach((chat,i)=>{const last=chat.messages.filter(m=>!m.date).at(-1)||{text:'',time:''};const row=el('button','chat-row');row.type='button';row.disabled=i!==0;const copy=el('div','chat-copy');copy.append(el('div','chat-name',chat.name),el('div','chat-preview',chat.preview??last.text));const side=el('div','chat-side');side.append(el('time','chat-time',chat.listTime??last.time));if(chat.unread){const badge=el('span','unread-badge',String(chat.unread));badge.setAttribute('aria-label','안 읽음 '+chat.unread+'개');side.append(badge);}if(chat.muted){const mute=el('span','chat-muted');mute.setAttribute('aria-label','알림 꺼짐');mute.innerHTML=svg('muted').replaceAll('muted-cut','muted-cut-'+i);copy.firstChild.append(mute);}if(i===0){const pin=el('span','pin');pin.setAttribute('aria-label','고정');pin.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a1.5 1.5 0 0 1 1.1 2.5L16 7v4l3 3v3h-5v5h-4v-5H5v-3l3-3V7L5.9 4.5A1.5 1.5 0 0 1 7 2Z"/></svg>';copy.firstChild.append(pin);}row.append(avatar(i),copy,side);if(i===0)row.addEventListener('click',()=>openRoom(i));$('chat-list').append(row);});
+}
+let selected=0;
+const drafts=chats.map(()=>'');
+function renderMessages(){
+ const chat=chats[selected];const body=$('room-content');body.replaceChildren();
+ if(chat.date){const date=el('div','room-date');date.append(el('span','',chat.date));body.append(date);}
+ chat.messages.forEach((msg,i)=>{
+  if(msg.date){const d=el('div','room-date');d.append(el('span','',msg.date));body.append(d);return;}
+  const prev=chat.messages[i-1],next=chat.messages[i+1];
+  const same=m=>m&&!m.date&&m.sender===msg.sender&&m.time===msg.time;
+  const joinedPrev=!!same(prev),joinedNext=!!same(next);
+  const row=el('div','room-message'+(msg.sender==='me'?' me':'')+(joinedPrev?' group-prev':'')+(joinedNext?' group-next':''));
+  const bubble=el('div','bubble',msg.text);if(msg.photo){bubble.textContent='';const image=document.createElement('img');image.src=msg.photo;image.className='bubble-photo';image.alt='전송한 사진';bubble.append(image);}
+  const time=!joinedNext?el('time','bubble-time',msg.time):null;
+  if(msg.sender==='me'){const meta=el('div','message-meta');if(msg.unread&&!msg.photo){const unread=el('span','message-unread','1');unread.setAttribute('aria-label','안 읽음 1');meta.append(unread);}if(time)meta.append(time);row.append(meta,bubble);}
+  else{const copy=el('div','chat-copy');const line=el('div','bubble-line');line.append(bubble);if(time)line.append(time);if(!joinedPrev)copy.append(el('div','room-sender',chat.name));copy.append(line);row.append(joinedPrev?el('div','avatar-spacer'):avatar(selected),copy);}
+  body.append(row);
+ });
+ appendTypingIndicator();body.scrollTop=body.scrollHeight;if(!$('room-search').hidden)searchMessages();
+}
+let roomOrigin=null;
+function openRoom(i){if(i!==0||!chats[i]||chats[i].group)return;$('room-call').hidden=i!==0;roomOrigin=document.activeElement;selected=i;chats[i].unread=0;renderList();$('room-title').textContent=chats[i].name;$('dowoon-profile').hidden=true;$('room').hidden=false;$('message-input').value=drafts[i];$('send-button').disabled=!drafts[i].trim();renderMessages();$('room-back').focus();if(i===0){hideNotice();releasePendingStories();}}
+$('room-back').addEventListener('click',()=>{$('message-input').blur();$('room').hidden=true;closeSearch();closePhotos();if(roomOrigin?.id==='profile-chat')$('dowoon-profile').hidden=false;roomOrigin?.focus();});
+$('message-input').addEventListener('input',()=>{drafts[selected]=$('message-input').value;$('send-button').disabled=!drafts[selected].trim();});
+$('message-form').addEventListener('submit',event=>{
+ event.preventDefault();const input=$('message-input');const text=input.value.trim();if(!text)return;
+ const time=new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Asia/Seoul'}).format(new Date());
+ const matched=selected===0&&!!findKeywordRule(text);
+ if(matched)chats[selected].messages.forEach(message=>{if(message.sender==='me')message.unread=false;});
+ appendNewChatMessage(selected,{sender:'me',text,time,unread:!matched});delete chats[selected].preview;chats[selected].listTime=time;drafts[selected]='';input.value='';$('send-button').disabled=true;renderMessages();renderList();input.focus();if(selected===0)startKeywordReply(text);
+});
+renderList();
+let profileOrigin=null,giftOrigin=null,selfProfileOrigin=null;
+$('self-profile-avatar').innerHTML=person;
+function openSelfProfile(){selfProfileOrigin=document.activeElement;$('self-profile').hidden=false;$('self-profile').scrollTop=0;$('self-profile-close').focus();}
+$('self-profile-close').onclick=()=>{$('self-profile').hidden=true;selfProfileOrigin?.focus();};
+function openProfile(){profileOrigin=document.activeElement;$('dowoon-profile').hidden=false;$('profile-close').focus();}
+function openGift(){giftOrigin=document.activeElement;$('gift-page').hidden=false;document.querySelector('#gift-page .dw-gift-scroll').scrollTop=0;$('gift-back').focus();}
+function closeGift(){$('gift-page').hidden=true;giftOrigin?.focus();}
+$('favorite-dowoon').addEventListener('click',openProfile);$('updated-profile').addEventListener('click',openProfile);
+$('birthday-dowoon').addEventListener('click',openProfile);
+$('profile-close').addEventListener('click',()=>{$('dowoon-profile').hidden=true;profileOrigin?.focus();});
+$('profile-chat').addEventListener('click',()=>openRoom(0));
+
+$('birthday-gift').addEventListener('click',openGift);
+$('gift-back').addEventListener('click',closeGift);
+$('gift-close').addEventListener('click',closeGift);
+$('friends-tab').addEventListener('click',()=>switchTab('friends'));
+$('chats-tab').addEventListener('click',()=>switchTab('chats'));$('settings-tab').addEventListener('click',()=>switchTab('settings'));
+
+// 기본 프사와 상대 사진 (파일이 없으면 기본 아이콘 표시)
+document.querySelectorAll('.partner-avatar').forEach(a=>{a.innerHTML=person;const img=document.createElement('img');img.src=SETTINGS.partnerPhoto;img.alt='영현이 형';img.onerror=()=>img.hidden=true;a.append(img);});
+const friendNames=['엄마','아빠','누나','원필이 형','성진이 형','강도겸(경영)','강세온(실음)','고민재','태오 형(경영)','김다겸(실음)','무진이 형','서담 누나','유건이 형(경영)','나윤재(경영)','남세빈','하겸 형(체교)','도이준(실음)','지안 누나(국문)','문다온(경영)','유담','박서겸(컴공)','배하진(실음)','도하','성유찬(실음)','손가온(경영)','신이담(실음)','안도영(실음)','영현이 형','서율이 누나','유하람','윤경민(경영)','재겸 형(경영)','임준후(경영)','장시안(시디)','하온(실음)','최서하','윤석현 교수님','신새벽(실음)','노랑통닭 사장님','재유','유석이 형','백시현(경영)','한승록(실음)','은솔 누나','차도훈(기계)','혜솔님','오정빈 교수님','문규태 교수님','백기찬 교수님','조희준 교수님','연습실사장님','실음조교님','경영조교님'];
+const initials='ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+const initial=name=>initials[Math.floor((name.charCodeAt(0)-44032)/588)];let lastInitial='';
+friendNames.sort((a,b)=>a.localeCompare(b,'ko')).forEach((name,i)=>{const key=initial(name);if(key!==lastInitial){const heading=el('div','initial-label',key);heading.id='initial-'+key;$('friend-list').append(heading);lastInitial=key;}const isPartner=name===chats[0].name;const row=el(isPartner?'button':'div','list-profile person-row'),a=isPartner?avatar(0):el('div','profile-img-default');if(!isPartner){a.style.background=colors[i%3];a.innerHTML=person;}else{row.type='button';row.addEventListener('click',openProfile);}row.append(a,el('span','list-name',name));$('friend-list').append(row);});
+const alphabet=$('alphabet-nav'),main=document.querySelector('.main-content');let alphabetTimer;
+function showAlphabet(){if($('friends-view').hidden||$('friend-panels').hidden||$('all-friends').hidden)return;alphabet.classList.add('visible');clearTimeout(alphabetTimer);alphabetTimer=setTimeout(()=>alphabet.classList.remove('visible'),800);}
+function goInitial(key){const keys=[...document.querySelectorAll('.initial-label')];const target=document.getElementById('initial-'+key)||keys.find(e=>initials.indexOf(e.textContent)>=initials.indexOf(key))||keys.at(-1);if(target)main.scrollTop+=target.getBoundingClientRect().top-main.getBoundingClientRect().top;showAlphabet();}
+[...'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ'].forEach(key=>{const b=el('button','',key);b.type='button';b.addEventListener('click',()=>goInitial(key));alphabet.append(b);});
+main.addEventListener('scroll',showAlphabet,{passive:true});
+alphabet.addEventListener('pointerdown',e=>{alphabet.setPointerCapture(e.pointerId);if(e.target.tagName==='BUTTON')goInitial(e.target.textContent);});
+alphabet.addEventListener('pointermove',e=>{if(!alphabet.hasPointerCapture(e.pointerId))return;const hit=document.elementFromPoint(e.clientX,e.clientY);if(hit?.parentElement===alphabet)goInitial(hit.textContent);});
+$('friends-toggle').onclick=()=>{const collapsed=!$('all-friends').hidden;$('all-friends').hidden=collapsed;$('friends-toggle').setAttribute('aria-expanded',String(!collapsed));$('friends-chevron').textContent=collapsed?'⌄':'⌃';if(collapsed)alphabet.classList.remove('visible');};
+// 실제 대화 검색: 일치한 말풍선 표시, 이전/다음 이동
+let matches=[],matchIndex=0;
+function showMatch(){matches.forEach((e,i)=>e.classList.toggle('search-current',i===matchIndex));$('search-count').replaceChildren(el('strong','',String(matches.length?matchIndex+1:0)),document.createTextNode('/'+matches.length));$('search-prev').disabled=!matches.length||matchIndex<=0;$('search-next').disabled=!matches.length||matchIndex>=matches.length-1;const target=matches[matchIndex];if(target){const box=$('room-content');box.scrollTop+=target.getBoundingClientRect().top-box.getBoundingClientRect().top-box.clientHeight/2;}}
+function searchMessages(){
+ $('search-clear').hidden=!$('search-input').value.length;
+ const query=$('search-input').value.trim(),needle=query.toLocaleLowerCase();matches=[];
+ document.querySelectorAll('#room-content .bubble').forEach(b=>{
+  b.classList.remove('search-match','search-current');if(b.querySelector('img')||b.classList.contains('typing-bubble'))return;
+  const text=b.textContent;b.replaceChildren();
+  if(!needle){b.textContent=text;return;}
+  const lower=text.toLocaleLowerCase();let start=0,index;
+  while((index=lower.indexOf(needle,start))!==-1){b.append(document.createTextNode(text.slice(start,index)));const mark=el('mark','search-word',text.slice(index,index+query.length));b.append(mark);matches.push(mark);start=index+query.length;}
+  b.append(document.createTextNode(text.slice(start)));
+ });matchIndex=matches.length-1;showMatch();
+}
+function closeSearch(){$('room-search').hidden=true;$('search-footer').hidden=true;$('room').classList.remove('searching');$('search-input').blur();$('search-input').value='';searchMessages();}
+$('room-search-toggle').onclick=()=>{if(!$('room-search').hidden){closeSearch();return;}$('room-search').hidden=false;$('search-footer').hidden=false;$('room').classList.add('searching');$('search-clear').hidden=!$('search-input').value.length;showMatch();$('search-input').focus();};
+$('search-clear').onclick=()=>{$('search-input').value='';searchMessages();$('search-input').focus();};
+$('search-input').oninput=searchMessages;$('search-close').onclick=closeSearch;
+$('search-prev').onclick=()=>{if(matchIndex>0){matchIndex--;showMatch();}};
+$('search-next').onclick=()=>{if(matchIndex<matches.length-1){matchIndex++;showMatch();}};
+$('search-input').onkeydown=e=>{if(e.key==='Enter'){$('search-next').click();e.preventDefault();}};
+// 최근 사진 6칸: 코드에 등록된 사진만 전송 가능. 카메라는 표시 전용입니다.
+const chosenPhotos=new Set();
+function refreshPhotos(){const strip=$('photo-strip');strip.replaceChildren();const camera=el('button','photo-tile camera');camera.type='button';camera.setAttribute('aria-label','카메라');camera.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 6h4l2-3h6l2 3h4v15H3Z"/><circle cx="12" cy="13" r="4"/></svg>';camera.disabled=true;strip.append(camera);const photos=[...SETTINGS.recentPhotos];photos.forEach((src,i)=>{const tile=el('button','photo-tile');tile.type='button';tile.disabled=!src;tile.setAttribute('aria-label','사진 '+(i+1));tile.setAttribute('aria-pressed',String(chosenPhotos.has(src)));if(src){const img=document.createElement('img');img.src=src;img.alt='최근 사진 '+(i+1);tile.append(img);img.onerror=()=>{tile.disabled=true;chosenPhotos.delete(src);tile.replaceChildren(el('small','','사진을 불러올 수 없음'));updatePhotoButton();};tile.append(el('span','check',chosenPhotos.has(src)?'✓':''));tile.onclick=()=>{if(chosenPhotos.has(src))chosenPhotos.delete(src);else{chosenPhotos.clear();chosenPhotos.add(src);}refreshPhotos();};}else tile.append(el('small','','사진 '+(i+1)));strip.append(tile);});updatePhotoButton();}
+function updatePhotoButton(){$('photo-send').disabled=!chosenPhotos.size;$('photo-send').textContent=chosenPhotos.size?'전송 '+chosenPhotos.size:'전송';}
+function closePhotos(){$('photo-overlay').hidden=true;$('photo-open').setAttribute('aria-expanded','false');chosenPhotos.clear();}
+$('photo-open').onclick=()=>{$('message-input').blur();chosenPhotos.clear();refreshPhotos();$('photo-overlay').hidden=false;$('photo-open').setAttribute('aria-expanded','true');$('photo-send').disabled=true;};
+$('photo-dismiss').onclick=closePhotos;
+$('photo-send').onclick=()=>{if(!chosenPhotos.size)return;const time=new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit',timeZone:'Asia/Seoul'}).format(new Date());const sentPhotos=SETTINGS.recentPhotos.filter(photo=>chosenPhotos.has(photo)).slice(0,1);sentPhotos.forEach(photo=>appendNewChatMessage(selected,{sender:'me',text:'사진',photo,time}));delete chats[selected].preview;chats[selected].listTime=time;closePhotos();renderMessages();renderList();if(selected===0)startPhotoReplies(sentPhotos);};
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('photo-overlay').hidden)closePhotos();else if(!$('room-search').hidden)closeSearch();else if(!$('room').hidden&&$('vt-screen').hidden)$('room-back').click();});
+// 모바일 키보드가 떠도 헤더/입력창을 가시 영역 안에 유지
+function resizeViewport(){if(!window.visualViewport)return;const v=visualViewport,app=document.querySelector('.kakao-app-wrapper');app.style.height=v.height+'px';app.style.top=v.offsetTop+'px';app.style.bottom='auto';}
+window.visualViewport?.addEventListener('resize',resizeViewport);window.visualViewport?.addEventListener('scroll',resizeViewport);resizeViewport();
+
+// 소식은 메인 내부에서만 스크롤되며 하단바는 그대로 유지합니다.
+function setFriendMode(news){$('friend-panels').hidden=news;$('news-feed').hidden=!news;[['friend-mode',!news],['news-mode',news]].forEach(([id,on])=>{$(id).classList.toggle('selected',on);$(id).setAttribute('aria-selected',String(on));});$('alphabet-nav').classList.remove('visible');main.scrollTop=0;}
+$('friend-mode').onclick=()=>setFriendMode(false);$('news-mode').onclick=()=>setFriendMode(true);
+
+// 댓글을 단 게시물과 무관하게 이 HTML을 열어둔 동안 단 한 번만 진행됩니다.
+// 새로 페이지를 불러오면 다시 시작할 수 있습니다. 내부 화면 전환은 초기화하지 않습니다.
+let commentStoryStarted=false,partnerTyping=false;
+let storyQueue=[],activeStory=null,storyTimer=null;
+const notice=document.createElement('div');notice.id='chat-notice';notice.hidden=true;notice.setAttribute('role','status');
+notice.innerHTML='<button type="button" id="notice-open"><span id="notice-avatar" class="profile-img-default"></span><span class="notice-copy"><strong>영현이 형</strong><span id="notice-text"></span></span></button>';document.body.append(notice);
+const noticeAvatar=$('notice-avatar');noticeAvatar.innerHTML=person;const noticePhoto=document.createElement('img');noticePhoto.src=SETTINGS.partnerPhoto;noticePhoto.alt='영현이 형';noticePhoto.onerror=()=>noticePhoto.hidden=true;noticeAvatar.append(noticePhoto);
+let noticeTimer=null,noticeStart=null,noticeDragged=false;
+function hideNotice(){clearTimeout(noticeTimer);noticeTimer=null;notice.hidden=true;notice.style.transform='';noticeStart=null;}
+function showNotice(text){clearTimeout(noticeTimer);$('notice-text').textContent=text;notice.hidden=false;notice.style.transform='';noticeDragged=false;noticeTimer=setTimeout(hideNotice,5000);}
+notice.addEventListener('pointerdown',e=>{noticeStart={x:e.clientX,y:e.clientY};noticeDragged=false;});
+notice.addEventListener('pointermove',e=>{if(!noticeStart)return;const dy=e.clientY-noticeStart.y,dx=e.clientX-noticeStart.x;if(dy< -8&&Math.abs(dy)>Math.abs(dx)){noticeDragged=true;notice.style.transform='translateY('+Math.max(-140,dy)+'px)';}if(dy< -35&&Math.abs(dy)>Math.abs(dx))hideNotice();});
+notice.addEventListener('pointerup',()=>{noticeStart=null;notice.style.transform='';});
+notice.addEventListener('pointercancel',()=>{noticeStart=null;notice.style.transform='';});
+$('notice-open').onclick=e=>{if(noticeDragged){e.preventDefault();return;}if(!$('vt-screen').hidden)return;$('self-profile').hidden=true;$('gift-page').hidden=true;$('dowoon-profile').hidden=true;switchTab('chats');closeSearch();openRoom(0);};
+function partnerRoomVisible(){return selected===0&&!$('room').hidden&&$('dowoon-profile').hidden&&$('gift-page').hidden&&$('self-profile').hidden&&($('vt-screen')?.hidden??true)&&!document.hidden;}
+function appendTypingIndicator(){
+ if(selected!==0||!partnerTyping)return;
+ const row=el('div','room-message typing-row');row.setAttribute('aria-label','영현이 형 입력 중');
+ const copy=el('div','chat-copy'),bubble=el('div','bubble typing-bubble');
+ for(let i=0;i<3;i++)bubble.append(el('i','typing-dot'));
+ copy.append(el('div','room-sender','영현이 형'),bubble);row.append(avatar(0),copy);$('room-content').append(row);
+}
+function refreshStoryRoom(){if(selected===0&&!$('room').hidden)renderMessages();}
+function addStoryMessage(sender,text,{notify=false,time:fixedTime}={}){
+ if(sender==='them')chats[0].messages.forEach(message=>{if(message.sender==='me')message.unread=false;});
+ const time=fixedTime??new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit',timeZone:'Asia/Seoul'}).format(new Date());
+ appendNewChatMessage(0,{sender,text,time});delete chats[0].preview;chats[0].listTime=time;
+ const visible=partnerRoomVisible();
+ if(visible){chats[0].unread=0;hideNotice();}else if(sender==='them')chats[0].unread=(Number(chats[0].unread)||0)+1;
+ renderList();refreshStoryRoom();if(notify&&!visible)showNotice(text);
+ if(visible)releasePendingStories();
+}
+// 위에서부터 내용 키워드를 우선 검사하고, 마지막에 호칭을 검사합니다.
+// unique: true인 답변은 한 차례 모두 사용한 뒤 다시 무작위로 선택합니다.
+const KEYWORD_REPLIES = [
+ {key:'where',match:t=>t.includes('어디'),unique:true,replies:[['비밀'],['술 먹는 중'],['도우니 마음 속이지'],['집'],['어디게']]},
+ {key:'meal',match:t=>t.includes('밥은'),unique:true,replies:[['너랑 먹으려고'],['아직']]},
+ {key:'ate',match:t=>t.includes('밥먹었어'),replies:[['배고파']]},
+ {key:'miss',match:t=>/보고싶(?:어|다)/.test(t),unique:true,replies:[['너 뭐 잘못했어?'],['뭐야 ㅋㅋㅋㅋ','갑자기?']]},
+ {key:'doing',match:t=>/뭐(?:해|함)/.test(t),unique:true,replies:[['그냥 있엉']]},
+ {key:'meet',match:t=>t.includes('만날래'),replies:[['드라이브 가고 싶긴 한데']]},
+ {key:'dislike',match:t=>t.includes('싫어'),replies:[['응 나도 사랑해~']]},
+ {key:'hate',match:t=>/미워|밉다/.test(t),replies:[['미안해']]},
+ {key:'love',match:t=>t.includes('사랑해'),replies:[['그랭']]},
+ {key:'like',match:t=>t.includes('좋아해'),replies:[['그래 형한테 잘해']]},
+ {key:'fool',match:t=>t.includes('바보'),replies:[['죽는다']]},
+ {key:'young',match:t=>t.includes('영현아'),replies:[['어쭈']]},
+ {key:'fullname',match:t=>t.includes('강영현'),replies:[['응?']]},
+ {key:'hyung',match:t=>t.includes('형'),replies:[['왜 도우니']]},
+ {key:'hey',match:(t,raw)=>/(^|[^가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9_])야(?=$|[^가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9_])/.test(raw),replies:[['왜']]}
+];
+const usedKeywordReplies=new Map();
+function findKeywordRule(text){
+ const compact=text.replace(/\s+/g,'');
+ return KEYWORD_REPLIES.find(rule=>rule.match(compact,text));
+}
+function pickKeywordReply(text){
+ const rule=findKeywordRule(text);
+ if(!rule)return null;
+ const used=usedKeywordReplies.get(rule.key)||new Set();
+ if(rule.unique&&used.size>=rule.replies.length)used.clear();
+ const choices=rule.replies.map((lines,index)=>({lines,index})).filter(choice=>!rule.unique||!used.has(choice.index));
+ if(!choices.length)return null;
+ const choice=choices[Math.floor(Math.random()*choices.length)];
+ if(rule.unique){used.add(choice.index);usedKeywordReplies.set(rule.key,used);}
+ return choice.lines.map(text=>['them',text]);
+}
+function startKeywordReply(text){
+ const lines=pickKeywordReply(text);if(!lines)return;
+ enqueueStory(lines);releasePendingStories();
+}
+// 사진 파일명별 자동 대화. them = 영현, me = 도운. 여러 장은 번호 순서대로 이어집니다.
+const PHOTO_REPLIES = {
+ 'kakaodw1.JPG': [['them','밥 보낸다매'],['me','실수;']],
+ 'kakaodw2.JPG': [['them','ㅋㅋㅋㅋㅋㅋㅋㅋㅋ'],['them','등산은 아예 아니야?'],['me','집에 갈래'],['them','데리러 가까?'],['me','뭐 타고 오게 ㅋㅋㅋ'],['them','도운이 한번 따라해봤어']],
+ 'kakaodw3.JPG': [['them','귀엽다 본가 갔어?'],['me','엉'],['them','나는?'],['me','안 그래도 엄마가 형 한번 오라네']],
+ 'kakaodw4.JPG': [['them','얼굴도 보여줘'],['me','나?'],['them','겠어?']],
+ 'kakaodw5.JPG': [['them','도우니 친구네'],['them','인사했어?'],['me','씹더라'],['them','기강 한번 잡아']],
+ 'kakaodw6.JPG': [['them','오~'],['them','촬영한다고 폼 좀 잡았네?'],['me','좀 멋있나 ㅋㅋ'],['them','잘~생겼네'],['me','칭찬맞제?']]
+};
+function startPhotoReplies(photos){
+ for(const photo of photos){const lines=PHOTO_REPLIES[photo.split('/').pop()];if(lines)enqueueStory(lines);}
+ releasePendingStories();
+}
+function enqueueStory(lines,{time}={}){storyQueue.push({lines,time,index:0,released:false,remaining:0});}
+function releasePendingStories(){storyQueue.forEach(job=>job.released=true);if(!activeStory)pumpStory();}
+function pumpStory(){
+ if(storyTimer)return;
+ if(!activeStory){if(!storyQueue[0]?.released)return;activeStory=storyQueue.shift();}
+ const tick=()=>{storyTimer=null;if(!activeStory)return;
+  if(!partnerRoomVisible()){partnerTyping=false;refreshStoryRoom();storyTimer=setTimeout(tick,200);return;}
+  const line=activeStory.lines[activeStory.index];if(!line){activeStory=null;partnerTyping=false;refreshStoryRoom();pumpStory();return;}
+  if(!activeStory.remaining){activeStory.remaining=line[0]==='them'?Math.min(2800,1000+line[1].length*65):1200;partnerTyping=line[0]==='them';refreshStoryRoom();}
+  else if(line[0]==='them'&&!partnerTyping){partnerTyping=true;refreshStoryRoom();}
+  activeStory.remaining-=200;
+  if(activeStory.remaining<=0){partnerTyping=false;addStoryMessage(line[0],line[1],{time:activeStory.time});activeStory.index++;activeStory.remaining=0;}
+  storyTimer=setTimeout(tick,200);
+ };tick();
+}
+function startCommentStory(){
+ if(commentStoryStarted)return;commentStoryStarted=true;
+ setTimeout(()=>{enqueueStory([['me','엉'],['me','누가 찍어줌?'],['them','저번에 인턴 같이 한 형이~']]);addStoryMessage('them','사진 잘 나왔지?',{notify:true});},1800);
+}
+const afterCallLines=[['me','첫마디 좀 절음'],['them','딴생각했지?'],['me','몰라'],['them','기분 안 좋아?'],['me','그냥 그래'],['them','그럼 나 다시 가?'],['me','어?'],['them','아이스크림 사옴 빨리 나와서 도운이 젤 먼저 골랑']];
+window.addEventListener('kakao-call-result',event=>{
+ if(event.detail==='busy')addStoryMessage('them','도우낭 나 지금 약속 중 이따 연락할게',{notify:true});
+ if(event.detail==='completed'){enqueueStory(afterCallLines,{time:'오전 1:00'});addStoryMessage('them','공연 잘 했어?',{notify:true,time:'오전 1:00'});}
+});
+PROFILE_UPDATES.forEach((post,postIndex)=>{
+ const article=el('article','news-post'),head=el('div','news-head'),copy=el('div','news-copy');
+ copy.append(el('strong','','영현이 형'),el('div','news-date',post.date+' · 프로필 업데이트'));
+ const more=el('button','news-more');more.type='button';more.disabled=true;more.setAttribute('aria-label','더보기');more.innerHTML=svg('more');head.append(avatar(0),copy,more);
+ const photo=el('img','news-photo');photo.src=post.photo;photo.alt='영현이 형 프로필 업데이트';
+ const reactions=el('div','news-reactions'),like=el('button','news-like');like.type='button';like.setAttribute('aria-label','좋아요');like.setAttribute('aria-pressed','false');
+ let liked=false;const likeCount=el('span','',String(post.likes));like.innerHTML=svg('heart');like.append(likeCount);
+ like.onclick=()=>{liked=!liked;like.classList.toggle('liked',liked);like.setAttribute('aria-pressed',String(liked));likeCount.textContent=String(post.likes+(liked?1:0));};
+ const comment=el('button','news-comment');comment.type='button';comment.innerHTML=svg('comment');comment.setAttribute('aria-label','댓글 쓰기');comment.setAttribute('aria-expanded','false');
+ const area=el('div','news-comments');area.hidden=postIndex!==0;comment.setAttribute('aria-expanded',String(postIndex===0));area.id='post-comments-'+postIndex;comment.setAttribute('aria-controls',area.id);
+ const list=el('div','comment-list'),form=el('form','comment-form'),input=el('input','comment-input'),send=el('button','comment-submit','등록');
+ input.type='text';input.placeholder='댓글을 입력하세요';input.setAttribute('aria-label','프로필 업데이트 댓글');input.maxLength=1000;send.type='submit';send.disabled=true;
+ if(postIndex===0){const existing=el('div','post-comment fixed-comment');existing.append(el('strong','','이지형'),el('span','','사진 참 잘 찍었네'));list.append(existing);}
+ input.oninput=()=>send.disabled=!input.value.trim();form.append(input,send);area.append(list,form);
+ comment.onclick=()=>{area.hidden=postIndex===0?false:!area.hidden;comment.setAttribute('aria-expanded',String(!area.hidden));if(!area.hidden)input.focus();};
+ form.onsubmit=event=>{event.preventDefault();const text=input.value.trim();if(!text)return;const row=el('div','post-comment');row.append(el('strong','','윤도운'),el('span','',text));list.append(row);input.value='';send.disabled=true;input.blur();startCommentStory();};
+ reactions.append(like,comment);article.append(head,photo,reactions,area);$('news-feed').append(article);
+});
+
+
+// 설정은 표시 전용 목록입니다. 전화번호/계정에는 링크나 클릭 동작을 부여하지 않습니다.
+const settingsProfile=el('div','settings-profile'),selfAvatar=el('div','profile-img-default');selfAvatar.style.background='#a2d9d6';selfAvatar.innerHTML=person;
+const selfCopy=el('div','settings-self');selfCopy.append(el('strong','','윤도운'),el('span','settings-number','+82 10-1995-0825'));settingsProfile.append(selfAvatar,selfCopy,el('span','settings-manage','관리'));$('settings-view').append(settingsProfile);
+const settingGroups=[
+ [['카카오멤버십','card',''],['카카오계정','account','ydwdw.doke.com'],['패밀리계정','people','']],
+ [['개인/보안','lock',''],['친구','person',''],['채팅','comment',''],['알림','bell',''],['백업','backup',''],['데이터 및 저장공간','storage',''],['화면','sun',''],['테마','brush','시스템 설정 모드'],['이모티콘','smile',''],['통화','phone',''],['카나나','circle',''],['실험실','flask',''],['기타','more','']],
+ [['공지사항','notice',''],['카톡설명서','guide',''],['고객센터/운영정책','help',''],['앱 관리','info','95.8.25']]
+];
+const settingsPaths={"card": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"3\"/><path d=\"M3 10h18M7 15h4\"/>", "account": "<circle cx=\"9\" cy=\"7\" r=\"3.5\"/><path d=\"M2 20v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 4 2\"/><circle cx=\"18\" cy=\"18\" r=\"3\"/><path d=\"M18 15v-4h3\"/>", "people": "<circle cx=\"8\" cy=\"7\" r=\"3.5\"/><path d=\"M1.5 20v-2a5 5 0 0 1 5-5h3a5 5 0 0 1 5 5v2M16 4a3 3 0 0 1 0 6M17 13a5 5 0 0 1 5 5v2\"/>", "person": "<circle cx=\"12\" cy=\"7\" r=\"4\"/><path d=\"M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2\"/>", "lock": "<rect x=\"4\" y=\"10\" width=\"16\" height=\"11\" rx=\"2\"/><path d=\"M8 10V6a4 4 0 0 1 8 0v4M12 14v3\"/>", "bell": "<path d=\"M6 16V9a6 6 0 0 1 12 0v7l2 3H4l2-3ZM10 22h4\"/>", "backup": "<path d=\"M8 18H6a4 4 0 0 1-.4-8 6.5 6.5 0 0 1 12.6-1.5M15 16l3-3 3 3M18 13v8\"/>", "storage": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"7\" rx=\"2\"/><rect x=\"3\" y=\"14\" width=\"18\" height=\"7\" rx=\"2\"/><path d=\"M7 6.5h.01M7 17.5h.01\"/>", "sun": "<circle cx=\"12\" cy=\"12\" r=\"4.5\"/><path d=\"M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5\"/>", "brush": "<path d=\"M9 9V5a3 3 0 0 1 6 0v4h5v12H4V9h5ZM4 16h16M10 16v5M15 16v5\"/>", "smile": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 14a4.5 4.5 0 0 0 8 0\"/><circle cx=\"8.5\" cy=\"9\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"15.5\" cy=\"9\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/>", "circle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><rect x=\"6\" y=\"6\" width=\"12\" height=\"12\" rx=\"5\"/>", "flask": "<path d=\"M9 3h6M10 3v7L4 19a1.5 1.5 0 0 0 1.2 2h13.6a1.5 1.5 0 0 0 1.2-2l-6-9V3M7 16h10\"/>", "notice": "<path d=\"M4 9h5l11-5v16L9 15H4V9ZM8 15l2 6h4l-2-5\"/>", "guide": "<path d=\"M12 5C9 3 5 3 2 4v16c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1ZM12 5v16M5 8h4M5 12h4M15 8h4M15 12h4\"/>", "help": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 8a3 3 0 0 1 6 0c0 2-3 2-3 5\"/><circle cx=\"12\" cy=\"17\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/>", "info": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 11v6\"/><circle cx=\"12\" cy=\"7\" r=\".7\" fill=\"currentColor\" stroke=\"none\"/>", "phone": "<path d=\"M6 3H3v3c0 8.3 6.7 15 15 15h3v-4l-5-2-2 2a13 13 0 0 1-7-7l2-2-3-5Z\"/>", "comment": "<path d=\"M12 3a9 8 0 0 0-9 8 8 8 0 0 0 3 6l-1 4 5-2h2a9 8 0 0 0 0-16Z\"/>", "more": "<circle cx=\"5\" cy=\"12\" r=\"1.3\"/><circle cx=\"12\" cy=\"12\" r=\"1.3\"/><circle cx=\"19\" cy=\"12\" r=\"1.3\"/>"};
+settingGroups.forEach(group=>{const section=el('div','settings-group');group.forEach(([label,icon,value])=>{const row=el('div','settings-row'),image=el('span','settings-icon');image.innerHTML='<svg width="24" height="24" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(settingsPaths[icon]||icons[icon])+'</svg>';row.append(image,el('span','settings-label',label));if(value)row.append(el('span','settings-value',value));section.append(row);});$('settings-view').append(section);});
+
+setHeader(false);
+
+})();
+</script>
+<section id="vt-screen" hidden role="dialog" aria-modal="true" aria-label="영현이 형와 보이스톡"><div class="vt-top-half"><div class="vt-header"><div class="vt-title">보이스톡</div></div><div class="vt-center"><div class="vt-profile-img"><img src="imges/kakaoyh1.JPEG" alt="영현이 형"></div><div class="vt-name">영현이 형</div><div id="vt-status" class="vt-status">연결 중...</div><button type="button" class="vt-retry" id="vt-retry" hidden>음성 재생</button></div></div><div id="vt-dialogue" class="vt-dialogue" hidden aria-live="polite"></div><div class="vt-bottom-half"><div class="vt-utilities"><div class="util-item"><div class="util-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/></svg></div><div class="util-text">음소거</div></div><div class="util-item"><div class="util-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><div class="util-text">카메라</div></div><div class="util-item"><div class="util-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div><div class="util-text">스피커</div></div><div class="util-item"><div class="util-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg></div><div class="util-text">대화방</div></div></div><button type="button" class="end-call-btn" id="vt-end" aria-label="통화 종료"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></button></div></section>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id),screen=$('vt-screen'),status=$('vt-status'),retry=$('vt-retry'),end=$('vt-end'),app=document.querySelector('.kakao-app-wrapper'),dialogue=$('vt-dialogue');
+const audio=new Audio();audio.preload='auto';audio.setAttribute('playsinline','');
+const ringUrl='sound/voicetalk.mp3';
+// 프로필 통화 대사: me=도운 / them=영현. 문장 길이에 따라 1.5~4.8초 표시합니다.
+const callLines=[["me", "온대매"], ["them", "아 진짜 미안 뒤풀이 때 꼭 갈게 자리 옮길 때 톡 줘"], ["me", "누가 끼워준다나?"], ["them", "아직 삐졌어?"], ["me", "어"], ["them", "지인짜 미안"], ["them", "대신, 음, 주말에 낚시 같이 가줄게"], ["me", "...언제 주말에?"], ["them", "이번주는 좀 힘들고 다음주?"], ["them", "아니면 도운이 캠핑 가고 싶다며"], ["them", "이참에 캠핑 갈까?"], ["me", "알았어"], ["them", "공연 잘 행"], ["me", "술 너무 많이 먹지마"], ["them", "오키염"]];
+let phase='idle',origin=null,mode='',generation=0,timer=null,clock=null,started=0,ringScheduled=false;
+function stop(result=null){const wasActive=phase!=='idle';const finalResult=result==='leave'?null:(result||(wasActive?(mode==='profile'?'completed':'busy'):null));generation++;clearTimeout(timer);clearInterval(clock);timer=clock=null;audio.pause();audio.removeAttribute('src');audio.load();phase='idle';screen.hidden=true;dialogue.hidden=true;retry.hidden=true;app.inert=false;origin?.focus({preventScroll:true});if(wasActive&&finalResult)setTimeout(()=>window.dispatchEvent(new CustomEvent('kakao-call-result',{detail:finalResult})),1500);}
+function clockText(){const n=Math.floor((Date.now()-started)/1000);status.textContent=String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');}
+function showLine(index,token){if(token!==generation||phase!=='connected')return;if(index>=callLines.length){stop('completed');return;}
+ const [sender,text]=callLines[index];dialogue.replaceChildren();const name=document.createElement('div');name.className='vt-line-speaker';name.textContent=sender==='me'?'윤도운':'강영현';const caption=document.createElement('div');caption.className='vt-line-text';caption.textContent=text;dialogue.append(name,caption);dialogue.hidden=false;
+ const duration=Math.max(1500,Math.min(4800,1000+Array.from(text).length*85));timer=setTimeout(()=>showLine(index+1,token),duration);
+}
+function finishRing(token){if(token!==generation||phase!=='ring')return;audio.pause();if(mode==='room'){stop('busy');return;}phase='connected';started=Date.now();clockText();clock=setInterval(clockText,500);showLine(0,token);}
+function scheduleRing(){if(phase!=='ring'||ringScheduled)return;ringScheduled=true;clearTimeout(timer);const token=generation;timer=setTimeout(()=>finishRing(token),5000);}
+function audioError(){if(phase!=='ring')return;retry.hidden=false;retry.textContent='연결음 다시 재생';scheduleRing();}
+function play(){const token=generation;const result=audio.play();if(result)result.catch(()=>{if(token===generation)audioError();});}
+audio.addEventListener('playing',scheduleRing);audio.addEventListener('error',audioError);
+function start(event){if(phase!=='idle')return;origin=event.currentTarget;mode=origin.id==='profile-call'?'profile':'room';generation++;phase='ring';ringScheduled=false;screen.hidden=false;app.inert=true;dialogue.hidden=true;retry.hidden=true;status.textContent='연결 중...';end.focus({preventScroll:true});audio.src=ringUrl;audio.loop=true;audio.volume=.55;play();
+ // 로드가 멈추더라도 연결 화면이 영구히 남지 않도록 보호합니다.
+ timer=setTimeout(()=>{if(phase==='ring'&&!ringScheduled)audioError();},8000);
+}
+$('profile-call').addEventListener('click',start);$('room-call').addEventListener('click',start);end.onclick=()=>stop();retry.onclick=()=>{retry.hidden=true;play();};
+screen.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();stop();}if(e.key==='Tab'){const buttons=retry.hidden?[end]:[retry,end];const i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?-1:1)+buttons.length)%buttons.length].focus();}});
+window.addEventListener('pagehide',()=>stop('leave'));
+})();
+</script>
+</body>
+</html>

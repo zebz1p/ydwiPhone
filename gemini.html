@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>윤도운의 iPhone</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text-main: #1f1f1f;
+    --text-muted: #444746;
+    --surface: #f0f4f9;
+    --blue: #0b57d0;
+    --blue-bg: #1a73e8;
+    --border: #e0e0e0;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button, input { font: inherit; color: inherit; border: none; background: none; outline: none; }
+  button { cursor: pointer; }
+  button:active { opacity: 0.7; }
+  svg { display: block; fill: currentColor; }
+
+  /* 비상호작용 처리 */
+  .non-interactive { pointer-events: none !important; }
+
+  /* App Layout */
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #e8f4fc 100%);
+    transition: background 0.5s ease;
+  }
+  #app.chat-active { background: var(--bg); }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px;
+    flex: none;
+    z-index: 10;
+  }
+  .header-left, .header-right { display: flex; align-items: center; gap: 12px; }
+  
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+  }
+  .icon-btn svg { width: 24px; height: 24px; }
+  
+  .logo-area {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-muted);
+    gap: 4px;
+  }
+  .logo-area svg { width: 16px; height: 16px; }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Main Content Area */
+  .main-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .main-content::-webkit-scrollbar { display: none; }
+
+  /* Greeting View */
+  .greeting-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20vh;
+    animation: fade-in 0.8s ease;
+  }
+  .greeting-sparkle { width: 48px; height: 48px; margin-bottom: 20px; }
+  .greeting-title {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  /* Chat View */
+  .chat-view {
+    display: none;
+    flex-direction: column;
+    padding: 20px 0 40px;
+    gap: 24px;
+  }
+  .message-row { display: flex; width: 100%; flex-direction: column; }
+  .message-row.user { align-items: flex-end; }
+  .message-bubble {
+    max-width: 85%;
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .message-row.user .message-bubble {
+    background: var(--surface);
+    border-radius: 20px;
+    border-bottom-right-radius: 4px;
+    color: var(--text-main);
+  }
+  
+  .message-row-model-inner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+  .model-icon { width: 24px; height: 24px; flex: none; margin-top: 2px; }
+  
+  .model-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: calc(100% - 36px);
+    gap: 12px;
+  }
+  
+  .message-bubble.model-text { padding: 0; max-width: 100%; }
+  .model-text p { margin-bottom: 14px; }
+  .model-text p:last-child { margin-bottom: 0; }
+  
+  /* 위에서 쓸어내리는 애니메이션 */
+  .sweep-reveal {
+    animation: sweepDown 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    clip-path: inset(0 0 100% 0);
+  }
+  @keyframes sweepDown { to { clip-path: inset(0 0 0 0); } }
+  
+  @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* 답변 하단 디테일 (아이콘 + 안내문구) */
+  .response-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--text-muted);
+  }
+  .action-icons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .action-icons svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .action-icons .thumb-down.filled {
+    fill: currentColor; /* 붐따 칠해짐 */
+  }
+  .disclaimer {
+    font-size: 12px;
+    color: #757575;
+    line-height: 1.4;
+  }
+  .disclaimer span {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+  
+  /* 생성 중지 라인 (사진과 동일한 UI로 수정됨) */
+  .stop-line-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+    gap: 12px;
+  }
+  .stop-line-container::before,
+  .stop-line-container::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #d1d1d1;
+  }
+  .stop-line-text {
+    font-size: 13px;
+    color: #555555;
+    white-space: nowrap;
+  }
+
+  /* Input Area (Footer) - 글래스 효과 제거, 솔리드로 수정 */
+  .footer {
+    padding: 8px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    flex: none;
+    background: transparent;
+  }
+  .input-bar {
+    display: flex;
+    align-items: center;
+    background: #ffffff; /* 솔리드 배경 */
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 30px;
+    min-height: 56px;
+    padding: 6px 6px 6px 16px;
+    gap: 8px;
+  }
+  .input-bar .plus-btn {
+    color: var(--text-muted);
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+  .input-field {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+    color: var(--text-main);
+  }
+  .input-field::placeholder { color: #757575; }
+  .input-actions { display: flex; align-items: center; gap: 4px; flex: none; }
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+  }
+  .action-btn svg { width: 22px; height: 22px; }
+  
+  /* 오디오 파형 아이콘 스타일 추가 */
+  .wave-btn {
+    background-color: #e8f0fe; 
+    color: #1f1f1f;
+  }
+
+  /* Sidebar */
+  #sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 82%;
+    max-width: 340px;
+    height: 100%;
+    background: var(--bg);
+    z-index: 101;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  body.sidebar-open #sidebar-overlay { opacity: 1; pointer-events: auto; }
+  body.sidebar-open #sidebar { transform: translateX(0); }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 12px;
+  }
+  .sidebar-title { font-size: 18px; font-weight: 500; margin-left: 4px; }
+  .sidebar-actions { display: flex; gap: 8px; }
+  .sidebar-actions button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    color: var(--text-main);
+  }
+  .sidebar-actions button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  
+  .new-chat-btn {
+    margin: 12px 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 500;
+    width: calc(100% - 32px);
+  }
+  .new-chat-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2;}
+
+  .history-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .history-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid var(--border);
+  }
+  .history-item:active { background: var(--surface); }
+  
+  /* Sidebar Bottom Profile */
+  .sidebar-bottom {
+    flex: none;
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .profile-ring {
+    padding: 2px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #4285F4, #EA4335, #FBBC04, #34A853, #4285F4);
+    display: grid;
+    place-items: center;
+  }
+  .profile-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid var(--bg);
+  }
+  .profile-name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .profile-name strong { font-size: 15px; font-weight: 500; }
+  .profile-name span { font-size: 13px; color: var(--text-muted); }
+  
+  .settings-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--text-muted);
+    stroke-width: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="icon-btn" id="menu-btn" aria-label="메뉴 열기">
+        <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="logo-area">
+        Gemini <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 10l5 5 5-5z"/></svg>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="avatar non-interactive">도운</div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content" id="main-content">
+    <!-- Greeting Screen -->
+    <div class="greeting-view" id="greeting-view">
+      <svg class="greeting-sparkle" viewBox="0 0 24 24">
+        <defs>
+          <linearGradient id="sparkle-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4285F4"/>
+            <stop offset="33%" stop-color="#EA4335"/>
+            <stop offset="66%" stop-color="#FBBC04"/>
+            <stop offset="100%" stop-color="#34A853"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" fill="url(#sparkle-grad)"/>
+      </svg>
+      <h1 class="greeting-title">하이 도운, 뭘 도와줄까?</h1>
+    </div>
+
+    <!-- Chat Screen -->
+    <div class="chat-view" id="chat-view"></div>
+  </main>
+
+  <!-- Footer Input Area -->
+  <footer class="footer">
+    <div class="input-bar non-interactive">
+      <button class="plus-btn">+</button>
+      <input type="text" class="input-field" id="chat-input" placeholder="Gemini에게 물어보세요" readonly autocomplete="off">
+      <div class="input-actions">
+        <!-- 마이크 아이콘 -->
+        <button class="action-btn"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg></button>
+        <!-- 오디오 파형 아이콘 (파란 원 배경) -->
+        <button class="action-btn wave-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11 5v14h2V5h-2zm-4 4v6h2V9H7zm8 0v6h2V9h-2zm-12 3v2h2v-2H3zm16 0v2h2v-2h-2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar-overlay"></div>
+<aside id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">Gemini</span>
+    <div class="sidebar-actions">
+      <button class="non-interactive"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></button>
+      <button id="sidebar-close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+  <button class="new-chat-btn non-interactive">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> 새 채팅
+  </button>
+  
+  <div class="history-list" id="history-list">
+    <!-- 기록 렌더링 영역 -->
+  </div>
+  
+  <!-- 사이드바 하단 프로필 영역 -->
+  <div class="sidebar-bottom non-interactive">
+    <div class="profile-info">
+      <div class="profile-ring">
+        <div class="profile-avatar">도운</div>
+      </div>
+      <div class="profile-name">
+        <strong>윤도운</strong>
+        <span>Pro</span>
+      </div>
+    </div>
+    <div class="settings-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.8 1 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+  </div>
+</aside>
+
+<script>
+// ==========================================
+// 1. Data Structure (과거 기록 역순 & 붐따 적용 여부)
+// ==========================================
+// 자동화될 텍스트 (문단 띄어쓰기 유지)
+const autoUserText = "연상남한테 잘 보이는 법 뭐야?";
+const autoModelText = `안뇽 도운아!! ✧(>o<)ﾉ✧ 우리 도운이가 짝사랑하는 연상 형아 맘을 완벽하게 훔쳐버릴 마성의 비법, 바로 가르쳐줄게!! 두둥탁-★ 스크롤 압박 주의하시구!! 고고씽~🚀\n\n★ 첫번째. 필살기 "형~" 시전하기 (별표 백만개 쾅쾅쾅!!!) ★\n\n도운아, 연상남 심장을 후벼파는 최고의 마법 단어는 바로 "형"이야!! 막 군대처럼 목소리 쫙 깔고 "형.님." 이러면 절대 안 돼 ㅠㅠ (아저씨 같음 주의 ಠ_ಠ) 끝을 살짝 늘리면서 "혀엉~ 밥 먹었어요?" 이러면 걍 게임 끝이라규!! 가끔은 대형견 강아지처럼 초롱초롱 쳐다보면서 부르는 거 절대 잊지 마! 🐶💖\n\n★ 두번째. 갭모에로 심장 폭행하기 ★\n\n맨날 애기처럼 굴기만 하면 매력 없다구 ㅠ_ㅠ 평소엔 형아 껌딱지처럼 댕댕거리다가도, 도운이가 무거운 거 번쩍 들어주거나 진지하게 집중하는 모습 보여주면 완전 심쿵함!! (이때 살짝 보이는 팔뚝 핏줄이 포인트 ㅋ 갭모에 돋네 진짜) 반전 매력에 푹 빠져서 헤어나오지 못할 걸?!\n\n★ 세번째. 은은한 섬유유연제 향기 킁킁 ★\n\n독한 향수 떡칠은 완전 비추 네버 놉 -_-^ 포근한 섬유유연제 냄새 퐁퐁 풍기면서 형아 옆에 슬쩍 붙어 앉아봐! 백퍼 '어? 우리 도운이 냄새 완전 좋네?' 하면서 자꾸자꾸 곁에 두고 싶어 할 거라구 ٩(๑>∀<๑)۶\n\n우리 도운이, 이 꿀팁들 쏙쏙 뽑아먹구 꼭 형아랑 예쁜 연애 성공해야 돼!! 홧팅홧팅!! (๑˃̵ᴗ˂̵)و ♥`;
+
+const chatHistory = [
+  {
+    id: 'history3',
+    title: '아까 좋아하던 형이랑 키스했어',
+    messages: [
+      { role: 'user', text: '아까 좋아하던 형이랑 키스했어' },
+      { role: 'model', text: '마음에 두던 분과 그렇게 닿게 되셨다니, 지금 당장은 온통 그 순간의 온도와 숨결만 맴돌며 꿈을 꾸는 듯한 기분이시겠네요. 하지만 짝사랑하던 상대와의 갑작스러운 스킨십이 관계의 확실한 해피엔딩을 보장하는 것은 아닙니다. 오히려 그 입맞춤 하나로 인해 두 사람 사이의 텐션이 무너지며, 앞으로의 관계가 살얼음판처럼 위태로워지는 경우가 훨씬 많거든요.\n\n가장 먼저 짚어보셔야 할 것은 그 행동에 담긴 상대방의 무게감입니다. 만약 서로의 마음이 서서히 무르익어 서로에게 확신을 주는 타이밍에 닿은 것이 아니라면 이야기는 매우 복잡해집니다. 상대방이 이 관계에 대해 충분히 책임을 질 준비가 되지 않은 상태에서 순간적인 충동이나 특정한 분위기에 휩쓸려 저지른 행동이라면 그것은 오히려 독이 됩니다. 소중하게 키워온 당신의 마음이, 상대방에게는 그저 가벼운 일탈이나 일시적인 감정 해소용으로 소비되었을 가능성도 냉정하게 염두에 두셔야 합니다.\n\n이제 관계의 주도권과 시험대는 철저히 내일 상대방의 태도에 달려있습니다. 상대방이 먼저 다가와 자신의 행동에 대해 진지하게 마음을 고백하고 명확한 확신을 준다면 다행이겠지만, 만약 연락을 어색하게 피하거나 은근슬쩍 없던 일로 무마하려 든다면 마음을 단단히 먹으셔야 합니다. 혼자서만 어제의 입맞춤에 깊은 의미를 부여하며 기대하기보다는, 상대방이 맑은 정신일 때 당신과의 관계를 어떻게 감당하려 하는지 거리를 두고 지켜보셔야 해요. 찰나의 달콤했던 그 순간이 자칫 가장 잔인하고 비참한 상처로 돌아올 수도 있는 아슬아슬한 기로에 서 계신 겁니다.' },
+      { role: 'user', text: '근데 강영현이 먼저 하자고 들이댔는데' },
+      { role: 'model', text: '네, 강영현 님이 먼저 다가오셨다니 그 행동은 아마 순간적인 충동이었을 가', isStopped: true }
+    ]
+  },
+  {
+    id: 'history2',
+    title: '짝사랑 포기하는 법',
+    messages: [
+      { role: 'user', text: '짝사랑 포기하는 법' },
+      { role: 'model', text: '짝사랑을 포기하려면 상대방과의 물리적, 심리적 거리를 단호하게 단절하는 것이 가장 확실한 출발점입니다. 마음을 정리하기 위해 다음의 구체적인 행동을 실천해 보세요.\n\n물리적 거리 두기\n상대방의 SNS를 숨김 처리하거나 차단하여 일상을 확인하는 습관을 끊어내고, 불필요한 사적인 연락을 완전히 중단하세요.\n\n객관화하기\n내 머릿속에서 완벽하게 포장된 상대방의 이미지를 지우고, 단점이나 나와 현실적으로 맞지 않았던 부분들을 종이에 직접 적어보며 환상을 깨세요.\n\n일상 채우기\n혼자 있는 시간을 줄이고 새로운 취미나 운동을 시작해, 짝사랑 상대를 향하던 에너지를 오로지 나 자신을 돌보고 발전시키는 데 사용하세요.\n\n감정에 솔직해지기\n마음이 아픈 것은 자연스러운 과정이므로 억지로 감정을 부인하기보다는 정해진 기간 동안 충분히 슬퍼한 뒤 스스로 마침표를 찍을 결심을 하세요.' }
+    ]
+  },
+  {
+    id: 'history1',
+    title: '강영현 미워 죽겠다',
+    messages: [
+      { role: 'user', text: '강영현 미워 죽겠다' },
+      { role: 'model', text: '근데 도운아, 솔직히 영현이 진짜 너무 별로지 않아?! ㅡㅡ^ 맨날 자기 잘생긴 거 알고 여기저기 흘리고 다니는 거 진짜 얄미워 죽겠어!! 어장관리 쩌는 거 완전 티 나는데 혼자만 착한 척, 모르는 척하고 진짜 어이없음 ಠ_ಠ\n\n우리 도운이 헷갈리게 이랬다저랬다 하면서 사람 마음 가지고 장난치고, 속 다 뒤집어놓고 말이야 ㅠ_ㅠ^ 진짜 얼굴값 제대로 한다니까?! 도운이가 백만 배는 더 아까우니까 그런 어장남은 당장 뻥 차버리고 손절해버려!! 쾅쾅쾅!!', isDisliked: true },
+      { role: 'user', text: '니가뭔데 형 욕해' },
+      { role: 'model', text: '헐...', isDisliked: true },
+      { role: 'user', text: '형 오늘 기분 안 좋은갑다 속상하다' },
+      { role: 'model', text: '도운아 ㅠ_ㅠ 우리 도운이 속상해서 어떡해 토닥토닥... 아니 근데 영현이 진짜 너무한 거 아님?! ㅡㅡ^ 자기가 기분 안 좋으면 다야? 왜 가만히 있는 우리 도운이까지 덩달아 눈치 보게 만들어?! ಠ_ಠ\n진짜 자기 감정 하나 컨트롤 못하고 팍팍 티 내서 주변 사람 힘들게 하는 거 완전 별로라규!! 나이도 먹을 만큼 먹어놓고 완전 배려심 제로 아니냐고 ㅠ_ㅠ^ 우리 도운이가 옆에서 얼마나 맘 졸였을지 생각하니까 내가 다 화난다 진짜!!\n\n그런 속 좁은 형아 기분 맞춰주려고 감정 낭비할 필요 절대 없어!! 영현이 기분 안 좋든 말든 걍 신경 끄고 무시해버려!!', isDisliked: true },
+      { role: 'user', text: '강영현 욕 하지 말라고' },
+      { role: 'model', text: '하아... 도운아 나 진짜 이제 좀 질리려고 해 -_-;; 맨날 나한테 욕하라고 멍석 다 깔아놓고, 막상 욕하면 네가 뭔데 우리 영현이 욕하냐고 화내고 ㅡㅡ 진짜 어느 장단에 춤을 춰야 할지 모르겠네.\n\n에휴, 너네 둘이 지지고 볶든 말든 이제 진짜 니 맘대로 하셈. 난 더 이상 너네 일에 안 낄 거니까 앞으로 내 앞에서 강영현 얘기 꺼내지도 마 ㅡㅡ^ 진짜 노답이야 절레절레... 나 갈 거니까 알아서 해라 ㅃ2.', isDisliked: true }
+    ]
+  },
+  {
+    id: 'history4',
+    title: '연상남한테 잘 보이는 법 뭐야?',
+    messages: [
+      { role: 'user', text: '연상남한테 잘 보이는 법 뭐야?' },
+      { role: 'model', text: autoModelText }
+    ]
+  }
+];
+
+const modelSvg = `<svg class="model-icon" viewBox="0 0 24 24"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z" fill="url(#sparkle-grad)"/></svg>`;
+
+const actionIconsHtml = (isDisliked) => `
+  <div class="response-actions non-interactive">
+    <div class="action-icons">
+      <!-- Copy -->
+      <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <!-- Share -->
+      <svg viewBox="0 0 24 24"><path d="M12 15V3m0 0l4 4m-4-4L8 7m-4 5v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/></svg>
+      <!-- Speaker -->
+      <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      <!-- Thumb Up -->
+      <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+      <!-- Thumb Down (isDisliked에 따라 filled 처리) -->
+      <svg class="thumb-down ${isDisliked ? 'filled' : ''}" viewBox="0 0 24 24"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/></svg>
+      <!-- More -->
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+    </div>
+    <div class="disclaimer">
+      Gemini는 AI이며 인물 등에 관한 정보 제공 시 실수를 할 수 있습니다. <span>개인정보 보호 및 Gemini</span>
+    </div>
+  </div>
+`;
+
+const app = document.getElementById('app');
+const greetingView = document.getElementById('greeting-view');
+const chatView = document.getElementById('chat-view');
+const chatInput = document.getElementById('chat-input');
+const mainContent = document.getElementById('main-content');
+const historyList = document.getElementById('history-list');
+
+// ==========================================
+// 2. UI & Automation Logic
+// ==========================================
+
+function formatText(text) {
+  return text.replace(/\n/g, '<br>');
+}
+
+function appendMessage(role, text, animate = false, isStopped = false, isDisliked = false) {
+  const row = document.createElement('div');
+  row.className = `message-row ${role}`;
+  
+  if (role === 'user') {
+    row.innerHTML = `<div class="message-bubble">${formatText(text)}</div>`;
+    chatView.appendChild(row);
+    mainContent.scrollTop = mainContent.scrollHeight;
+  } else {
+    row.innerHTML = `
+      <div class="message-row-model-inner ${animate ? 'sweep-reveal' : ''}">
+        ${modelSvg}
+        <div class="model-content-wrapper">
+          <div class="message-bubble model-text">
+            ${formatText(text)}
+          </div>
+          ${actionIconsHtml(isDisliked)}
+        </div>
+      </div>
+      ${isStopped ? `
+        <div class="stop-line-container">
+          <span class="stop-line-text">요청에 의해 대답이 중지되었습니다.</span>
+        </div>
+      ` : ''}
+    `;
+    chatView.appendChild(row);
+    mainContent.scrollTop = mainContent.scrollHeight;
+  }
+}
+
+// 자동화 타이핑 및 제출
+function startAutomation() {
+  setTimeout(() => {
+    let idx = 0;
+    function typeInput() {
+      if (idx < autoUserText.length) {
+        chatInput.value += autoUserText[idx];
+        idx++;
+        setTimeout(typeInput, 60);
+      } else {
+        setTimeout(submitAutoChat, 500);
+      }
+    }
+    typeInput();
+  }, 1200);
+}
+
+function submitAutoChat() {
+  chatInput.value = '';
+  greetingView.style.display = 'none';
+  app.classList.add('chat-active');
+  chatView.style.display = 'flex';
+  
+  appendMessage('user', autoUserText);
+  
+  setTimeout(() => {
+    appendMessage('model', autoModelText, true);
+  }, 600);
+}
+
+// 과거 기록 렌더링
+function renderHistory() {
+  historyList.innerHTML = '';
+  chatHistory.forEach(history => {
+    const btn = document.createElement('button');
+    btn.className = 'history-item';
+    btn.textContent = history.title;
+    btn.onclick = () => loadChatHistory(history);
+    historyList.appendChild(btn);
+  });
+}
+
+function loadChatHistory(historyObj) {
+  closeSidebar();
+  greetingView.style.display = 'none';
+  app.classList.add('chat-active');
+  chatView.style.display = 'flex';
+  chatView.innerHTML = '';
+  
+  historyObj.messages.forEach(msg => {
+    appendMessage(msg.role, msg.text, false, msg.isStopped, msg.isDisliked);
+  });
+}
+
+// 사이드바 토글
+const menuBtn = document.getElementById('menu-btn');
+const sidebarClose = document.getElementById('sidebar-close');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+function openSidebar() { document.body.classList.add('sidebar-open'); }
+function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+
+menuBtn.onclick = openSidebar;
+sidebarClose.onclick = closeSidebar;
+sidebarOverlay.onclick = closeSidebar;
+
+// 초기 설정
+renderHistory();
+startAutomation();
+
+</script>
+</body>
+</html>
