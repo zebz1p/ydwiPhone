@@ -216,6 +216,19 @@
 #chs-root .chs-cgv-icon{background:white}
 #chs-root .chs-cgv-icon img{width:82%;height:82%;object-fit:contain}
 #chs-root .chs-voice-icon{background:#171717}
+/* 첫 페이지가 화면에 맞춰 축소되어도 아이콘은 두 번째 페이지와 같은 실제 크기를 유지 */
+#chs-root [data-home-page="0"] .chs-app-icon{transform:scale(var(--home-icon-compensation,1));transform-origin:center bottom}
+#chs-root [data-home-page="0"] .chs-app-icon:active{transform:scale(calc(.85 * var(--home-icon-compensation,1)))}
+#chs-root [data-home-page="0"] .chs-app-icon[aria-disabled=true]:active{transform:scale(var(--home-icon-compensation,1))}
+/* 낮은 화면에서는 아이콘과 바로 위 위젯 글씨 사이 여백을 확보 */
+@media(max-height:660px){
+ #chs-root [data-home-page="0"] .chs-app-label{line-height:10px}
+ #chs-root [data-home-page="0"] .chs-app-grid{margin-top:12px}
+}
+@media(max-height:660px) and (max-width:345px){
+ #chs-root [data-home-page="0"] .chs-app-grid{width:calc(100% + 16px);margin-top:14px}
+ #chs-root [data-home-page="0"] .chs-app-label{line-height:9px;position:relative;top:-1px}
+}
 @media(max-height:600px){#chs-root .chs-now-widget{min-height:135px}#chs-root .chs-now-copy{padding-top:25px;padding-bottom:14px}#chs-root .chs-second-content{gap:12px;padding-bottom:4px}}
 @media(prefers-reduced-motion:reduce){#chs-root .chs-page-track{transition:none}}
 </style></head>
@@ -310,6 +323,7 @@
   const space=Math.max(1,area.clientHeight-8);
   const scale=Math.min(1,space/content.scrollHeight);
   content.style.setProperty('--home-fit',String(scale));
+  content.style.setProperty('--home-icon-compensation',String(1/scale));
  }
  new ResizeObserver(fitHome).observe(area);
  window.addEventListener('resize',fitHome);
