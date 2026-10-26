@@ -144,6 +144,7 @@
     resize: none;
     overflow: hidden;
     transition: text-align 0.1s ease;
+    word-break: keep-all; /* 단어 단위로 자연스럽게 줄바꿈 */
   }
   .source-input::placeholder { color: #c7c7cc; }
   .main-content.focused .source-input { text-align: left; }
@@ -467,7 +468,6 @@
     color: var(--text-main);
   }
   
-  /* | 문자 대신 CSS로 수직 바 UI 생성 */
   .trans-mean {
     font-size: 15px;
     color: var(--text-muted);
@@ -589,10 +589,11 @@
   <main class="main-content" id="main-content">
     <div class="content-wrapper">
       <div class="input-wrapper">
+        <!-- 높이 수정: 처음부터 2줄을 보여주어 "주세요" 잘림 방지 -->
         <textarea 
           id="source-input" 
           class="source-input" 
-          rows="1" 
+          rows="2" 
           placeholder="형에게 번역해주고 싶은 내용을 입력해주세요"
           autocomplete="off"
           autocorrect="off"
@@ -719,7 +720,6 @@
       <div class="horizontal-scroll">
         <div class="trans-card">
           <div class="trans-orig">윤도운</div>
-          <!-- 수직 바 요소가 CSS(trans-mean)로 생성됨 -->
           <div class="trans-mean">나 귀여워 해</div>
         </div>
         <div class="trans-card">
@@ -841,9 +841,8 @@
 
 <div id="word-message-stack" class="word-message-stack" aria-live="polite" aria-relevant="additions"></div>
 <script>
-  // 한 묶음이 한 번의 반응입니다. 두 문장은 순서대로 나눠 도착합니다.
   const WORD_REACTIONS=[
-    ['이제 나보다 도우니가 나 더 잘 아는 것 같아 ㅋㅋ'],
+    ['이제 도우니가 나보다 나 더 잘 아는 것 같다'],
     ['진짜 그렇게 생각해?'],
     ['아닐 수도 있는데'],
     ['또, 또 지 좀 안다고 아주 ㅋㅋㅋㅋ','근데 그게 맞긴 해'],
@@ -866,7 +865,6 @@
     let start=null;
     const timer=setTimeout(dismiss,10000);
     function dismiss(){clearTimeout(timer);start=null;card.remove()}
-    // 닫기 버튼의 포인터를 카드로 강제 이동시키지 않습니다.
     close.addEventListener('pointerdown',event=>event.stopPropagation());
     close.addEventListener('click',event=>{event.stopPropagation();dismiss()});
     card.addEventListener('pointerdown',event=>{

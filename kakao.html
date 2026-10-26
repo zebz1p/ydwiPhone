@@ -274,7 +274,7 @@ const chats = [{name:'영현이 형',date:'2026년 9월 2일 화요일',listTime
 // unread: 0이면 빨간 표시를 숨깁니다. 각 {name: ...} 항목 전체를 삭제하면 목록에서도 사라집니다.
 // messages에 대화를 추가하세요. 빈 배열이면 preview를 첫 대화로 표시합니다.
 chats.push(
- {name:'누나',preview:'전화 좀',listTime:'오후 2:06',unread:2,messages:[]},
+ {name:'누나',preview:'엄마 차 니가 가져갔냐?',listTime:'오후 2:06',unread:2,messages:[]},
  {name:'성유찬(실음)',preview:'닌 그 정도면 경영으로 전과해라 그냥',listTime:'오후 1:07',unread:1,messages:[]},
  {name:'2026 실음 4학년',group:true,muted:true,preview:'내일 최지원 교수님 전공 실기 강의실 405호로 변경됐습니다.',listTime:'오전 11:07',unread:0,messages:[]},
  {name:'노랑통닭 알바톡',group:true,muted:true,preview:'홀에 이거 누구 거임?',listTime:'오전 09:02',unread:0,messages:[]},
@@ -585,7 +585,7 @@ PROFILE_UPDATES.forEach((post,postIndex)=>{
 const settingsProfile=el('div','settings-profile'),selfAvatar=el('div','profile-img-default');selfAvatar.style.background='#a2d9d6';selfAvatar.innerHTML=person;
 const selfCopy=el('div','settings-self');selfCopy.append(el('strong','','윤도운'),el('span','settings-number','+82 10-1995-0825'));settingsProfile.append(selfAvatar,selfCopy,el('span','settings-manage','관리'));$('settings-view').append(settingsProfile);
 const settingGroups=[
- [['카카오멤버십','card',''],['카카오계정','account','ydwdw.doke.com'],['패밀리계정','people','']],
+ [['카카오멤버십','card',''],['카카오계정','account','ydwdw.doke.cloud.com'],['패밀리계정','people','']],
  [['개인/보안','lock',''],['친구','person',''],['채팅','comment',''],['알림','bell',''],['백업','backup',''],['데이터 및 저장공간','storage',''],['화면','sun',''],['테마','brush','시스템 설정 모드'],['이모티콘','smile',''],['통화','phone',''],['카나나','circle',''],['실험실','flask',''],['기타','more','']],
  [['공지사항','notice',''],['카톡설명서','guide',''],['고객센터/운영정책','help',''],['앱 관리','info','95.8.25']]
 ];

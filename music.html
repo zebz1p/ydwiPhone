@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="format-detection" content="telephone=no"><title>윤도운의 iPhone</title><style>
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;overscroll-behavior:none}body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;color:#090909;background:#fff;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;border:0;background:none;padding:0}button:focus{outline:none}svg{display:block;width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}[hidden]{display:none!important}.app{height:100vh;height:100dvh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}.header{flex:none;display:flex;align-items:center;justify-content:space-between;padding:15px 20px 13px;border-bottom:1px solid #ececee}.header h1{font-size:34px;letter-spacing:-1px;margin:0;font-weight:750}.avatar{width:43px;height:43px;border:2px solid white;box-shadow:0 0 0 1px #ddd;border-radius:50%;display:grid;place-items:center;background:linear-gradient(#a7c3e3,#797ebb);color:white;font-size:19px;font-weight:600}.main{flex:1;min-height:0;display:flex;flex-direction:column;gap:23px;padding:15px 0 5px;overflow:hidden}.section{min-height:0;display:flex;flex-direction:column}.recommend{flex:1.65}.recent{flex:1}.heading{flex:none;display:flex;align-items:center;gap:5px;margin:0 20px 11px;font-size:20px;letter-spacing:-.6px;line-height:26px;font-weight:700}.heading svg{width:12px;height:18px;color:#98989c;stroke-width:2.5}.rail{flex:1;min-height:0;display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;touch-action:pan-x;scrollbar-width:none;padding:0 20px;-webkit-overflow-scrolling:touch}.rail::-webkit-scrollbar{display:none}.recommend-card{flex:0 0 var(--rec-width,62vw);height:100%;position:relative;border-radius:16px;overflow:hidden;scroll-snap-align:start;background:var(--color);color:white}.recommend-card .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.art{position:absolute;inset:0;width:100%;height:100%}.brand{position:absolute;right:13px;top:10px;font-size:15px;font-weight:700;letter-spacing:-.5px;display:flex;align-items:center;gap:2px}.brand svg{width:13px;height:17px;fill:currentColor;stroke:none}.rec-copy{position:absolute;left:16px;right:15px;bottom:16px;text-shadow:0 1px 7px #0002}.rec-copy small{font-size:12px;line-height:18px}.rec-copy strong{display:block;font-size:18px;line-height:24px;letter-spacing:-.4px}.rec-copy p{font-size:12px;line-height:17px;margin:4px 0 0}.recent-item{flex:0 0 var(--album-size,35vw);width:var(--album-size,35vw);scroll-snap-align:start;min-width:0}.album{position:relative;display:block;overflow:hidden;width:100%;height:var(--album-size,35vw);border-radius:8px;background:var(--color,#dedee3)}.album img{position:absolute;width:100%;height:100%;object-fit:cover;inset:0}.album svg{width:100%;height:100%}.song-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;line-height:18px;font-weight:500;margin-top:5px}.artist{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:16px;color:#8d8d94}.bottom{flex:none;padding:8px 20px calc(13px + env(safe-area-inset-bottom,0px));border-top:1px solid #eee;background:white}.mini{width:100%;display:flex;align-items:center;gap:10px;border:1px solid #dedee2;border-radius:30px;padding:8px 15px;text-align:left;cursor:pointer;height:51px}.mini .mini-cover{width:31px;height:31px;border-radius:6px;flex:none;overflow:hidden;background:#ddd;position:relative}.mini img{width:100%;height:100%;object-fit:cover}.mini-copy{flex:1;min-width:0}.mini-title{font-size:13px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-artist{font-size:11px;line-height:15px}.mini-icons{display:flex;align-items:center;gap:20px}.mini-icons svg{width:21px;height:24px;fill:currentColor;stroke:none}.tabs{display:flex;align-items:center;margin-top:8px;border:1px solid #e3e3e6;border-radius:36px;padding:4px;height:62px}.tab{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;font-size:10px;line-height:14px;white-space:nowrap;height:52px}.tab svg{width:26px;height:27px}.tab.active{color:#fa2449;background:#f0f0f1;border-radius:29px}.station{position:fixed;inset:0;z-index:10;background:linear-gradient(155deg,#249eaa 0%,#0089a6 35%,#26304f 100%);color:white;display:flex;flex-direction:column;padding:calc(17px + env(safe-area-inset-top,0px)) 30px calc(25px + env(safe-area-inset-bottom,0px));overflow:hidden;touch-action:none}.station-top{flex:none;touch-action:none}.handle{width:58px;height:4px;background:#7cdded80;margin:0 auto 23px;border-radius:9px}.current{display:flex;align-items:center;gap:12px;min-width:0}.current-cover{width:70px;height:70px;border-radius:10px;overflow:hidden;background:#7ac4c8;flex:none;position:relative}.current-cover img{width:100%;height:100%;object-fit:cover}.current-copy{flex:1;min-width:0}.current-title{font-size:19px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.current-artist{font-size:15px;color:#a9e8ef;margin-top:3px}.current>svg{width:24px;height:24px;margin-left:3px}.modes{display:flex;gap:12px;margin:15px 0 17px}.mode{flex:1;height:38px;border-radius:25px;background:#72defa25;color:#70d8ec77;display:grid;place-items:center}.mode svg{width:23px;height:23px}.queue-head{margin:0;font-size:18px;line-height:25px;font-weight:650}.provider{font-size:13px;line-height:20px;color:#8bdeec;margin-top:0}.queue{display:flex;flex-direction:column;gap:16px;margin-top:16px;overflow:hidden;flex:none}.queued{display:flex;gap:12px;align-items:center;min-width:0}.queue-cover{width:48px;height:48px;border-radius:6px;background:#2999ad;overflow:hidden;position:relative;flex:none}.queue-cover img{width:100%;height:100%;object-fit:cover}.queued-copy{min-width:0}.queued-title{font-size:16px;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.queued-artist{font-size:13px;line-height:19px;color:#9bdfeb}.station-player{margin-top:auto;padding-top:15px;flex:none;color:#a7c7e4}.track{height:7px;background:#9bc8e34d;border-radius:10px;overflow:hidden}.track-fill{height:100%;width:17%;background:#a4d1ef}.track-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-top:9px;font-variant-numeric:tabular-nums}.lossless{font-size:11px;background:#8ab5d32b;padding:3px 7px;border-radius:5px}.transport{display:flex;align-items:center;justify-content:space-around;margin:30px 0 36px;color:#fff}.transport svg{width:41px;height:41px;fill:currentColor;stroke:none}.transport .pause{width:44px;height:44px}.volume{display:flex;align-items:center;gap:15px}.volume svg{width:20px;height:20px}.volume .track{flex:1;height:6px}.volume .track-fill{width:16%;background:#b7cfe9}.player-tools{display:flex;justify-content:space-around;align-items:center;margin-top:26px}.player-tools>span{width:38px;height:38px;display:grid;place-items:center}.player-tools svg{width:24px;height:24px}.player-tools .selected{background:#a8c5e4;color:#304966;border-radius:50%}.placeholder{display:grid;place-items:center;position:absolute;inset:0;color:#ffffffc9}.placeholder svg{width:44%;height:44%;stroke-width:1.3}img{display:block}svg{pointer-events:none}@media(max-height:650px){.header{padding-top:8px;padding-bottom:8px}.header h1{font-size:29px}.main{padding-top:10px;gap:12px}.heading{font-size:18px;margin-bottom:7px}.bottom{padding-top:5px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}.tabs{height:53px}.tab{height:44px}.rec-copy{left:12px;bottom:10px}.rec-copy strong{font-size:16px;line-height:20px}.rec-copy p{display:none}.station{padding-left:24px;padding-right:24px;padding-bottom:16px}.handle{margin-bottom:12px}.current-cover{width:54px;height:54px}.modes{margin:12px 0}.mode{height:30px}.queue{gap:10px;margin-top:10px}.queue-cover{width:40px;height:40px}.transport{margin:18px 0}.player-tools{margin-top:16px}.transport svg{width:32px;height:32px}}
+
+/* 그림과 문구는 서로 다른 영역을 사용해 작은 화면에서도 겹치지 않습니다. */
+.recommend-card{display:flex;flex-direction:column;padding:32px 0 16px}
+.art-area{position:relative;flex:1;min-height:0;margin:0 20px 10px}
+.art{stroke:none;stroke-width:0}
+.rec-copy{position:relative;inset:auto;flex:none;margin:0 16px;z-index:1}
+.recommend-card .cover{z-index:0}.recommend-card .brand{z-index:1}
+.mini{gap:12px;cursor:default}.mini-open{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-align:left;cursor:pointer;height:100%}
+.play-toggle{display:grid;place-items:center;flex:none;width:32px;height:34px;cursor:pointer;touch-action:manipulation}
+.play-toggle svg,.mini-next svg{fill:currentColor;stroke:none;width:21px;height:24px}
+.mini-next{display:grid;place-items:center;flex:none;width:26px}
+.transport .play-toggle{width:54px;height:48px}.transport .play-toggle svg{width:44px;height:44px}
+@media(max-height:650px){.recommend-card{padding-top:27px;padding-bottom:10px}.art-area{margin:0 15px 6px}.rec-copy{inset:auto;margin:0 12px}.transport .play-toggle svg{width:32px;height:32px}}
+
+/* 시작 카드까지 끝까지 당길 수 있도록 패딩과 스냅 기준을 일치시킵니다. */
+.rail{scroll-padding-inline:20px}
+/* 음원과 관계없이 손가락/마우스/키보드로 조절되는 볼륨 슬라이더 */
+.volume .track.volume-track{position:relative;overflow:visible}
+.volume .volume-track .track-fill{border-radius:10px;pointer-events:none}
+.volume-range{appearance:none;-webkit-appearance:none;position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:30px;margin:0;padding:0;border:0;outline:none;background:transparent;cursor:pointer;touch-action:pan-x}
+.volume-range::-webkit-slider-runnable-track{height:6px;background:transparent;border:0}
+.volume-range::-moz-range-track{height:6px;background:transparent;border:0}
+.volume-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;height:14px;width:14px;margin-top:-4px;border:0;border-radius:50%;background:#e7f3ff;box-shadow:0 1px 5px #0004}
+.volume-range::-moz-range-thumb{height:14px;width:14px;border:0;border-radius:50%;background:#e7f3ff;box-shadow:0 1px 5px #0004}
+.volume-range:focus-visible::-webkit-slider-thumb{outline:2px solid #fff;outline-offset:3px}
+/* 재생 진행바: 기존 모양 위에 드래그 가능한 슬라이더만 겹칩니다. */
+.station-player .track.seek-track{position:relative;overflow:visible}
+.seek-track .track-fill{border-radius:10px;pointer-events:none}
+.seek-range{appearance:none;-webkit-appearance:none;position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);width:100%;height:30px;margin:0;padding:0;border:0;outline:none;background:transparent;cursor:pointer;touch-action:none}
+.seek-range::-webkit-slider-runnable-track{height:7px;background:transparent;border:0}
+.seek-range::-moz-range-track{height:7px;background:transparent;border:0}
+.seek-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;margin-top:-3px;border:0;border-radius:50%;background:#e9f5ff;box-shadow:0 1px 4px #0003}
+.seek-range::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:#e9f5ff;box-shadow:0 1px 4px #0003}
+.seek-range:focus-visible::-webkit-slider-thumb{outline:2px solid #fff;outline-offset:3px}
+
+/* 보관함 아이콘: 보내준 두 번째 사진의 원본 윤곽선과 비율을 그대로 적용 */
+.tab:nth-child(4){gap:2px}
+.tab:nth-child(4) .library-reference-icon{width:26px;height:27px;flex:none;overflow:visible}
+.tab:nth-child(4)>span{font-size:10px}
+</style><style>
+/* 재생바를 눌러 열리는 화면만 홈 음악 위젯의 연두·노을 색감에 맞춥니다. */
+.station{
+  background:linear-gradient(135deg,#73b882 0%,#5f9978 46%,#43586a 100%);
+  color:#253225;
+}
+.station .handle{background:rgba(65,83,58,.35)}
+.station .current-cover{background:#dce6c5}
+.station .current-artist{color:#5c6c55}
+.station .mode{background:rgba(255,255,255,.30);color:rgba(255,255,255,.97)}
+.station .mode:last-child{color:rgba(255,255,255,.20)}
+.station .provider{color:#667257}
+.station .queued-artist{color:#626e5b}
+.station .station-player{color:rgba(255,255,255,.91)}
+.station .track{background:rgba(255,255,255,.27)}
+.station .seek-track .track-fill{background:rgba(255,255,255,.9)}
+.station .volume .track-fill{background:rgba(255,255,255,.9)}
+.station .lossless{background:rgba(255,255,255,.25);color:rgba(255,255,255,.95)}
+.station .transport{color:#fff}
+.station .player-tools .selected{background:rgba(255,255,255,.27);color:#fff}
+.station .volume-range::-webkit-slider-thumb,
+.station .seek-range::-webkit-slider-thumb{background:#fff9ed}
+.station .volume-range::-moz-range-thumb,
+.station .seek-range::-moz-range-thumb{background:#fff9ed}
+</style></head><body>
+<div class="app" id="app"><header class="header"><h1>홈</h1><div class="avatar" aria-label="도운 프로필">도운</div></header><main class="main"><section class="section recommend"><h2 class="heading">인기 추천곡</h2><div class="rail" id="recommendations" aria-label="인기 추천곡, 좌우로 넘기기"></div></section><section class="section recent"><h2 class="heading">최근 재생한 음악 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 4 8 8-8 8"/></svg></h2><div class="rail" id="recent" aria-label="최근 재생한 음악, 좌우로 넘기기"></div></section></main><footer class="bottom"><div class="mini"><button class="mini-open" id="open-player" aria-label="적당히 재생 대기 목록 열기" aria-expanded="false"></button><button class="play-toggle" id="mini-toggle" aria-label="일시정지"></button><span class="mini-next" id="mini-next" aria-hidden="true"></span></div><nav class="tabs" aria-label="음악 메뉴"></nav></footer></div>
+<section class="station" id="station" role="dialog" aria-modal="true" aria-label="윤도운의 스테이션 재생 대기 목록, 위쪽을 아래로 쓸어 닫기" hidden><div class="station-top" id="station-top"><div class="handle" aria-hidden="true"></div><div class="current" id="current"></div><div class="modes" id="modes"></div><h2 class="queue-head">계속 재생</h2><div class="provider">제공: 윤도운의 스테이션</div></div><div class="queue" id="queue"></div><div class="station-player"><div class="track seek-track"><div class="track-fill" id="progress"></div><input class="seek-range" id="seek-slider" type="range" min="0" max="181" step="0.1" value="33" aria-label="노래 재생 위치 조절"></div><div class="track-meta"><span id="elapsed">0:33</span><span class="lossless">무손실</span><span id="remaining">−2:28</span></div><div class="transport" id="transport"></div><div class="volume" id="volume"></div><div class="player-tools" id="player-tools"></div></div></section>
+<script>
+/* ━━━━━━━━━ 수정할 곳 ━━━━━━━━━
+   image: 이미지 경로 (예: 'imges/album1.jpeg')
+   title: 노래 또는 추천 목록 제목 / artist: 가수
+   추천과 최근 목록은 항목을 추가·삭제해도 가로 스와이프에 반영됩니다.
+   실제 음원 재생은 하지 않습니다. 아래 재생 시간은 화면 연출용입니다.
+*/
+const MUSIC={
+ current:{title:'적당히',artist:'clo',image:'imges/clo.jpeg',duration:181,elapsed:33},
+ recommendations:[
+  {title:'윤도운의 스테이션',subtitle:'나만을 위한 추천',description:'',image:'',theme:'station',color:'#ff435c'},
+  {title:'말하지 못한 마음',subtitle:'혼자 좋아하는 밤',description:'마음속에만 담아둔 너에게',image:'',theme:'heart',color:'#ef527a'},
+  {title:'혹시 너도 같은 마음일까',subtitle:'설레는 짝사랑',description:'너의 작은 말에도 설레는 날',image:'',theme:'spark',color:'#ef9e22'},
+  {title:'드러머의 플레이리스트',subtitle:'리듬에 집중하는 시간',description:'그루브부터 드럼 솔로까지',image:'',theme:'drum',color:'#324bc0'}
+ ],
+ recent:[
+  {title:'윤도운의 스테이션',artist:'라디오 스테이션',image:'',theme:'station',color:'#ee476c'},
+  {title:'적당히',artist:'clo',image:'imges/clo.jpeg',color:'#d3a442'},
+  {title:'명작',artist:'크록티칼',image:'imges/ChRocktikal.jpeg',color:'#253d82'},
+  {title:'나의 우리',artist:'크록티칼',image:'imges/ChRocktikal.jpeg',color:'#b76579'},
+  {title:'흔들리는 시간 속에',artist:'극동아시아타이거즈',image:'imges/극아타.jpeg',color:'#a87d44'},
+  {title:'애정표현',artist:'플라워',image:'imges/플라워.jpeg',color:'#405f5d'}
+ ],
+ queue:[
+  {title:'어쩌면 또 마지막이 될까봐 (feat. 이아율)',artist:'뎁트',image:'imges/dept.jpeg',color:'#267e9b'},
+ ]
+};
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const paths={note:'M9 18V5l11-3v14M9 8l11-3M9 18c0 4-7 4-7 1s7-4 7-1m11-2c0 4-7 4-7 1s7-4 7-1',home:'m3 10 9-8 9 8v11h-6v-7H9v7H3Z',grid:'M3 3h7v7H3Zm11 0h7v7h-7ZM3 14h7v7H3Zm11 0h7v7h-7Z',radio:'M7 5a10 10 0 0 0 0 14M17 5a10 10 0 0 1 0 14M9 8a6 6 0 0 0 0 8m6-8a6 6 0 0 1 0 8M12 12v9',library:'M5 6h14a2 2 0 0 1 2 2v13H3V8a2 2 0 0 1 2-2Zm1-3h12M8 0h8M10 17v-6l7-1v6',search:'M19 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0m-2 6 6 7',star:'m12 2 3 6.5 7 .9-5.2 5 1.3 7-6.1-3.4L5.9 21l1.3-6.6L2 9.4l7-.9Z',shuffle:'M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3-2 4-4m4-4c2-4 3-4 7-4m-4-4 4 4-4 4',repeat:'M5 6h15l-4-4m4 4-4 4M19 18H4l4-4m-4 4 4 4',infinity:'M12 12c-8-14-16 12-5 6 3-2 7-11 10-12 11-6 9 17 1 12Z',mix:'M15 12a6 6 0 1 1-12 0 6 6 0 0 1 12 0m6 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0',speaker:'M4 9h4l5-5v16l-5-5H4Z',loud:'M3 9h4l5-5v16l-5-5H3Zm13-2c3 3 3 7 0 10m3-13c5 5 5 11 0 16',airplay:'m6 23 6-7 6 7ZM8 15a6 6 0 1 1 8 0M5 18a10 10 0 1 1 14 0',list:'M9 5h12M9 12h12M9 19h12M3 5h1M3 12h1M3 19h1',speech:'M5 3h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2ZM8 8v3h2V8Zm6 0v3h2V8Z'};
+function icon(name){
+ if(name==='library')return '<svg class="library-reference-icon" viewBox="0 0 71 89" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M8 25 L5 29 L5 77 L7 79 L7 80 L8 80 L10 82 L57 82 L61 80 L61 79 L63 77 L63 29 L62 27 L58 24 L10 24 Z M46 34 L48 36 L48 63 L47 65 L44 68 L38 68 L35 64 L35 62 L37 59 L41 57 L44 57 L44 45 L42 46 L38 46 L37 47 L33 47 L32 48 L30 48 L30 65 L29 66 L29 68 L25 72 L20 72 L17 69 L17 65 L20 62 L22 61 L25 61 L26 60 L26 39 L30 37 L34 37 L35 36 L39 36 L40 35 Z"/><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M12 17 L56 17 L54 14 L52 14 L51 13 L17 13 L16 14 L14 14 Z"/><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M19 6 L19 8 L48 8 L49 7 L49 6 L46 4 L22 4 Z"/></svg>';
+ const clean={
+  shuffle:'<path d="M3 6h2.8c4.8 0 7.6 12 12.4 12H21M17.5 14.5 21 18l-3.5 3.5M3 18h2.8c1.7 0 3.2-1.6 4.6-3.8M13.6 9.8C15 7.6 16.5 6 18.2 6H21M17.5 2.5 21 6l-3.5 3.5"/>',
+  repeat:'<path d="M4 10V8a3 3 0 0 1 3-3h13M17 2l3 3-3 3M20 14v2a3 3 0 0 1-3 3H4M7 16l-3 3 3 3"/>',
+  infinity:'<path d="M12 12C9 7 7 6 5 6a6 6 0 0 0 0 12c2 0 4-1 7-6s5-6 7-6a6 6 0 0 1 0 12c-2 0-4-1-7-6Z" transform="translate(2 2) scale(.833333)"/>',
+  mix:'<circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6"/>',
+  library:'<rect x="8.55" y="1.7" width="6.9" height="1.65" rx="0.82" fill="currentColor" stroke="none"/><rect x="6.95" y="4.2" width="10.1" height="1.75" rx="0.88" fill="currentColor" stroke="none"/><rect x="4.45" y="7.05" width="15.1" height="16.25" rx="3.35" fill="currentColor" stroke="none"/><path d="M14.5 10.3c.37-.08.72.2.72.58v5.95c0 1.42-1.19 2.42-2.86 2.42-1.45 0-2.52-.78-2.52-1.96 0-1.28 1.19-2.13 2.72-2.13.44 0 .88.08 1.28.22v-4.07c0-.32.22-.59.53-.66Zm-5.35 1.23c.37-.09.72.2.72.58v7.13c0 1.42-1.2 2.41-2.86 2.41-1.45 0-2.52-.77-2.52-1.95 0-1.28 1.19-2.13 2.72-2.13.45 0 .88.08 1.28.22v-5.49c0-.31.21-.58.51-.65Z" transform="translate(4.15 0) scale(.74)" fill="#fff" stroke="none"/>'
+ };if(clean[name])return `<svg viewBox="0 0 24 24" aria-hidden="true">${clean[name]}</svg>`;
+ if(name==='play')return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3Q6 2 7 3l14 8q1 1 0 2L7 21q-1 1-1-1Z"/></svg>';
+if(name==='pause')return '<svg class="pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="5" height="20" rx="1.6"/><rect x="14" y="2" width="5" height="20" rx="1.6"/></svg>';if(name==='next'||name==='previous')return `<svg viewBox="0 0 24 24" aria-hidden="true"><g ${name==='previous'?'transform="rotate(180 12 12)"':''}><path d="M2 4Q2 3 3 4l10 7q1 1 0 2L3 20q-1 1-1-1ZM12 4q0-1 1 0l10 7q1 1 0 2l-10 7q-1 1-1-1Z"/></g></svg>`;if(name==='more')return '<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><circle cx="4" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg>';return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${paths[name]}"/></svg>`}
+function cover(item){if(item.theme==='station'&&!item.image)return artwork('station');return item.image?`<img src="${esc(item.image)}" alt="" draggable="false" onerror="this.hidden=true">`:`<span class="placeholder">${icon('note')}</span>`}
+function artwork(theme){
+ // 스테이션 카드와 같은 선명한 색면 레이어. 카드별로 서로 다른 오브제를 크게 배치합니다.
+ const shapes={
+  // 원래의 윤도운 스테이션 삼각 그래픽은 그대로 유지합니다.
+  station:'<path d="M0 0 300 170 0 340Z" fill="#ff822d"/><path d="M0 0 240 170 0 340 95 170Z" fill="#ff9b67"/><path d="M0 0 165 170 0 340 60 170Z" fill="#ff6588"/>',
+  // 말하지 못한 마음: 하나의 커다란 하트를 겹쳐 접힌 색면처럼 표현.
+  heart:'<path d="M150 293 43 190C13 163 11 119 36 83 63 45 115 50 150 94 185 50 237 45 264 83c25 36 23 80-7 107Z" fill="#ffe1ed"/><path d="M150 293 45 189C16 161 15 119 39 86c22-30 61-32 89-10l22 18v199Z" fill="#ffaccd"/><path d="M150 293 72 182C47 148 52 112 78 97c27-17 54 0 72 26Z" fill="#ff699d"/><path d="M150 293 256 190c30-30 31-71 8-107-8-11-18-19-29-23L150 121Z" fill="#ffc5d9"/><path d="M150 293 205 154 150 121Z" fill="#ff88ad"/>',
+  // 혹시 너도 같은 마음일까: 커다란 러브레터를 종이를 포갠 듯한 색면으로.
+  spark:'<path d="M57 101h186c12 0 22 10 22 22v153H35V123c0-12 10-22 22-22Z" fill="#fff0d5"/><path d="M65 73h170v146H65Z" fill="#fff7eb"/><path d="M82 102h136v13H82ZM82 127h103v10H82Z" fill="#ffd5ab"/><path d="M35 119 150 214 265 119v157H35Z" fill="#ffbd88"/><path d="M35 119 150 214 35 276Z" fill="#ffe2c0"/><path d="M265 119 150 214 265 276Z" fill="#ff9f73"/><path d="M35 276 150 187 265 276Z" fill="#ffe9cd"/><path d="M150 211c-19-14-29-24-29-36 0-9 6-15 14-15 7 0 12 4 15 10 3-6 8-10 15-10 8 0 14 6 14 15 0 12-10 22-29 36Z" fill="#fb6592"/>',
+  // 드러머의 플레이리스트: 겹쳐진 종이 조형처럼 큼직한 드럼통과 스틱.
+  drum:'<path d="M42 157v103c0 25 48 44 108 44s108-19 108-44V157Z" fill="#aecaff"/><path d="M42 162 91 294l28-111 31 121 29-121 30 111 49-132v98c0 25-48 44-108 44S42 285 42 260Z" fill="#79a6fa"/><path d="M42 163 92 287 119 181Z" fill="#d4e2ff"/><path d="M119 181 150 298 179 181Z" fill="#b5d1ff"/><path d="M179 181 209 287 258 163Z" fill="#d4e2ff"/><ellipse cx="150" cy="160" rx="108" ry="45" fill="#e3edff"/><ellipse cx="150" cy="160" rx="97" ry="34" fill="#80aaff"/><path d="M53 160c0 10 12 19 29 25 14-30 36-48 68-59-56 0-97 14-97 34Z" fill="#a6c5ff"/><path d="M76 137 171 179" fill="none" stroke="#ecf3ff" stroke-width="9" stroke-linecap="round"/><path d="M222 137 131 179" fill="none" stroke="#b8d1ff" stroke-width="9" stroke-linecap="round"/>',
+ };
+ return `<svg class="art" viewBox="0 0 300 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${shapes[theme]||shapes.heart}</svg>`;
+}
+$('recommendations').innerHTML=MUSIC.recommendations.map(r=>`<article class="recommend-card" style="--color:${esc(r.color)}"><div class="art-area">${artwork(r.theme)}</div>${r.image?`<img class="cover" src="${esc(r.image)}" alt="" draggable="false" onerror="this.hidden=true">`:''}<div class="brand">♪ music</div><div class="rec-copy"><small>${esc(r.subtitle)}</small><strong>${esc(r.title)}</strong><p>${esc(r.description)}</p></div></article>`).join('');
+$('recent').innerHTML=MUSIC.recent.map(r=>`<article class="recent-item"><div class="album" style="--color:${esc(r.color)}">${cover(r)}</div><span class="song-title">${esc(r.title)}</span><span class="artist">${esc(r.artist)}</span></article>`).join('');
+const c=MUSIC.current;
+$('open-player').innerHTML=`<span class="mini-cover">${cover(c)}</span><span class="mini-copy"><span class="mini-title" style="display:block">${esc(c.title)}</span><span class="mini-artist">${esc(c.artist)}</span></span>`;
+document.querySelector('.tabs').innerHTML=[['home','홈'],['grid','새로운 음악'],['radio','라디오'],['library','보관함'],['search','검색']].map(([i,t],n)=>`<div class="tab ${n===0?'active':''}" aria-disabled="true">${icon(i)}<span>${t}</span></div>`).join('');
+$('current').innerHTML=`<div class="current-cover">${cover(c)}</div><div class="current-copy"><div class="current-title">${esc(c.title)}</div><div class="current-artist">${esc(c.artist)}</div></div>${icon('star')}${icon('more')}`;
+$('modes').innerHTML=['shuffle','repeat','infinity','mix'].map(i=>`<span class="mode" aria-hidden="true">${icon(i)}</span>`).join('');
+$('queue').innerHTML=MUSIC.queue.map(r=>`<article class="queued"><div class="queue-cover" style="background:${esc(r.color)}">${cover(r)}</div><div class="queued-copy"><div class="queued-title">${esc(r.title)}</div><div class="queued-artist">${esc(r.artist)}</div></div></article>`).join('');
+$('transport').innerHTML=icon('previous')+'<button class="play-toggle" id="station-toggle" aria-label="일시정지"></button>'+icon('next');$('mini-next').innerHTML=icon('next');$('volume').innerHTML=icon('speaker')+'<div class="track volume-track"><div class="track-fill" id="volume-fill"></div><input class="volume-range" id="volume-slider" type="range" min="0" max="100" value="16" step="1" aria-label="음량 조절"></div>'+icon('loud');$('player-tools').innerHTML=['speech','airplay','list'].map(i=>`<span class="${i==='list'?'selected':''}">${icon(i)}</span>`).join('');
+
+// 실제 음원 없이도 음량 숫자·슬라이더 채움이 변경됩니다.
+const volumeSlider=$('volume-slider'),volumeFill=$('volume-fill');
+function updateVolume(){const value=Number(volumeSlider.value);volumeFill.style.width=value+'%';volumeSlider.setAttribute('aria-valuetext',value+'%')}
+volumeSlider.addEventListener('input',updateVolume);
+let volumePointer=null;
+function setVolumeFromPointer(event){const r=volumeSlider.getBoundingClientRect();volumeSlider.value=Math.max(0,Math.min(100,Math.round((event.clientX-r.left)/r.width*100)));updateVolume()}
+volumeSlider.addEventListener('pointerdown',event=>{volumePointer=event.pointerId;volumeSlider.setPointerCapture(event.pointerId);setVolumeFromPointer(event)});
+volumeSlider.addEventListener('pointermove',event=>{if(volumePointer===event.pointerId)setVolumeFromPointer(event)});
+const releaseVolume=event=>{if(volumePointer===event.pointerId)volumePointer=null};
+volumeSlider.addEventListener('pointerup',releaseVolume);volumeSlider.addEventListener('pointercancel',releaseVolume);
+updateVolume();
+// 화면 높이가 달라도 세로 스크롤 없이 두 줄을 모두 표시합니다.
+function fit(){const rec=$('recommendations'),recent=$('recent');rec.style.setProperty('--rec-width',Math.max(100,Math.min(innerWidth*.63,rec.clientHeight*.76))+'px');recent.style.setProperty('--album-size',Math.max(24,Math.min(innerWidth*.38,recent.clientHeight-40))+'px')}
+new ResizeObserver(fit).observe(document.querySelector('.main'));window.addEventListener('resize',fit);if(document.fonts)document.fonts.ready.then(fit);fit();
+// 터치 스와이프, 마우스 드래그, 트랙패드 모두 가로 목록만 이동합니다.
+for(const rail of document.querySelectorAll('.rail')){let start=null;rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;start={x:e.clientX,scroll:rail.scrollLeft};rail.setPointerCapture(e.pointerId);rail.style.scrollSnapType='none'});rail.addEventListener('pointermove',e=>{if(start)rail.scrollLeft=start.scroll+start.x-e.clientX});const stop=()=>{start=null;rail.style.scrollSnapType=''};rail.addEventListener('pointerup',stop);rail.addEventListener('pointercancel',stop);rail.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();rail.scrollLeft+=e.deltaY}},{passive:false})}
+function openPlayer(){$('station').hidden=false;$('app').inert=true;$('open-player').setAttribute('aria-expanded','true')}
+function closePlayer(){$('station').hidden=true;$('app').inert=false;$('open-player').setAttribute('aria-expanded','false');$('open-player').focus({preventScroll:true})}
+$('open-player').addEventListener('click',openPlayer);
+// 화면에 별도 버튼을 추가하지 않고 상단을 아래로 쓸어 닫습니다.
+let down=null;$('station-top').addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};$('station-top').setPointerCapture(e.pointerId)});$('station-top').addEventListener('pointerup',e=>{if(down&&e.clientY-down.y>45&&e.clientY-down.y>Math.abs(e.clientX-down.x))closePlayer();down=null});$('station-top').addEventListener('pointercancel',()=>down=null);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('station').hidden)closePlayer()});
+// 음원 없이 유지되는 재생 중 화면. 곡과 대기 목록은 자동으로 바뀌지 않습니다.
+const format=s=>Math.floor(s/60)+':'+String(Math.floor(s)%60).padStart(2,'0');
+let playing=true,position=c.elapsed,lastClock=performance.now();
+function playbackPosition(){return Math.min(c.duration,position+(playing?(performance.now()-lastClock)/1000:0))}
+// 진행바를 탭하거나 끌면 해당 구간으로 이동하며 경과/남은 시간도 즉시 바뀝니다.
+const seekSlider=$('seek-slider');
+seekSlider.max=c.duration;
+let seekPointer=null;
+function seekTo(seconds){position=Math.max(0,Math.min(c.duration,Number(seconds)));lastClock=performance.now();seekSlider.value=position;updateTime()}
+function seekFromPointer(event){const bounds=seekSlider.getBoundingClientRect();if(bounds.width)seekTo((event.clientX-bounds.left)/bounds.width*c.duration)}
+seekSlider.addEventListener('input',()=>seekTo(seekSlider.value));
+seekSlider.addEventListener('pointerdown',event=>{seekPointer=event.pointerId;seekSlider.setPointerCapture(event.pointerId);seekFromPointer(event)});
+seekSlider.addEventListener('pointermove',event=>{if(seekPointer===event.pointerId)seekFromPointer(event)});
+const releaseSeek=event=>{if(seekPointer===event.pointerId){seekFromPointer(event);seekPointer=null;updateTime()}};
+seekSlider.addEventListener('pointerup',releaseSeek);
+seekSlider.addEventListener('pointercancel',event=>{if(seekPointer===event.pointerId){seekPointer=null;updateTime()}});
+function updateTime(){const elapsed=playbackPosition();$('elapsed').textContent=format(elapsed);$('remaining').textContent='−'+format(c.duration-elapsed);$('progress').style.width=elapsed/c.duration*100+'%';if(seekPointer===null)$('seek-slider').value=elapsed;if(playing&&elapsed>=c.duration){position=c.duration;playing=false;updatePlayIcons()}}
+function updatePlayIcons(){for(const id of ['mini-toggle','station-toggle']){const b=$(id);b.innerHTML=icon(playing?'pause':'play');b.setAttribute('aria-label',playing?'일시정지':'재생');b.setAttribute('aria-pressed',String(playing))}}
+function togglePlayback(){position=playbackPosition();playing=!playing;if(playing&&position>=c.duration)position=0;lastClock=performance.now();updatePlayIcons();updateTime()}
+for(const id of ['mini-toggle','station-toggle'])$(id).addEventListener('click',e=>{e.stopPropagation();togglePlayback()});updatePlayIcons();updateTime();setInterval(updateTime,250);
+</script></body></html>

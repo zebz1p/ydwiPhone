@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>윤도운의 iPhone</title>
+<style>
+:root{
+  --bg:#f3f3f5;
+  --panel:#fff;
+  --line:#e8e8eb;
+  --text:#111;
+  --muted:#8e8e93;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;height:100dvh;margin:0;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;-webkit-text-size-adjust:100%;overscroll-behavior:none}
+.screen{position:fixed;inset:0;width:100%;height:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden;touch-action:none;user-select:none;pointer-events:none;background:var(--bg)}
+/* gemini.html처럼 앱 전체만 화면에 꽉 채우고, 콘텐츠는 본래 모바일 크기를 유지합니다. */
+.topbar{flex:none;width:100%;height:66px;display:grid;grid-template-columns:76px minmax(0,1fr) 76px;align-items:center;padding:7px 15px 7px;background:#fff;border-bottom:1px solid #eeeef0}
+.title{font-size:20px;font-weight:770;line-height:1.25;letter-spacing:-.65px;text-align:center;white-space:nowrap;padding:0;margin:0}
+.left-icons{display:flex;align-items:center;gap:12px;padding:0}
+.icon-wrap{display:grid;place-items:center;flex:none;width:25px;height:29px}
+.left-icons .icon-wrap:first-child svg{width:22px;height:22px}
+.left-icons .icon-wrap:nth-child(2) svg{width:26px;height:26px}
+.content{width:100%;flex:1;min-height:0;padding:22px 0 0;overflow:hidden;background:var(--bg)}
+.range-row{height:31px;width:100%;position:relative;display:flex;align-items:center;justify-content:center;padding:0 15px;margin:0 0 19px;gap:0}
+.range-row>svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px}
+.range-label{display:flex;align-items:center;justify-content:center;gap:7px;min-width:0;font-size:clamp(13px,3.5vw,15px);font-weight:750;letter-spacing:-.35px;line-height:1.2;white-space:nowrap}
+.range-label svg{width:23px;height:23px;flex:none}
+.filters-row{width:100%;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 14px;margin:0 0 17px}
+.chips{display:flex;align-items:center;gap:5px;min-width:0;flex-wrap:nowrap}
+.chip{height:34px;min-width:0;flex:none;padding:0 14px;border:1px solid #e6e6e9;border-radius:21px;display:grid;place-items:center;background:var(--panel);color:#595959;font-size:14px;font-weight:550;letter-spacing:-.35px;white-space:nowrap}
+.chip.active{min-width:49px;padding:0 13px;color:#fff;background:#0d0d0d;border-color:#0d0d0d;font-weight:700}
+.filter-icon{width:26px;height:26px;flex:none}
+.card{margin:0 14px;width:calc(100% - 28px);min-height:174px;background:var(--panel);border-radius:17px;padding:20px 19px 18px}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card-date{font-size:14px;font-weight:620;letter-spacing:-.35px;line-height:1.35;white-space:nowrap}
+.arrow-right{width:18px;height:18px;flex:none}
+.status{font-size:18px;font-weight:800;letter-spacing:-.55px;line-height:1.25;margin-top:15px}
+.item-row{display:flex;align-items:center;gap:12px;margin-top:16px;min-width:0}
+.thumb{width:62px;height:60px;flex:none;position:relative;overflow:hidden;background:#fff;border-radius:2px}
+.thumb svg{display:block;position:absolute;left:0;top:0;width:100%;height:100%}
+.item-info{min-width:0;flex:1}
+.item-name{font-size:14px;font-weight:740;line-height:1.4;letter-spacing:-.42px;overflow-wrap:anywhere;word-break:keep-all}
+.price{font-size:15px;font-weight:770;line-height:1.3;letter-spacing:-.35px;margin-top:4px}
+.ghost-space{display:none}
+svg{display:block}
+@media(max-width:355px){
+ .topbar{grid-template-columns:68px minmax(0,1fr) 68px;padding-inline:12px}.title{font-size:18px}
+ .content{padding-top:19px}.range-label{font-size:12px;gap:5px}.range-label svg{width:21px;height:21px}
+ .filters-row{padding-inline:11px}.chip{height:32px;padding-inline:10px;font-size:12px}.chip.active{padding-inline:12px}.filter-icon{width:23px;height:23px}
+ .card{margin-inline:11px;width:calc(100% - 22px);padding:18px 15px;min-height:166px}.item-name{font-size:13px}.thumb{width:54px;height:55px}
+}
+@media(min-width:700px){
+ .topbar{padding-inline:20px}
+ .content{padding-top:23px}
+ .range-row{justify-content:center;padding-left:15px;margin-bottom:21px}
+ .range-row>svg{left:20px}
+ .range-label{font-size:16px}
+ .filters-row{padding-inline:20px}
+ .card{margin-inline:20px;width:calc(100% - 40px)}
+}
+</style>
+</head>
+<body>
+  <div class="screen" aria-label="예약 결제 내역 화면">
+    <div class="topbar">
+      <div class="left-icons">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <path d="M15.5 4.5 7.8 12l7.7 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+            <path d="M4 10.2 12 3l8 7.2V20a1.2 1.2 0 0 1-1.2 1.2H5.2A1.2 1.2 0 0 1 4 20Z" stroke="#202020" stroke-width="2.1" stroke-linejoin="round"/>
+            <path d="M9.2 21.2v-5.9c0-.6.5-1.1 1.1-1.1h3.4c.6 0 1.1.5 1.1 1.1v5.9" stroke="#202020" stroke-width="2.1" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="title">예약/결제내역</div>
+      <div></div>
+    </div>
+
+    <div class="content">
+      <div class="range-row">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15.5 4.5 7.8 12l7.7 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="range-label">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="4" y="5.8" width="16" height="14.7" rx="3.3" stroke="#202020" stroke-width="2.3"/>
+            <path d="M4.6 10.2h14.8" stroke="#202020" stroke-width="2.3" stroke-linecap="round"/>
+            <path d="M8 3.7v2.5M16 3.7v2.5" stroke="#202020" stroke-width="2.3" stroke-linecap="round"/>
+            <circle cx="8" cy="5.1" r="0.95" fill="#202020"/>
+            <circle cx="16" cy="5.1" r="0.95" fill="#202020"/>
+            <path d="m8.1 15.4 2.1 2 5-4" stroke="#202020" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>2026.11.26 ~ 2026.12.26</span>
+        </div>
+      </div>
+
+      <div class="filters-row">
+        <div class="chips">
+          <div class="chip active">전체</div>
+          <div class="chip">결제완료</div>
+          <div class="chip">결제취소</div>
+        </div>
+        <svg class="filter-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7.5h9M17 7.5h3M11 7.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm9 9h-5M7 16.5H4M17 16.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" stroke="#202020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div class="card-date">2026.12.25 (금) 13:31</div>
+          <svg class="arrow-right" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m8.5 4.5 7.2 7.5-7.2 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="status">결제완료</div>
+
+        <div class="item-row">
+          <div class="thumb" aria-label="상품 사진" role="img">
+            <img src="imges/popcorn.jpg" alt="" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center;">
+          </div>
+          <div class="item-info">
+            <div class="item-name">크리스마스 인형키링 세트 ★ (랜덤 2종) 1개</div>
+            <div class="price">21,000원</div>
+          </div>
+        </div>
+      </div>
+      <div class="ghost-space"></div>
+    </div>
+  </div>
+</body>
+</html>
