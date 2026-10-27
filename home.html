@@ -231,7 +231,18 @@
 }
 @media(max-height:600px){#chs-root .chs-now-widget{min-height:135px}#chs-root .chs-now-copy{padding-top:25px;padding-bottom:14px}#chs-root .chs-second-content{gap:12px;padding-bottom:4px}}
 @media(prefers-reduced-motion:reduce){#chs-root .chs-page-track{transition:none}}
-</style></head>
+</style><style>
+/* 두 페이지 앱 배열만 통일. 위젯·독·전환·알림은 기존 설정 유지. */
+#chs-root [data-home-page="0"]>.chs-app-grid{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:calc(100% - 36px);max-width:350px;margin:0;gap:24px 15px}
+#chs-root [data-home-page="1"] .chs-app-grid{gap:24px 15px}
+#chs-root [data-home-page="0"] .chs-app-icon{transform:none;transform-origin:center}
+#chs-root [data-home-page="0"] .chs-app-icon:active{transform:scale(.85)}
+#chs-root [data-home-page="0"] .chs-app-icon[aria-disabled=true]:active{transform:none}
+#chs-root [data-home-page="0"] .chs-app-label{position:static;top:auto;line-height:16px}
+#chs-root .chs-second-content{padding-bottom:12px}
+@media(max-width:345px){#chs-root [data-home-page="0"]>.chs-app-grid,#chs-root [data-home-page="1"] .chs-app-grid{gap:20px 8px}}
+</style>
+</head>
 <body>
 <div id="chs-root">
   <!-- 1. 고정 상태바 -->
@@ -319,11 +330,13 @@
 (function(){
  const area=document.querySelector('.chs-scroll-area');
  const content=document.querySelector('.chs-widget-area');
+ // 앱 배열은 위젯 축소 영역 밖에 두어 두 페이지의 실제 크기와 간격을 통일합니다.
+ const apps=content.querySelector('.chs-app-grid');
+ area.appendChild(apps);
  function fitHome(){
-  const space=Math.max(1,area.clientHeight-8);
+  const space=Math.max(1,area.clientHeight-apps.offsetHeight-32);
   const scale=Math.min(1,space/content.scrollHeight);
   content.style.setProperty('--home-fit',String(scale));
-  content.style.setProperty('--home-icon-compensation',String(1/scale));
  }
  new ResizeObserver(fitHome).observe(area);
  window.addEventListener('resize',fitHome);

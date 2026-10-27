@@ -61,22 +61,84 @@ svg{display:block}
  .card{margin-inline:20px;width:calc(100% - 40px)}
 }
 </style>
+<style>
+[hidden]{display:none!important}
+.ticket-screen{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;background:radial-gradient(ellipse at 65% 22%,#343e4c 0%,#242a30 30%,#111 70%);color:#fff}
+.ticket-main{flex:1;min-height:0;display:flex;flex-direction:column;padding:0 5.2vw}
+.ticket-top{height:54px;flex:none;display:flex;align-items:center;justify-content:flex-end;margin-right:-14px}
+.ticket-screen button{font:inherit;border:0;background:none;color:inherit;padding:0;outline:none;-webkit-tap-highlight-color:transparent}
+.ticket-screen button:disabled{opacity:1}
+.ticket-close{width:44px;height:44px;display:grid;place-items:center;cursor:pointer}
+.ticket-screen svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ticket-close svg{width:27px;height:27px}
+.movie-ticket{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;background:#111;border-radius:20px 20px 0 0;overflow:hidden;padding:18px 18px 25px}
+.ticket-art{position:absolute;inset:0 0 42%;background:radial-gradient(ellipse at 70% 15%,#58606b55,transparent 70%),linear-gradient(160deg,#303e46,#1b252b 55%,#111);pointer-events:none}
+.ticket-art:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent,#111)}
+.movie-ticket>*:not(.ticket-art){position:relative}
+.sale-number{display:flex;align-items:center;gap:8px;font-size:12px;color:#eee;letter-spacing:.1px}.sale-number svg{width:20px;height:20px}
+.ticket-spacer{flex:1;min-height:18px}
+.movie-title{font-size:clamp(20px,5.2vw,28px);font-weight:750;letter-spacing:-.8px;line-height:1.2;margin:0 0 9px;word-break:keep-all}
+.movie-format{font-size:13px;color:#c4c4c4;margin:0}
+.movie-time{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:27px;padding-bottom:14px;border-bottom:1px solid #373737;line-height:1.2}
+.movie-day{font-size:25px;font-weight:750;letter-spacing:-.5px}.movie-day small{font-size:14px;color:#ccc;font-weight:400;margin-left:2px}.movie-start{color:#fff35a;font-size:25px;font-weight:750;margin-left:3px}.movie-end{color:#c7c7c7;font-size:15px;white-space:nowrap}
+.ticket-tools{display:flex;align-items:center;gap:10px;margin-left:3px}.ticket-tools i{width:1px;height:14px;background:#555}.ticket-tools button{width:22px;height:25px;display:grid;place-items:center}.ticket-tools svg{width:20px;height:20px}
+.ticket-seating{display:flex;justify-content:space-between;gap:12px;padding-top:17px;min-height:135px}
+.movie-hall{font-size:18px;font-weight:750;margin-bottom:23px}.movie-people{font-size:14px;color:#ccc;margin-bottom:22px}.movie-seats{font-size:19px;font-weight:750;color:#fff35a}
+.ticket-qr{width:66px;height:66px;background:#fff;border-radius:4px;padding:5px;flex:none}.ticket-qr svg{width:100%;height:100%;fill:#111;stroke:none}
+
+.ticket-actions{display:flex;align-items:center;justify-content:space-around;height:64px;flex:none;color:#aaa;font-size:15px}.ticket-actions button{flex:1}.ticket-actions i{width:1px;height:15px;background:#555}
+.ticket-information{background:#fff;color:#7a7a7a;border-radius:25px 25px 0 0;flex:none;padding:22px 17px max(15px,env(safe-area-inset-bottom));font-size:12px;line-height:1.55}
+.ticket-information ul{margin:0;padding-left:13px}.ticket-information li+li{margin-top:7px}
+.ticket-promo{display:flex;align-items:center;gap:14px;margin-top:21px}.ticket-promo img{width:48px;height:48px;object-fit:cover;border-radius:15px;background:#fff566}.ticket-promo span{flex:1;font-size:13px}.ticket-promo b{color:#444;display:block;font-size:14px;margin-top:2px}.ticket-promo svg{color:#888;width:17px}
+@media(max-height:700px){.ticket-top{height:45px}.movie-ticket{padding:14px 15px 18px}.movie-time{margin-top:17px;padding-bottom:12px}.ticket-seating{min-height:111px;padding-top:12px}.movie-hall{margin-bottom:15px}.movie-people{margin-bottom:14px}.ticket-actions{height:49px}.ticket-information{padding-top:16px;font-size:11px}.ticket-promo{margin-top:13px}.ticket-promo img{width:38px;height:38px}.ticket-spacer{min-height:9px}}
+@media(max-height:570px){.ticket-top{height:39px}.sale-number{font-size:11px}.movie-title{font-size:20px;margin-bottom:5px}.movie-time{margin-top:10px}.ticket-seating{min-height:93px}.movie-hall{margin-bottom:10px;font-size:16px}.movie-people{margin-bottom:9px;font-size:12px}.movie-seats{font-size:16px}.ticket-actions{height:37px;font-size:13px}.ticket-information{padding-top:12px;padding-bottom:10px}.ticket-promo{margin-top:9px}.movie-day,.movie-start{font-size:22px}}
+@media(min-width:700px){.ticket-main{padding-inline:5.2vw}.movie-title{font-size:28px}.ticket-information{padding-inline:5.2vw}.ticket-spacer{max-height:none}}
+</style><style>/* 티켓과 결제내역의 공통 아이콘 선 굵기 통일 */
+.screen svg [stroke]{stroke-width:1.6}
+</style>
+<style>
+/* 실제 투명 마스크로 티켓 하단을 도려냅니다. */
+.movie-ticket{-webkit-mask-image:radial-gradient(circle at 50% 100%,transparent 8px,#000 8.7px);mask-image:radial-gradient(circle at 50% 100%,transparent 8px,#000 8.7px);-webkit-mask-size:35px 100%;mask-size:35px 100%;-webkit-mask-repeat:repeat-x;mask-repeat:repeat-x}
+.left-icons button{border:0;background:none;padding:0;color:#202020;pointer-events:auto;cursor:pointer;outline:none}
+.range-label svg,.filter-icon{fill:none;stroke:#202020;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.movie-payment{margin-top:14px}.movie-payment .item-row{align-items:flex-start}.movie-payment .movie-meta{font-size:13px;color:#777;margin-top:5px;line-height:1.5}.movie-payment .movie-thumb{background:linear-gradient(150deg,#34404b,#111);border-radius:5px;display:grid;place-items:center;color:#e0e3e5;font-size:10px;font-weight:600;letter-spacing:1px}
+@media(max-height:600px){#payment-screen .content{padding-top:12px}#payment-screen .range-row{margin-bottom:10px}#payment-screen .filters-row{margin-bottom:10px}#payment-screen .card{min-height:0;padding:13px 16px}#payment-screen .status{margin-top:9px}#payment-screen .item-row{margin-top:10px}.movie-payment{margin-top:10px}}
+</style><style>
+.movie-payment .item-row{align-items:center}
+.movie-payment .movie-thumb{width:62px;height:94px;aspect-ratio:2/3;background:linear-gradient(150deg,#34404b,#111);border-radius:5px}
+.movie-payment .item-info{padding:0;display:flex;flex-direction:column;justify-content:center;min-height:94px}
+.movie-payment .item-name{font-size:14px;line-height:1.3}
+.movie-payment .movie-meta{font-size:12px;line-height:1.45;margin-top:5px}
+.movie-payment .price{font-size:15px;line-height:1.3;margin-top:5px}
+.ticket-information ul{list-style:none;padding-left:0}
+.ticket-information li{position:relative;padding-left:12px}
+.ticket-information li::before{content:'';position:absolute;left:2px;top:.72em;width:2px;height:2px;border-radius:50%;background:#888}
+@media(max-width:355px){.movie-payment .movie-thumb{width:58px;height:91px}.movie-payment .item-info{min-height:91px}.movie-payment .item-name{font-size:13px}.movie-payment .movie-meta{font-size:11px}}
+</style>
 </head>
 <body>
-  <div class="screen" aria-label="예약 결제 내역 화면">
+<section class="ticket-screen" id="ticket-screen" aria-label="영화 티켓">
+<div class="ticket-main"><header class="ticket-top"><button class="ticket-close" id="ticket-close" aria-label="티켓 닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg></button></header>
+<article class="movie-ticket"><div class="ticket-art"></div><div class="sale-number"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="14" height="14" rx="3"/><path d="M8 3h10a3 3 0 0 1 3 3v10"/></svg><span>판매번호&nbsp; 2026-1225-1126</span></div><div class="ticket-spacer"></div>
+<h1 class="movie-title">크리스마스의 악몽(IMAX)</h1><p class="movie-format">2D · 15세이상관람가</p>
+<div class="movie-time"><span class="movie-day">12/25<small>(금)</small></span><span class="movie-start">14:00</span><span class="movie-end">- 15:45</span><div class="ticket-tools"><button disabled aria-label="캘린더"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18"/><path d="M7 14h.01M12 14h.01M17 14h.01M7 17h.01M12 17h.01M17 17h.01"/></svg></button><i></i><button disabled aria-label="공유"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10v10h14V10M12 16V2m-5 5 5-5 5 5"/></svg></button></div></div>
+<div class="ticket-seating"><div><div class="movie-hall">IMAX관</div><div class="movie-people">일반 2</div><div class="movie-seats">K11, K12</div></div></div></article>
+<nav class="ticket-actions" aria-label="예매 메뉴"><button disabled>예매취소</button><i></i><button disabled>좌석보기</button><i></i><button disabled>선물하기</button></nav></div>
+<footer class="ticket-information"><ul><li>캡처화면은 입장이 제한될 수 있습니다.</li><li>입장 지연에 따른 관람 불편을 최소화하기 위해 본 영화는 10분 후 상영이 시작됩니다.</li></ul><div class="ticket-promo"><img src="imges/popcorn.jpg" alt="팝콘"><span>영화만 보기 아쉽다면<b>팝콘도 함께 즐겨보세요</b></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></div></footer></section>
+  <div class="screen" id="payment-screen" hidden aria-label="예약 결제 내역 화면">
     <div class="topbar">
       <div class="left-icons">
-        <div class="icon-wrap" aria-hidden="true">
+        <button type="button" class="icon-wrap" data-ticket-return aria-label="티켓으로 돌아가기">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
             <path d="M15.5 4.5 7.8 12l7.7 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </div>
-        <div class="icon-wrap" aria-hidden="true">
+        </button>
+        <button type="button" class="icon-wrap" data-ticket-return aria-label="티켓 홈">
           <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
             <path d="M4 10.2 12 3l8 7.2V20a1.2 1.2 0 0 1-1.2 1.2H5.2A1.2 1.2 0 0 1 4 20Z" stroke="#202020" stroke-width="2.1" stroke-linejoin="round"/>
             <path d="M9.2 21.2v-5.9c0-.6.5-1.1 1.1-1.1h3.4c.6 0 1.1.5 1.1 1.1v5.9" stroke="#202020" stroke-width="2.1" stroke-linecap="round"/>
           </svg>
-        </div>
+        </button>
       </div>
       <div class="title">예약/결제내역</div>
       <div></div>
@@ -88,14 +150,7 @@ svg{display:block}
           <path d="M15.5 4.5 7.8 12l7.7 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="range-label">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <rect x="4" y="5.8" width="16" height="14.7" rx="3.3" stroke="#202020" stroke-width="2.3"/>
-            <path d="M4.6 10.2h14.8" stroke="#202020" stroke-width="2.3" stroke-linecap="round"/>
-            <path d="M8 3.7v2.5M16 3.7v2.5" stroke="#202020" stroke-width="2.3" stroke-linecap="round"/>
-            <circle cx="8" cy="5.1" r="0.95" fill="#202020"/>
-            <circle cx="16" cy="5.1" r="0.95" fill="#202020"/>
-            <path d="m8.1 15.4 2.1 2 5-4" stroke="#202020" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18"/><path d="M7 14h.01M12 14h.01M17 14h.01M7 17h.01M12 17h.01M17 17h.01"/></svg>
           <span>2026.11.26 ~ 2026.12.26</span>
         </div>
       </div>
@@ -106,9 +161,7 @@ svg{display:block}
           <div class="chip">결제완료</div>
           <div class="chip">결제취소</div>
         </div>
-        <svg class="filter-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 7.5h9M17 7.5h3M11 7.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm9 9h-5M7 16.5H4M17 16.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" stroke="#202020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h5m4 0h9M3 17h11m4 0h3"/><circle cx="10" cy="7" r="2"/><circle cx="16" cy="17" r="2"/></svg>
       </div>
 
       <div class="card">
@@ -131,8 +184,18 @@ svg{display:block}
           </div>
         </div>
       </div>
-      <div class="ghost-space"></div>
+      <div class="card movie-payment"><div class="card-top"><div class="card-date">2026.12.20 (일) 20:26</div><svg class="arrow-right" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="m8.5 4.5 7.2 7.5-7.2 7.5" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg></div><div class="status">결제완료</div><div class="item-row"><div class="thumb movie-thumb" aria-hidden="true"></div><div class="item-info"><div class="item-name">크리스마스의 악몽</div><div class="movie-meta">2026.12.25 (금) 14:00<br>일반2</div><div class="price">44,000원</div></div></div></div>
+<div class="ghost-space"></div>
     </div>
   </div>
+<script>
+document.getElementById('ticket-close').addEventListener('click',()=>{
+ document.getElementById('ticket-screen').hidden=true;
+ document.getElementById('payment-screen').hidden=false;
+});
+document.querySelectorAll('[data-ticket-return]').forEach(button=>button.addEventListener('click',()=>{document.getElementById('payment-screen').hidden=true;document.getElementById('ticket-screen').hidden=false;}));
+</script>
 </body>
 </html>
