@@ -554,7 +554,34 @@ function mountGalleries(root){root.querySelectorAll('[data-gallery]').forEach(g=
 function moveGallery(button){const g=button.closest('[data-gallery]'),rail=g.querySelector('.fb-photo-rail');const index=Math.max(0,Math.min(rail.children.length-1,Math.round(rail.scrollLeft/rail.clientWidth)+Number(button.dataset.galleryStep)));rail.scrollTo({left:index*rail.clientWidth,behavior:'smooth'})}
 function closePhotoViewer(){$('fb-viewer').hidden=true;$('fb-screen').inert=false}
 function openPhotoViewer(i,j){const photos=FACEBOOK.posts[i]?.photos;if(!photos?.[j])return;const viewer=$('fb-viewer');viewer.innerHTML=photoGallery(photos,i,true)+`<button class="fb-viewer-close" data-close-viewer aria-label="사진 닫기">${galleryIcon('close')}</button>`;viewer.hidden=false;$('fb-screen').inert=true;const rail=viewer.querySelector('.fb-photo-rail');rail.scrollLeft=j*rail.clientWidth;mountGalleries(viewer)}
-$('fb-screen').addEventListener('click',e=>{if(e.target.closest('[data-edit-relationship]')){openRelationshipEditor();return}const arrow=e.target.closest('[data-gallery-step]');if(arrow){moveGallery(arrow);return}const avatar=e.target.closest('[data-fb-profile]');if(avatar){visitFacebookProfile(avatar.dataset.fbProfile);return}const photo=e.target.closest('[data-fb-photo]');if(!photo||photo.closest('[data-gallery]')?.dataset.dragged)return;const [i,j]=photo.dataset.fbPhoto.split(':').map(Number);openPhotoViewer(i,j)});
+// 페이스북 사진은 스크롤 제스처와 짧은 탭을 구분해서 열기
+let fbPhotoGesture=null,fbPhotoLastScroll=-Infinity;
+$('fb-screen').addEventListener('scroll',e=>{
+ if(e.target.classList?.contains('fb-scroll'))fbPhotoLastScroll=performance.now();
+},true);
+$('fb-screen').addEventListener('pointerdown',e=>{
+ if(e.pointerType==='mouse'){fbPhotoGesture=null;return;}
+ const photo=e.target.closest('[data-fb-photo]');
+ if(!photo)return;
+ fbPhotoGesture={id:e.pointerId,x:e.clientX,y:e.clientY,photo,moved:false,
+  scroller:photo.closest('.fb-scroll'),rail:photo.closest('.fb-photo-rail'),
+  scrollY:photo.closest('.fb-scroll')?.scrollTop||0,
+  scrollX:photo.closest('.fb-photo-rail')?.scrollLeft||0};
+},true);
+$('fb-screen').addEventListener('pointermove',e=>{
+ const g=fbPhotoGesture;
+ if(g&&g.id===e.pointerId&&Math.hypot(e.clientX-g.x,e.clientY-g.y)>8)g.moved=true;
+},true);
+$('fb-screen').addEventListener('pointerup',e=>{
+ const g=fbPhotoGesture;
+ if(g&&g.id===e.pointerId&&(Math.hypot(e.clientX-g.x,e.clientY-g.y)>8||
+  Math.abs((g.scroller?.scrollTop||0)-g.scrollY)>2||
+  Math.abs((g.rail?.scrollLeft||0)-g.scrollX)>2))g.moved=true;
+},true);
+$('fb-screen').addEventListener('pointercancel',e=>{
+ if(fbPhotoGesture?.id===e.pointerId)fbPhotoGesture.moved=true;
+},true);
+$('fb-screen').addEventListener('click',e=>{if(e.target.closest('[data-edit-relationship]')){openRelationshipEditor();return}const arrow=e.target.closest('[data-gallery-step]');if(arrow){moveGallery(arrow);return}const avatar=e.target.closest('[data-fb-profile]');if(avatar){visitFacebookProfile(avatar.dataset.fbProfile);return}const photo=e.target.closest('[data-fb-photo]');if(!photo||photo.closest('[data-gallery]')?.dataset.dragged||fbPhotoGesture?.moved||performance.now()-fbPhotoLastScroll<140)return;fbPhotoGesture=null;const [i,j]=photo.dataset.fbPhoto.split(':').map(Number);openPhotoViewer(i,j)});
 $('fb-viewer').addEventListener('click',e=>{if(e.target.closest('[data-close-viewer]'))closePhotoViewer();const arrow=e.target.closest('[data-gallery-step]');if(arrow)moveGallery(arrow)});
 document.addEventListener('keydown',e=>{if($('fb-viewer').hidden)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){const b=$('fb-viewer').querySelector(e.key==='ArrowLeft'?'.prev':'.next');if(b&&!b.hidden){e.preventDefault();moveGallery(b)}}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('fb-viewer').hidden)closePhotoViewer();else if(!$('fb-screen').hidden)closeFacebook();else hideMailNotice()}});
