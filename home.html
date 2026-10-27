@@ -268,6 +268,22 @@
  #chs-root [data-home-page="0"] .chs-reading{padding-top:5px;padding-bottom:2px}
  #chs-root [data-home-page="0"]>.chs-app-grid{bottom:1px}
 }
+/* 1페이지: 위젯과 앱 사이의 세로 간격만 균형 있게 조정합니다. */
+#chs-root [data-home-page="0"] .chs-widget-label{display:none}
+#chs-root [data-home-page="0"] .chs-widget-area{gap:16px}
+#chs-root [data-home-page="0"]>.chs-app-grid{row-gap:24px;bottom:13px}
+@media(max-height:732px){
+ #chs-root [data-home-page="0"] .chs-widget-area{gap:12px}
+ #chs-root [data-home-page="0"]>.chs-app-grid{bottom:8px}
+}
+@media(max-height:700px){
+ #chs-root [data-home-page="0"] .chs-widget-area{gap:8px}
+ #chs-root [data-home-page="0"]>.chs-app-grid{row-gap:20px;bottom:2px}
+}
+@media(max-height:665px){
+ #chs-root [data-home-page="0"] .chs-widget-area{gap:6px}
+ #chs-root [data-home-page="0"]>.chs-app-grid{bottom:1px}
+}
 </style>
 </head>
 <body>
@@ -294,7 +310,7 @@
 <img class="chs-now-art" src="imges/clo.jpeg" alt="적당히 앨범 커버" draggable="false">
 <svg class="chs-now-note" viewBox="0 0 24 28" aria-hidden="true"><path d="M9 4v16.1c-.8-.4-1.8-.5-2.8-.2-2.4.6-3.9 2.6-3.3 4.5.5 1.9 2.8 2.7 5.2 2 2-.5 3.4-2.1 3.4-3.8V9l9-2.2v10.6c-.8-.4-1.8-.4-2.8-.2-2.4.7-3.9 2.7-3.3 4.6.5 1.8 2.8 2.6 5.2 2 2-.6 3.4-2.1 3.4-3.9V.6Z"/></svg>
 <div class="chs-now-copy"><div class="chs-now-caption" id="chs-now-caption">지금 재생 중</div><div class="chs-now-title">적당히</div><div class="chs-now-artist">clo</div><button type="button" class="chs-music-toggle" id="chs-music-toggle" aria-label="일시 정지" aria-pressed="false"><svg viewBox="0 0 12 14" aria-hidden="true"><rect width="4" height="14" rx="1"/><rect x="8" width="4" height="14" rx="1"/></svg><span>일시 정지</span></button></div>
-</section><span class="chs-widget-label">음악</span></div>
+</section></div>
 <div class="chs-app-grid chs-second-apps">
 <div class="chs-app-item"><a class="chs-app-icon chs-voice-icon" href="voicememos.html" aria-label="음성 메모"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="23" fill="#171717"/><g fill="none" stroke-width="1.35" stroke-linecap="round"><path stroke="#ff453a" d="M10 49v3 M14 45v11 M18 48v6 M22 35v32 M26 39v24 M30 13v75 M34 25v50 M38 22v57 M42 35v32 M46 40v22"/><path stroke="#f5f5f5" d="M54 48v6 M58 41v20 M62 38v26 M66 43v16 M70 46v10 M74 44v14 M78 48v6 M82 49v4 M86 50v2 M90 49.5v3"/><path stroke="#299bfa" stroke-width=".8" d="M50 12v76"/></g><g fill="#299bfa"><circle cx="50" cy="11" r="2.8"/><circle cx="50" cy="89" r="2.8"/></g></svg></a><span class="chs-app-label">음성 메모</span></div>
 <div class="chs-app-item"><a class="chs-app-icon chs-cgv-icon" href="cgv.html" aria-label="CGV"><img src="imges/cgv.svg" alt="" draggable="false"></a><span class="chs-app-label">CGV</span></div>
