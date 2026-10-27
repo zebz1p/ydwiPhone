@@ -547,13 +547,13 @@
 
 
   .word-message-notice[hidden]{display:none!important}
-  .word-message-stack{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;right:12px;z-index:10000;display:flex;flex-direction:column;gap:8px;max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px));overflow-y:auto;scrollbar-width:none;pointer-events:none}.word-message-stack::-webkit-scrollbar{display:none}.word-message-notice{position:relative;flex:none;pointer-events:auto;display:flex;align-items:center;gap:11px;padding:14px 13px;border-radius:20px;background:rgba(250,250,252,.96);box-shadow:0 5px 24px #0002;color:#161616;touch-action:pan-x;user-select:none;-webkit-user-select:none}
-  .word-message-icon{width:42px;height:42px;flex:none;border-radius:11px;background:#34c759;display:flex;align-items:center;justify-content:center}
-  .word-message-icon svg{width:30px;height:30px;fill:white;stroke:none}
-  .word-message-copy{flex:1;min-width:0;font-size:14px;line-height:1.5}
-  .word-message-copy strong{display:block;font-size:14px;font-weight:650;margin-bottom:3px}
-  .word-message-close{align-self:flex-start;flex:none;width:24px;height:24px;border:0;background:none;color:#777;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
-  .word-message-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .word-message-stack{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;right:12px;z-index:10000;display:flex;flex-direction:column;gap:8px;max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px));overflow-y:auto;scrollbar-width:none;pointer-events:none}.word-message-stack::-webkit-scrollbar{display:none}.word-message-notice{position:relative;flex:none;pointer-events:auto;display:flex;align-items:center;gap:12px;padding:14px;border-radius:22px;background:rgba(250,250,250,.97);box-shadow:0 3px 16px #0002;color:#171717;touch-action:pan-x;user-select:none;-webkit-user-select:none}
+  .word-message-icon{display:block;width:42px;height:42px;flex:none;border-radius:11px;object-fit:cover}
+  .word-message-copy{flex:1;min-width:0}
+  .word-message-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+  .word-message-title strong{font-size:15px;font-weight:600}
+  .word-message-title span{font-size:11px;color:#777}
+  .word-message-text{display:block;font-size:14px;line-height:1.35}
 </style>
 </head>
 <body>
@@ -859,16 +859,12 @@
   }
   function addWordMessage(text){
     const card=document.createElement('aside');card.className='word-message-notice';card.setAttribute('role','status');
-    card.innerHTML=`<span class="word-message-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4C8.3 4 2 8.8 2 14.7c0 3.4 2.1 6.5 5.4 8.5L6 28l6.2-2.8c1.2.2 2.5.3 3.8.3 7.7 0 14-4.8 14-10.8S23.7 4 16 4Z"/></svg></span><div class="word-message-copy"><strong>강영현</strong><span></span></div><button type="button" class="word-message-close" aria-label="알림 닫기"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button>`;
-    card.querySelector('.word-message-copy span').textContent=text;
-    const close=card.querySelector('.word-message-close');
+    card.innerHTML=`<img class="word-message-icon" src="imges/messages.svg" alt="문자"><div class="word-message-copy"><div class="word-message-title"><strong>영현이 형</strong><span>지금</span></div><span class="word-message-text"></span></div>`;
+    card.querySelector('.word-message-text').textContent=text;
     let start=null;
     const timer=setTimeout(dismiss,10000);
     function dismiss(){clearTimeout(timer);start=null;card.remove()}
-    close.addEventListener('pointerdown',event=>event.stopPropagation());
-    close.addEventListener('click',event=>{event.stopPropagation();dismiss()});
     card.addEventListener('pointerdown',event=>{
-      if(event.target.closest('.word-message-close'))return;
       start={x:event.clientX,y:event.clientY,id:event.pointerId};
       card.setPointerCapture(event.pointerId);
     });

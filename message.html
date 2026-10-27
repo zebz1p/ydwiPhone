@@ -116,6 +116,13 @@ button.chat-video{appearance:none;-webkit-appearance:none;border:0;background:tr
 .ft-message-icon{width:42px;height:42px;flex:none;background:#34c759;border-radius:11px;display:grid;place-items:center}
 #ft-video-call .ft-message-icon svg{width:30px;height:30px;fill:white;stroke:none}.ft-message-copy{flex:1;min-width:0}.ft-message-copy strong{margin-bottom:3px}.ft-message-close{border:0;background:none;color:#777;font-size:22px;width:26px;height:28px;padding:0;align-self:flex-start}
 
+/* 홈 화면 문자 알림과 동일한 외형 (FaceTime 알림의 시간·슬라이드 동작은 유지) */
+.ft-msg{gap:12px;padding:14px;border-radius:22px;background:rgba(250,250,250,.97);color:#171717;font-size:14px;line-height:1.35;box-shadow:0 3px 16px #0002}
+.ft-msg img.ft-message-icon{display:block;width:42px;height:42px;flex:none;border-radius:11px;background:transparent;object-fit:cover}
+.ft-message-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+.ft-message-title strong{display:block;font-size:15px;font-weight:600;margin:0}
+.ft-message-title span{font-size:11px;color:#777}
+.ft-message-text{display:block;font-size:14px;line-height:1.35}
 /* 모든 알림이 하나의 아래쪽 경계를 공유합니다. */
 .ft-msg-stack{display:block;height:0;transition:height .36s cubic-bezier(.22,.65,.3,1);max-height:none;overflow:hidden}
 .ft-msg-mask{position:absolute;left:0;right:0;bottom:0;overflow:visible;transition:transform .36s cubic-bezier(.22,.65,.3,1);will-change:transform}
@@ -629,9 +636,9 @@ function appendYhFtMessage(text){
  }
  const mask=document.createElement('div');mask.className='ft-msg-mask';
  const notice=document.createElement('div');notice.className='ft-msg';mask.appendChild(notice);
- notice.innerHTML='<span class="ft-message-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4C8 4 2 9 2 15c0 3 2 6 5 8l-1 5 6-3c2 1 3 1 4 1 8 0 14-5 14-11S24 4 16 4Z"/></svg></span><div class="ft-message-copy"><strong>영현이 형</strong><span></span></div><button type="button" class="ft-message-close" aria-label="알림 닫기">×</button>';
- notice.querySelector('.ft-message-copy span').textContent=text;
- const dismiss=()=>dismissFtNotice(mask);notice.querySelector('button').addEventListener('click',dismiss);
+ notice.innerHTML='<img class="ft-message-icon" src="imges/messages.svg" alt="문자"><div class="ft-message-copy"><div class="ft-message-title"><strong>영현이 형</strong><span>지금</span></div><span class="ft-message-text"></span></div>';
+ notice.querySelector('.ft-message-text').textContent=text;
+ const dismiss=()=>dismissFtNotice(mask);
  let swipe=null;notice.addEventListener('pointerdown',event=>{if(event.target.closest('button'))return;swipe={x:event.clientX,y:event.clientY};notice.setPointerCapture(event.pointerId)});
  notice.addEventListener('pointermove',event=>{if(swipe&&swipe.y-event.clientY>30&&Math.abs(swipe.x-event.clientX)<90){swipe=null;dismiss()}});
  notice.addEventListener('pointerup',()=>{swipe=null});notice.addEventListener('pointercancel',()=>{swipe=null});
