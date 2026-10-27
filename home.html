@@ -244,11 +244,29 @@
 /* 1페이지: 위젯은 원래 크기를 유지하고 앱 아이콘과 세로로 겹치지 않게 배치 */
 #chs-root [data-home-page="0"] .chs-widget-area{gap:0}
 #chs-root [data-home-page="0"]>.chs-app-grid{bottom:6px}
-/* 세로 공간이 모자라는 작은 화면에서는 1페이지 안에서만 스크롤할 수 있게 함 */
+/* 1페이지 전용: 위젯의 가로 크기와 아이콘 좌우 위치는 유지하고, 스크롤 없이 세로 간격만 조정합니다. */
+#chs-root .chs-page-track>[data-home-page="0"]{overflow:hidden}
 @media(max-height:732px){
- #chs-root .chs-page-track>[data-home-page="0"]{display:flex;flex-direction:column;align-items:center;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
- #chs-root [data-home-page="0"] .chs-widget-area{position:static;top:auto;transform:none;flex:none}
- #chs-root [data-home-page="0"]>.chs-app-grid{position:relative;left:auto;bottom:auto;transform:none;width:100%;max-width:350px;margin:12px auto 16px;flex:none}
+ #chs-root [data-home-page="0"]>.chs-app-grid{row-gap:8px}
+ #chs-root [data-home-page="0"] .chs-widget-label{margin-top:1px;line-height:15px}
+ #chs-root [data-home-page="0"] .chs-app-label{margin-top:1px;line-height:14px}
+}
+@media(max-height:690px){
+ #chs-root [data-home-page="0"]>.chs-app-grid{row-gap:4px}
+ #chs-root [data-home-page="0"] .chs-widget-label{margin-top:0;line-height:13px}
+ #chs-root [data-home-page="0"] .chs-app-label{margin-top:0;line-height:12px}
+ #chs-root [data-home-page="0"] .chs-widget-area{position:relative;top:-11px}
+ #chs-root [data-home-page="0"] .chs-reading{padding-bottom:9px}
+ #chs-root [data-home-page="0"]>.chs-app-grid{bottom:2px}
+}
+@media(max-height:665px){
+ #chs-root [data-home-page="0"] .chs-widget-area{top:-13px}
+ #chs-root [data-home-page="0"] .chs-reading{padding-top:8px;padding-bottom:5px}
+}
+@media(max-height:653px){
+ #chs-root [data-home-page="0"] .chs-widget-area{top:-14px}
+ #chs-root [data-home-page="0"] .chs-reading{padding-top:5px;padding-bottom:2px}
+ #chs-root [data-home-page="0"]>.chs-app-grid{bottom:1px}
 }
 </style>
 </head>
