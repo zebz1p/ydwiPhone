@@ -335,7 +335,7 @@
  area.appendChild(apps);
  function fitHome(){
   const space=Math.max(1,area.clientHeight-apps.offsetHeight-32);
-  const scale=Math.min(1,space/content.scrollHeight);
+  const scale=1; // 1페이지 위젯의 원래 크기 유지
   content.style.setProperty('--home-fit',String(scale));
  }
  new ResizeObserver(fitHome).observe(area);

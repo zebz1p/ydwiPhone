@@ -352,6 +352,17 @@ function renderList(){
 }
 let selected=0;
 const drafts=chats.map(()=>'');
+// 자동 메시지 렌더링·모바일 키보드 리사이즈 후에도 입력창 위에 마지막 말풍선 유지
+let roomScrollFrame=0;
+function keepRoomAtBottom(){
+ if($('room').hidden||!$('room-search').hidden)return;
+ const body=$('room-content');
+ body.scrollTop=body.scrollHeight;
+ cancelAnimationFrame(roomScrollFrame);
+ roomScrollFrame=requestAnimationFrame(()=>{
+  if(!$('room').hidden&&$('room-search').hidden)body.scrollTop=body.scrollHeight;
+ });
+}
 function renderMessages(){
  const chat=chats[selected];const body=$('room-content');body.replaceChildren();
  if(chat.date){const date=el('div','room-date');date.append(el('span','',chat.date));body.append(date);}
@@ -367,12 +378,24 @@ function renderMessages(){
   else{const copy=el('div','chat-copy');const line=el('div','bubble-line');line.append(bubble);if(time)line.append(time);if(!joinedPrev)copy.append(el('div','room-sender',chat.name));copy.append(line);row.append(joinedPrev?el('div','avatar-spacer'):avatar(selected),copy);}
   body.append(row);
  });
- appendTypingIndicator();body.scrollTop=body.scrollHeight;if(!$('room-search').hidden)searchMessages();
+ appendTypingIndicator();keepRoomAtBottom();if(!$('room-search').hidden)searchMessages();
 }
 let roomOrigin=null;
 function openRoom(i){if(i!==0||!chats[i]||chats[i].group)return;$('room-call').hidden=i!==0;roomOrigin=document.activeElement;selected=i;chats[i].unread=0;renderList();$('room-title').textContent=chats[i].name;$('dowoon-profile').hidden=true;$('room').hidden=false;$('message-input').value=drafts[i];$('send-button').disabled=!drafts[i].trim();renderMessages();$('room-back').focus();if(i===0){hideNotice();releasePendingStories();}}
 $('room-back').addEventListener('click',()=>{$('message-input').blur();$('room').hidden=true;closeSearch();closePhotos();if(roomOrigin?.id==='profile-chat')$('dowoon-profile').hidden=false;roomOrigin?.focus();});
 $('message-input').addEventListener('input',()=>{drafts[selected]=$('message-input').value;$('send-button').disabled=!drafts[selected].trim();});
+// 키보드가 펼쳐지는 동안 화면 높이가 변해도 입력란/마지막 메시지가 가려지지 않게 함
+$('message-input').addEventListener('focus',()=>{
+ keepRoomAtBottom();
+ setTimeout(()=>{if(document.activeElement===$('message-input'))keepRoomAtBottom();},300);
+});
+new ResizeObserver(()=>{
+ if(document.activeElement===$('message-input'))keepRoomAtBottom();
+}).observe($('room-content'));
+// 이전 이미지가 다시 렌더링되거나 늦게 로드될 때 생기는 스크롤 높이 변화 보정
+$('room-content').addEventListener('load',event=>{
+ if(event.target.matches('.bubble-photo'))keepRoomAtBottom();
+},true);
 $('message-form').addEventListener('submit',event=>{
  event.preventDefault();const input=$('message-input');const text=input.value.trim();if(!text)return;
  const time=new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Asia/Seoul'}).format(new Date());
@@ -445,7 +468,7 @@ $('photo-dismiss').onclick=closePhotos;
 $('photo-send').onclick=()=>{if(!chosenPhotos.size)return;const time=new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit',timeZone:'Asia/Seoul'}).format(new Date());const sentPhotos=SETTINGS.recentPhotos.filter(photo=>chosenPhotos.has(photo)).slice(0,1);sentPhotos.forEach(photo=>appendNewChatMessage(selected,{sender:'me',text:'사진',photo,time}));delete chats[selected].preview;chats[selected].listTime=time;closePhotos();renderMessages();renderList();if(selected===0)startPhotoReplies(sentPhotos);};
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!$('photo-overlay').hidden)closePhotos();else if(!$('room-search').hidden)closeSearch();else if(!$('room').hidden&&$('vt-screen').hidden)$('room-back').click();});
 // 모바일 키보드가 떠도 헤더/입력창을 가시 영역 안에 유지
-function resizeViewport(){if(!window.visualViewport)return;const v=visualViewport,app=document.querySelector('.kakao-app-wrapper');app.style.height=v.height+'px';app.style.top=v.offsetTop+'px';app.style.bottom='auto';}
+function resizeViewport(){if(!window.visualViewport)return;const v=visualViewport,app=document.querySelector('.kakao-app-wrapper');app.style.height=v.height+'px';app.style.top=v.offsetTop+'px';app.style.bottom='auto';if(document.activeElement===$('message-input'))keepRoomAtBottom();}
 window.visualViewport?.addEventListener('resize',resizeViewport);window.visualViewport?.addEventListener('scroll',resizeViewport);resizeViewport();
 
 // 소식은 메인 내부에서만 스크롤되며 하단바는 그대로 유지합니다.
